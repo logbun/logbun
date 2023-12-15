@@ -61,7 +61,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: /apps/app
+          source: apps/app
           target: /var/www/nextjs
 
       - name: Server Reload
