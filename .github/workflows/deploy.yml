@@ -72,5 +72,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/nextjs/apps/app
+            cd /var/www/nextjs
             pm2 restart ecosystem.config.js
