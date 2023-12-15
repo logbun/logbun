@@ -63,7 +63,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: apps/app
           target: /var/www/nextjs
-          strip_components: 1
+          strip_components: 2
           rm: true
 
       - name: Server Reload
