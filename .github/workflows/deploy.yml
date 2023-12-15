@@ -61,9 +61,8 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: apps/app
+          source: .
           target: /var/www/nextjs
-          strip_components: 2
           rm: true
 
       - name: Server Reload
@@ -73,5 +72,5 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/nextjs
+            cd /var/www/nextjs/apps/app
             pm2 restart ecosystem.config.js
