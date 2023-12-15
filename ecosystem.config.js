@@ -1,9 +1,9 @@
 module.exports = {
   apps: [
     {
-      name: 'logbun',
-      script: 'npm start',
-      args: 'start',
+      namespace: "logbun",
+      name: "app",
+      script: "npm start",
       instances: 1,
       cwd: "./apps/app",
       watch: false,
