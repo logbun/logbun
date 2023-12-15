@@ -63,6 +63,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: apps/app
           target: /var/www/nextjs
+          strip_components: 1
 
       - name: Server Reload
         uses: appleboy/ssh-action@master
