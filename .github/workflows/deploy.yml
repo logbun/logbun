@@ -64,6 +64,7 @@ jobs:
           source: apps/app
           target: /var/www/nextjs
           strip_components: 1
+          rm: true
 
       - name: Server Reload
         uses: appleboy/ssh-action@master
