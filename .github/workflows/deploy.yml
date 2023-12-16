@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      
+
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-  
+
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
@@ -35,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-      
+
       - name: Setup turbo cache
         uses: actions/cache@v3
         with:
@@ -55,6 +55,10 @@ jobs:
       - name: Build apps
         run: pnpm build
 
+      - name: Run migrations
+        run: DATABASE_URL=${{ secrets.DATABASE_URL }} pnpm db:migrate
+        working-directory: './packages/db'
+
       - name: Upload to server
         uses: appleboy/scp-action@master
         with:
@@ -67,10 +71,15 @@ jobs:
 
       - name: Server Reload
         uses: appleboy/ssh-action@master
-        with: 
+        with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /var/www/nextjs
+            rm .env.production
+            touch .env.production
+            echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
+            echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env.production
+            echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
             pm2 restart ecosystem.config.js
