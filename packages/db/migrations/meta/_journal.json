@@ -1,1 +1,13 @@
-{"version":"5","dialect":"pg","entries":[]}
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1702752362972,
+      "tag": "0000_right_calypso",
+      "breakpoints": true
+    }
+  ]
+}

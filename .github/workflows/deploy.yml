@@ -77,7 +77,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /var/www/nextjs
-            rm .env.production
             touch .env.production
             echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
             echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env.production
