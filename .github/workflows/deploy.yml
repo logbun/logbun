@@ -44,10 +44,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      - name: Turn off telemetry
+      - name: Install environemtal variable
         run: |
-          touch .env
-          echo NEXT_TELEMETRY_DISABLED=1 >> .env
+          touch .env.production
+          echo NEXT_TELEMETRY_DISABLED=1 >> .env.production
+          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env.production
+          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
+        working-directory: './apps/app'
 
       - name: Install dependencies
         run: pnpm install -no-frozen-lockfile
@@ -77,8 +81,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /var/www/nextjs
-            touch .env.production
-            echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
-            echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env.production
-            echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
             pm2 restart ecosystem.config.js
