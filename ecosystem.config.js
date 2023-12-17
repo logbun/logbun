@@ -3,7 +3,7 @@ module.exports = {
     {
       namespace: 'logbun',
       name: 'app',
-      script: 'npm start --port 3000',
+      script: 'npm start -- --port 3000',
       instances: 1,
       cwd: './apps/app',
       watch: false,
@@ -12,7 +12,7 @@ module.exports = {
     {
       namespace: 'logbun',
       name: 'web',
-      script: 'npm start --port 3001',
+      script: 'npm start -- --port 3001',
       instances: 1,
       cwd: './apps/web',
       watch: false,

@@ -5,10 +5,13 @@ import { createUser } from '@logbun/app/actions/auth';
 import { AuthFormTypes, authSchema } from '@logbun/app/utils/schema';
 import { errorMessage } from '@logbun/utils';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export default function RegisterForm() {
+  const router = useRouter();
+
   const { handleSubmit, register } = useForm<AuthFormTypes>({
     resolver: zodResolver(authSchema),
   });
@@ -26,6 +29,8 @@ export default function RegisterForm() {
       if (response.error) throw new Error(`Error logging in - ${response.error}`);
 
       toast.success('Registered!');
+
+      router.push('/new');
     } catch (error) {
       toast.error(errorMessage(error));
     }
