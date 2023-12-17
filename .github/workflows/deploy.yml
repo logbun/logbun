@@ -44,7 +44,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      - name: Install environemtal variable
+      - name: Install environemtal variable in app
         run: |
           touch .env.production
           echo NEXT_TELEMETRY_DISABLED=1 >> .env.production

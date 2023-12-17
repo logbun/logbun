@@ -12,7 +12,7 @@ export function Card({ title, children }: { title: string; children: React.React
           -&gt;
         </span>
       </h2>
-      <p className="m-0 max-w-[30ch] text-sm">{children}</p>
+      <div className="m-0 max-w-[30ch] text-sm">{children}</div>
     </div>
   );
 }
