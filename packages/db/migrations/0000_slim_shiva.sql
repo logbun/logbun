@@ -22,10 +22,11 @@ CREATE TABLE IF NOT EXISTS "session" (
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
+	"password" text,
 	"email" text NOT NULL,
-	"password" text NOT NULL,
 	"emailVerified" timestamp,
-	"image" text
+	"image" text,
+	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
@@ -35,7 +36,6 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	CONSTRAINT verificationToken_identifier_token_pk PRIMARY KEY("identifier","token")
 );
 --> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "userId_idx" ON "account" ("userId");--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION

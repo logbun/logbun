@@ -1,20 +1,14 @@
 import type { AdapterAccount } from '@auth/core/adapters';
-import { relations } from 'drizzle-orm';
-import { index, integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core';
+import { integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core';
 
 export const users = pgTable('user', {
   id: text('id').notNull().primaryKey(),
   name: text('name'),
+  password: text('password'),
   email: text('email').notNull().unique(),
-  password: text('password').notNull(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image'),
 });
-
-export const usersRelations = relations(users, ({ many }) => ({
-  accounts: many(accounts),
-  sessions: many(sessions),
-}));
 
 export const accounts = pgTable(
   'account',
@@ -35,13 +29,8 @@ export const accounts = pgTable(
   },
   (account) => ({
     compoundKey: primaryKey({ columns: [account.provider, account.providerAccountId] }),
-    userIdIdx: index('userId_idx').on(account.userId),
   })
 );
-
-export const accountsRelations = relations(accounts, ({ one }) => ({
-  user: one(users, { fields: [accounts.userId], references: [users.id] }),
-}));
 
 export const sessions = pgTable('session', {
   sessionToken: text('sessionToken').notNull().primaryKey(),
@@ -50,10 +39,6 @@ export const sessions = pgTable('session', {
     .references(() => users.id, { onDelete: 'cascade' }),
   expires: timestamp('expires', { mode: 'date' }).notNull(),
 });
-
-export const sessionsRelations = relations(sessions, ({ one }) => ({
-  user: one(users, { fields: [sessions.userId], references: [users.id] }),
-}));
 
 export const verificationTokens = pgTable(
   'verificationToken',

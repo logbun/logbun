@@ -1,9 +1,11 @@
 'use server';
 
+import { DrizzleAdapter } from '@auth/drizzle-adapter';
+import { db } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
 import { genSalt, hash } from 'bcryptjs';
 import { AuthFormTypes, authSchema } from '../utils/schema';
-import { countUserByEmail, insertAccount, insertUser } from './db';
+import { countUserByEmail, insertUser } from './db';
 
 export async function createUser(body: AuthFormTypes) {
   try {
@@ -17,9 +19,13 @@ export async function createUser(body: AuthFormTypes) {
 
     const securePassword = await hash(password, salt);
 
-    const id = await insertUser(email, securePassword);
+    const userId = await insertUser(email, securePassword);
 
-    await insertAccount(id);
+    const client = DrizzleAdapter(db);
+
+    if (!client.linkAccount) throw new Error('Invalid client');
+
+    await client.linkAccount({ userId, providerAccountId: userId, type: 'email', provider: 'credentials' });
 
     return { success: true, message: 'User created' };
   } catch (error) {

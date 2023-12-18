@@ -41,11 +41,7 @@ export const insertUser = async (email: string, password: string) => {
   try {
     const query = db
       .insert(users)
-      .values({
-        id: sql.placeholder('id'),
-        email: sql.placeholder('email'),
-        password: sql.placeholder('password'),
-      })
+      .values({ id: sql.placeholder('id'), email: sql.placeholder('email'), password: sql.placeholder('password') })
       .prepare('insert_user');
 
     const id = crypto.randomUUID();
