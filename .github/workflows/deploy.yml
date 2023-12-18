@@ -51,7 +51,7 @@ jobs:
           echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.production
           echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env.production
           echo NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} >> .env.production
-        working-directory: './apps/www'
+        working-directory: './apps/app'
 
       - name: Install dependencies
         run: pnpm install -no-frozen-lockfile

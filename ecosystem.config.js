@@ -2,10 +2,10 @@ module.exports = {
   apps: [
     {
       namespace: 'logbun',
-      name: 'wwww',
+      name: 'app',
       script: 'npm start -- --port 3000',
       instances: 1,
-      cwd: './apps/wwww',
+      cwd: './apps/app',
       watch: false,
       autorestart: true,
     },
