@@ -5,7 +5,7 @@ import { getServerSession, type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { redirect } from 'next/navigation';
 import { findUser } from '../actions/db';
-import { authSchema } from './schema';
+import { loginSchema } from './schema';
 
 export const authOptions: NextAuthOptions = {
   debug: process.env.NODE_ENV === 'development',
@@ -24,7 +24,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const { email, password } = await authSchema.parseAsync(credentials);
+        const { email, password } = await loginSchema.parseAsync(credentials);
 
         const user = await findUser(email);
 

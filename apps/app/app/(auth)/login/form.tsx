@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthFormTypes, authSchema } from '@logbun/app/utils/schema';
+import { LoginFormTypes, loginSchema } from '@logbun/app/utils/schema';
 import { Button, EmailInput, PasswordInput } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
 import { signIn } from 'next-auth/react';
@@ -16,11 +16,11 @@ export default function LogInForm() {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<AuthFormTypes>({
-    resolver: zodResolver(authSchema),
+  } = useForm<LoginFormTypes>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit: SubmitHandler<AuthFormTypes> = async ({ email, password }) => {
+  const onSubmit: SubmitHandler<LoginFormTypes> = async ({ email, password }) => {
     try {
       const response = await signIn('credentials', { email, password, redirect: false });
 

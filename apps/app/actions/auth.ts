@@ -4,12 +4,12 @@ import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
 import { genSalt, hash } from 'bcryptjs';
-import { AuthFormTypes, authSchema } from '../utils/schema';
+import { RegisterFormTypes, registerSchema } from '../utils/schema';
 import { countUserByEmail, insertUser } from './db';
 
-export async function createUser(body: AuthFormTypes) {
+export async function createUser(body: RegisterFormTypes) {
   try {
-    const { email, password } = await authSchema.parseAsync(body);
+    const { name, email, password } = await registerSchema.parseAsync(body);
 
     const count = await countUserByEmail(email);
 
@@ -19,7 +19,7 @@ export async function createUser(body: AuthFormTypes) {
 
     const securePassword = await hash(password, salt);
 
-    const userId = await insertUser(email, securePassword);
+    const userId = await insertUser(name, email, securePassword);
 
     const client = DrizzleAdapter(db);
 

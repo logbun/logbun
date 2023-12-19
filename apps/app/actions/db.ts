@@ -37,16 +37,21 @@ export const findUser = async (email: string) => {
   }
 };
 
-export const insertUser = async (email: string, password: string) => {
+export const insertUser = async (name: string, email: string, password: string) => {
   try {
     const query = db
       .insert(users)
-      .values({ id: sql.placeholder('id'), email: sql.placeholder('email'), password: sql.placeholder('password') })
+      .values({
+        id: sql.placeholder('id'),
+        name: sql.placeholder('name'),
+        email: sql.placeholder('email'),
+        password: sql.placeholder('password'),
+      })
       .prepare('insert_user');
 
     const id = crypto.randomUUID();
 
-    await query.execute({ id, email, password });
+    await query.execute({ id, name, email, password });
 
     return id;
   } catch (error) {
