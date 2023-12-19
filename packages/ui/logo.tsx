@@ -2,67 +2,65 @@ interface Props extends React.SVGAttributes<SVGSVGElement> {}
 
 export const IconPath = () => (
   <>
-    <svg width="259" height="226" viewBox="0 0 259 226" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g filter="url(#filter0_ii_756_114)">
-        <path
-          d="M0 111.414C0 174.035 39 223.061 128.73 225.786C212 229.682 259 174.035 259 111.414C259 48.7926 205 0 128.73 0C49.1205 0 0 43.3824 0 111.414Z"
-          fill="#FFE1B6"
+    <g filter="url(#filter0_ii_756_114)">
+      <path
+        d="M0 111.414C0 174.035 39 223.061 128.73 225.786C212 229.682 259 174.035 259 111.414C259 48.7926 205 0 128.73 0C49.1205 0 0 43.3824 0 111.414Z"
+        fill="#FFE1B6"
+      />
+    </g>
+    <path
+      d="M128.839 222.193L128.868 222.193L128.898 222.195C169.665 224.102 201.236 211.443 222.603 190.949C243.999 170.428 255.405 141.825 255.405 111.414C255.405 51.2339 203.503 3.59484 128.73 3.59484C89.5534 3.59484 58.2881 14.2663 36.8715 32.9067C15.5101 51.4992 3.59485 78.3192 3.59485 111.414C3.59485 141.969 13.093 168.874 33.2247 188.486C53.373 208.114 84.5971 220.849 128.839 222.193Z"
+      stroke="#27272A"
+      stroke-width="7.18969"
+    />
+    <circle cx="80" cy="121" r="16" fill="#F3ACB4" />
+    <circle cx="180" cy="121" r="16" fill="#F3ACB4" />
+    <path
+      d="M139.62 116.5C144.248 116.5 148.146 120.355 146.63 124.728V124.728C145.725 127.336 144.399 129.706 142.728 131.703C141.056 133.699 139.072 135.283 136.888 136.363C134.704 137.444 132.364 138 130 138C127.636 138 125.296 137.444 123.112 136.363C120.928 135.283 118.944 133.699 117.272 131.703C115.601 129.706 114.275 127.336 113.37 124.728V124.728C111.854 120.355 115.752 116.5 120.38 116.5L130 116.5H139.62Z"
+      fill="#27272A"
+    />
+    <circle cx="93" cy="104" r="16" fill="#27272A" />
+    <circle cx="166" cy="104" r="16" fill="#27272A" />
+    <circle cx="88.5" cy="97.5" r="5.5" fill="white" />
+    <circle cx="161.5" cy="97.5" r="5.5" fill="white" />
+    <path
+      d="M137.291 127.335C131.599 122.337 125.386 124.893 122.281 127.331C121.837 127.679 121.83 128.335 122.253 128.709C128.285 134.043 134.368 131.275 137.305 128.673C137.709 128.314 137.697 127.691 137.291 127.335Z"
+      fill="#E98792"
+    />
+    <defs>
+      <filter
+        id="filter0_ii_756_114"
+        x="0"
+        y="0"
+        width="259"
+        height="225.979"
+        filterUnits="userSpaceOnUse"
+        color-interpolation-filters="sRGB"
+      >
+        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
         />
-      </g>
-      <path
-        d="M128.839 222.193L128.868 222.193L128.898 222.195C169.665 224.102 201.236 211.443 222.603 190.949C243.999 170.428 255.405 141.825 255.405 111.414C255.405 51.2339 203.503 3.59484 128.73 3.59484C89.5534 3.59484 58.2881 14.2663 36.8715 32.9067C15.5101 51.4992 3.59485 78.3192 3.59485 111.414C3.59485 141.969 13.093 168.874 33.2247 188.486C53.373 208.114 84.5971 220.849 128.839 222.193Z"
-        stroke="#27272A"
-        strokeWidth="7.18969"
-      />
-      <circle cx="80" cy="121" r="16" fill="#F3ACB4" />
-      <circle cx="180" cy="121" r="16" fill="#F3ACB4" />
-      <path
-        d="M139.62 116.5C144.248 116.5 148.146 120.355 146.63 124.728V124.728C145.725 127.336 144.399 129.706 142.728 131.703C141.056 133.699 139.072 135.283 136.888 136.363C134.704 137.444 132.364 138 130 138C127.636 138 125.296 137.444 123.112 136.363C120.928 135.283 118.944 133.699 117.272 131.703C115.601 129.706 114.275 127.336 113.37 124.728V124.728C111.854 120.355 115.752 116.5 120.38 116.5L130 116.5H139.62Z"
-        fill="#27272A"
-      />
-      <circle cx="93" cy="104" r="16" fill="#27272A" />
-      <circle cx="166" cy="104" r="16" fill="#27272A" />
-      <circle cx="88.5" cy="97.5" r="5.5" fill="white" />
-      <circle cx="161.5" cy="97.5" r="5.5" fill="white" />
-      <path
-        d="M137.291 127.335C131.599 122.337 125.386 124.893 122.281 127.331C121.837 127.679 121.83 128.335 122.253 128.709C128.285 134.043 134.368 131.275 137.305 128.673C137.709 128.314 137.697 127.691 137.291 127.335Z"
-        fill="#E98792"
-      />
-      <defs>
-        <filter
-          id="filter0_ii_756_114"
-          x="0"
-          y="0"
-          width="259"
-          height="225.979"
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
-        >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
-          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dx="-16.5077" dy="-9.90462" />
-          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 0.483529 0 0 0 0 0.483529 0 0 0 0 0.483529 0 0 0 0.19 0" />
-          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_756_114" />
-          <feColorMatrix
-            in="SourceAlpha"
-            type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dx="12.1056" dy="4.40205" />
-          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.71 0" />
-          <feBlend mode="normal" in2="effect1_innerShadow_756_114" result="effect2_innerShadow_756_114" />
-        </filter>
-      </defs>
-    </svg>
+        <feOffset dx="-16.5077" dy="-9.90462" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0.483529 0 0 0 0 0.483529 0 0 0 0 0.483529 0 0 0 0.19 0" />
+        <feBlend mode="normal" in2="shape" result="effect1_innerShadow_756_114" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset dx="12.1056" dy="4.40205" />
+        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+        <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.71 0" />
+        <feBlend mode="normal" in2="effect1_innerShadow_756_114" result="effect2_innerShadow_756_114" />
+      </filter>
+    </defs>
   </>
 );
 
@@ -105,7 +103,7 @@ export const Logo = (props: Props) => {
 };
 
 export const Icon = (props: Props) => (
-  <svg width="280" height="260" viewBox="0 0 280 260" fill="none" {...props}>
+  <svg width="259" height="226" viewBox="0 0 259 226" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <IconPath />
   </svg>
 );

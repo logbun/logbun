@@ -15,6 +15,11 @@ module.exports = {
     debugScreens: {
       position: ['bottom', 'right'],
     },
+    extend: {
+      boxShadow: {
+        default: '0 12px 16px 0 rgba(0,0,0,0.03),0 1px 2px 0 rgba(0,0,0,0.04)',
+      },
+    },
   },
   plugins: [require('@tailwindcss/forms'), require('tailwindcss-debug-screens')],
 };

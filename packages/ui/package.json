@@ -19,5 +19,10 @@
     "eslint": "^8.53.0",
     "react": "^18.2.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@logbun/utils": "workspace:^",
+    "class-variance-authority": "^0.7.0",
+    "lucide-react": "^0.298.0"
   }
 }

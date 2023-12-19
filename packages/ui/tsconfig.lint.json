@@ -1,6 +1,0 @@
-{
-  "extends": "@logbun/typescript-config/react-library.json",
-  "compilerOptions": { "outDir": "dist" },
-  "include": [".", "turbo"],
-  "exclude": ["node_modules", "dist"]
-}
