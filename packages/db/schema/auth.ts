@@ -4,7 +4,7 @@ import { integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-co
 export const users = pgTable('user', {
   id: text('id').notNull().primaryKey(),
   name: text('name'),
-  password: text('password'),
+  password: text('password').notNull(),
   email: text('email').notNull().unique(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image'),

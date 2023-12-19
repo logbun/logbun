@@ -1,49 +1,63 @@
-CREATE TABLE IF NOT EXISTS "account" (
-	"userId" text NOT NULL,
-	"type" text NOT NULL,
-	"provider" text NOT NULL,
-	"providerAccountId" text NOT NULL,
-	"refresh_token" text,
-	"access_token" text,
-	"expires_at" integer,
-	"token_type" text,
-	"scope" text,
-	"id_token" text,
-	"session_state" text,
-	CONSTRAINT account_provider_providerAccountId_pk PRIMARY KEY("provider","providerAccountId")
+create table if not exists "account"(
+  "userId" text not null,
+  "type" text not null,
+  "provider" text not null,
+  "providerAccountId" text not null,
+  "refresh_token" text,
+  "access_token" text,
+  "expires_at" integer,
+  "token_type" text,
+  "scope" text,
+  "id_token" text,
+  "session_state" text,
+  constraint account_provider_providerAccountId_pk primary key ("provider", "providerAccountId")
 );
+
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "session" (
-	"sessionToken" text PRIMARY KEY NOT NULL,
-	"userId" text NOT NULL,
-	"expires" timestamp NOT NULL
+create table if not exists "session"(
+  "sessionToken" text primary key not null,
+  "userId" text not null,
+  "expires" timestamp not null
 );
+
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "user" (
-	"id" text PRIMARY KEY NOT NULL,
-	"name" text,
-	"password" text,
-	"email" text NOT NULL,
-	"emailVerified" timestamp,
-	"image" text,
-	CONSTRAINT "user_email_unique" UNIQUE("email")
+create table if not exists "user"(
+  "id" text primary key not null,
+  "name" text,
+  "password" text not null,
+  "email" text not null,
+  "emailVerified" timestamp,
+  "image" text,
+  constraint "user_email_unique" unique ("email")
 );
+
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "verificationToken" (
-	"identifier" text NOT NULL,
-	"token" text NOT NULL,
-	"expires" timestamp NOT NULL,
-	CONSTRAINT verificationToken_identifier_token_pk PRIMARY KEY("identifier","token")
+create table if not exists "verificationToken"(
+  "identifier" text not null,
+  "token" text not null,
+  "expires" timestamp not null,
+  constraint verificationToken_identifier_token_pk primary key ("identifier", "token")
 );
+
 --> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
+do $$
+begin
+  alter table "account"
+    add constraint "account_userId_user_id_fk" foreign key("userId") references "user"("id") on delete cascade on update no action;
+exception
+  when duplicate_object then
+    null;
+end
+$$;
+
 --> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "session" ADD CONSTRAINT "session_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
+do $$
+begin
+  alter table "session"
+    add constraint "session_userId_user_id_fk" foreign key("userId") references "user"("id") on delete cascade on update no action;
+exception
+  when duplicate_object then
+    null;
+end
+$$;
+

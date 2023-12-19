@@ -19,6 +19,7 @@
     "next": "^14.0.3",
     "next-auth": "^4.24.5",
     "react": "^18.2.0",
+    "react-div-100vh": "^0.7.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",
     "sonner": "^1.2.4",

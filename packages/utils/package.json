@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.1.0"
+  }
 }

@@ -1,5 +1,5 @@
 import { getSession } from '@logbun/app/utils/auth';
-import { Card } from '@logbun/ui/card';
+import { Card } from '@logbun/ui';
 import { redirect } from 'next/navigation';
 import RegisterForm from './form';
 

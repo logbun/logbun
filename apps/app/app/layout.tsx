@@ -1,5 +1,5 @@
 import '@logbun/tailwind-config/tailwind.css';
-import { siteConfig } from '@logbun/utils';
+import { cn, siteConfig } from '@logbun/utils';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Root from './root';
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
   return (
-    <html lang="en" className={inter.variable}>
-      <body>
+    <html lang="en" className={cn(inter.variable, 'text-gray-900 font-medium antialiased')}>
+      <body className={cn('relative', { ['debug-screens']: process.env.NODE_ENV === 'development' })}>
         <Root>{children}</Root>
       </body>
     </html>
