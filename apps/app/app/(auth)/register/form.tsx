@@ -7,38 +7,43 @@ import { Button, EmailInput, PasswordInput, TextInput } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export default function RegisterForm() {
+  let [isPending, startTransition] = useTransition();
+
   const router = useRouter();
 
   const {
     handleSubmit,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<RegisterFormTypes>({
     resolver: zodResolver(registerSchema),
   });
 
   const onSubmit: SubmitHandler<RegisterFormTypes> = async ({ name, email, password }) => {
-    try {
-      const { success, message } = await createUser({ name, email, password });
+    startTransition(async () => {
+      try {
+        const { success, message } = await createUser({ name, email, password });
 
-      if (!success) throw new Error(message);
+        if (!success) throw new Error(message);
 
-      const response = await signIn('credentials', { email, password, redirect: false });
+        const response = await signIn('credentials', { email, password, redirect: false });
 
-      if (!response) throw new Error('Error logging in - No response');
+        if (!response) throw new Error('Error logging in - No response');
 
-      if (response.error) throw new Error(`Error logging in - ${response.error}`);
+        if (response.error) throw new Error(`Error logging in - ${response.error}`);
 
-      toast.success('Registered!');
+        toast.success('Registered!');
 
-      router.push('/new');
-    } catch (error) {
-      toast.error(errorMessage(error));
-    }
+        router.push('/new');
+      } catch (error) {
+        toast.error(errorMessage(error));
+      }
+    });
   };
 
   return (
@@ -65,7 +70,7 @@ export default function RegisterForm() {
         helperText={errors.password?.message}
       />
       <div className="pt-2">
-        <Button loading={isSubmitting} type="submit" className="w-full">
+        <Button loading={isPending} type="submit" className="w-full">
           Sign Up
         </Button>
       </div>

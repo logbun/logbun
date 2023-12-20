@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     session: async ({ session, token }) => ({
       ...session,
-      user: { ...session.user, id: token.sub },
+      user: { ...session.user, id: token.id },
     }),
     jwt: async ({ token, user }) => {
       const result = await findUser(token.email!);

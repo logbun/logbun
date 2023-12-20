@@ -10,12 +10,13 @@ import Node from '@logbun/app/assets/platforms/node.svg';
 import React from '@logbun/app/assets/platforms/react.svg';
 import Svelte from '@logbun/app/assets/platforms/svelte.svg';
 import Vue from '@logbun/app/assets/platforms/vue.svg';
-import { ProjectFormTypes, registerSchema } from '@logbun/app/utils/schema';
+import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
 import { Button, Select, TextInput } from '@logbun/ui';
 import { cn, errorMessage, find } from '@logbun/utils';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -31,32 +32,36 @@ const platforms = [
 ];
 
 export default function ProjectForm() {
+  let [isPending, startTransition] = useTransition();
+
   const router = useRouter();
 
   const {
     handleSubmit,
     register,
     control,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<ProjectFormTypes>({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(projectSchema),
     defaultValues: {
       platform: 'react',
     },
   });
 
   const onSubmit: SubmitHandler<ProjectFormTypes> = async ({ name, platform }) => {
-    try {
-      const { success, message, data } = await createProject({ name, platform });
+    startTransition(async () => {
+      try {
+        const { success, message, data } = await createProject({ name, platform });
 
-      if (!success) throw new Error(message);
+        if (!success) throw new Error(message);
 
-      toast.success(message);
+        toast.success(message);
 
-      router.push(`/${data}`);
-    } catch (error) {
-      toast.error(errorMessage(error));
-    }
+        router.push(`/${data}`);
+      } catch (error) {
+        toast.error(errorMessage(error));
+      }
+    });
   };
 
   return (
@@ -94,14 +99,14 @@ export default function ProjectForm() {
                     {({ selected }: { selected: boolean }) => (
                       <>
                         <div className="flex items-center">
-                          <Image src={option.icon} alt="" className="flex-shrink-0 w-6 h-6 rounded-md" />
+                          <Image src={option.icon} alt="logo" className="flex-shrink-0 w-6 h-6 rounded-md" />
                           <span className={cn(selected ? 'font-semibold' : 'font-medium', 'ml-3 block truncate')}>
                             {option.name}
                           </span>
                         </div>
                         {selected ? (
                           <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-800">
-                            <Check className="w-4 h-4" aria-hidden="true" />
+                            <Check className="w-4 h-4" />
                           </span>
                         ) : null}
                       </>
@@ -114,10 +119,10 @@ export default function ProjectForm() {
         }}
       />
       <div className="flex items-center justify-end pt-2 space-x-3">
-        <Button variant="secondary" loading={isSubmitting} onClick={() => router.push('/projects')}>
+        <Button variant="secondary" onClick={() => router.push('/projects')}>
           Back
         </Button>
-        <Button loading={isSubmitting} type="submit">
+        <Button loading={isPending} type="submit">
           Create Project
         </Button>
       </div>

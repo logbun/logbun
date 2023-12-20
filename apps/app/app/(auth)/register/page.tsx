@@ -1,7 +1,5 @@
-import { getSession } from '@logbun/app/utils/auth';
 import { Panel, PanelContent, PanelDescription, PanelHeader } from '@logbun/ui';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import RegisterForm from './form';
 
 export const metadata = {
@@ -9,10 +7,6 @@ export const metadata = {
 };
 
 export default async function RegisterPage() {
-  const session = await getSession();
-
-  if (session) redirect('/');
-
   return (
     <Panel>
       <PanelHeader>{metadata.title}</PanelHeader>
