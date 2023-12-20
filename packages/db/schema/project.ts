@@ -5,8 +5,9 @@ import { users } from '.';
 
 export const projects = pgTable('project', {
   id: text('id').notNull().primaryKey().$defaultFn(nanoid),
-  key: text('key').notNull().$defaultFn(customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 32)),
+  token: text('token').notNull().$defaultFn(customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 32)),
   name: text('name'),
+  platform: text('platform'),
   userId: text('userId')
     .references(() => users.id, { onDelete: 'cascade' })
     .notNull(),

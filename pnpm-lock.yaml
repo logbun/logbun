@@ -44,6 +44,9 @@ importers:
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
+      lucide-react:
+        specifier: ^0.298.0
+        version: 0.298.0(react@18.2.0)
       next:
         specifier: ^14.0.3
         version: 14.0.3(react-dom@18.2.0)(react@18.2.0)
@@ -315,6 +318,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@headlessui/react':
+        specifier: 1.7.17
+        version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
       '@logbun/utils':
         specifier: workspace:^
         version: link:../utils
@@ -1380,6 +1386,18 @@ packages:
     resolution: {integrity: sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==}
     engines: {node: '>=14'}
     dev: true
+
+  /@headlessui/react@1.7.17(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-4am+tzvkqDSSgiwrsEpGWqgGo9dz8qU5M3znCkC4PgkpY4HcCZzEDEvozltGGGHIKl9jbXbZPSH5TWn4sWJdow==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@hookform/resolvers@3.3.2(react-hook-form@7.49.2):
     resolution: {integrity: sha512-Tw+GGPnBp+5DOsSg4ek3LCPgkBOuOgS5DsDV7qsWNH9LZc433kgsWICjlsh2J9p04H2K66hsXPPb9qn9ILdUtA==}

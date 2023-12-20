@@ -1,5 +1,5 @@
 {
-  "id": "09225eed-55eb-4e56-b87c-a2cbce89e5b5",
+  "id": "ab275c13-a9d4-4a6d-9160-16b2cc8cd88a",
   "prevId": "32dc27fc-aae7-4f85-b747-897a773e4e7a",
   "version": "5",
   "dialect": "pg",
@@ -164,7 +164,7 @@
           "name": "password",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "email": {
           "name": "email",
@@ -278,14 +278,20 @@
           "primaryKey": true,
           "notNull": true
         },
-        "key": {
-          "name": "key",
+        "token": {
+          "name": "token",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "name": {
           "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "platform": {
+          "name": "platform",
           "type": "text",
           "primaryKey": false,
           "notNull": false

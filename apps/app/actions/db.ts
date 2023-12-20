@@ -1,7 +1,7 @@
 'use server';
 
 import { count, db, eq, sql } from '@logbun/db';
-import { accounts, users } from '@logbun/db/schema';
+import { accounts, integrations, projects, users } from '@logbun/db/schema';
 import { errorMessage } from '@logbun/utils';
 import crypto from 'crypto';
 
@@ -69,9 +69,34 @@ export const insertAccount = async (userId: string) => {
         provider: sql.placeholder('provider'),
         providerAccountId: sql.placeholder('providerAccountId'),
       })
-      .prepare('insert_user');
+      .prepare('insert_account');
 
     await query.execute({ userId, providerAccountId: userId, type: 'credentials', provider: 'credentials' });
+  } catch (error) {
+    throw new Error(`Error in inserting user: ${errorMessage(error)}`);
+  }
+};
+
+export const insertProject = async (name: string, platform: string, userId: string) => {
+  try {
+    const [integration] = await db.insert(integrations).values({}).returning();
+
+    if (!integration) throw new Error('');
+
+    const query = db
+      .insert(projects)
+      .values({
+        name: sql.placeholder('name'),
+        platform: sql.placeholder('platform'),
+        userId: sql.placeholder('userId'),
+        integrationId: sql.placeholder('integrationId'),
+      })
+      .returning()
+      .prepare('insert_project');
+
+    const [project] = await query.execute({ userId, name, platform, integrationId: integration.id });
+
+    return project;
   } catch (error) {
     throw new Error(`Error in inserting user: ${errorMessage(error)}`);
   }

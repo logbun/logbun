@@ -21,6 +21,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@headlessui/react": "1.7.17",
     "@logbun/utils": "workspace:^",
     "class-variance-authority": "^0.7.0",
     "lucide-react": "^0.298.0"

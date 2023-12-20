@@ -1,5 +1,5 @@
 import { getSession } from '@logbun/app/utils/auth';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@logbun/ui';
+import { Panel, PanelContent, PanelDescription, PanelHeader } from '@logbun/ui';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import RegisterForm from './form';
@@ -14,23 +14,19 @@ export default async function RegisterPage() {
   if (session) redirect('/');
 
   return (
-    <Card>
-      <CardHeader className="pt-8">
-        <CardTitle className="text-center">{metadata.title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-col flex-grow">
-          <RegisterForm />
-          <CardDescription className="text-center">
-            <span className="block pt-4 text-sm">
-              Already have an account?{' '}
-              <Link className="leading-6 text-blue-500 hover:text-blue-600" href="/login">
-                Log In
-              </Link>
-            </span>
-          </CardDescription>
-        </div>
-      </CardContent>
-    </Card>
+    <Panel>
+      <PanelHeader>{metadata.title}</PanelHeader>
+      <PanelContent>
+        <RegisterForm />
+        <PanelDescription>
+          <span className="block pt-4 text-sm">
+            Already have an account?{' '}
+            <Link className="leading-6 text-blue-500 hover:text-blue-600" href="/login">
+              Log In
+            </Link>
+          </span>
+        </PanelDescription>
+      </PanelContent>
+    </Panel>
   );
 }
