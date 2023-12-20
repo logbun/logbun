@@ -11,10 +11,11 @@ import React from '@logbun/app/assets/platforms/react.svg';
 import Svelte from '@logbun/app/assets/platforms/svelte.svg';
 import Vue from '@logbun/app/assets/platforms/vue.svg';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
-import { Button, Select, TextInput } from '@logbun/ui';
+import { Button, Select, TextInput, buttonVariants } from '@logbun/ui';
 import { cn, errorMessage, find } from '@logbun/utils';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
@@ -43,9 +44,7 @@ export default function ProjectForm() {
     formState: { errors },
   } = useForm<ProjectFormTypes>({
     resolver: zodResolver(projectSchema),
-    defaultValues: {
-      platform: 'react',
-    },
+    defaultValues: { platform: 'react' },
   });
 
   const onSubmit: SubmitHandler<ProjectFormTypes> = async ({ name, platform }) => {
@@ -119,9 +118,9 @@ export default function ProjectForm() {
         }}
       />
       <div className="flex items-center justify-end pt-2 space-x-3">
-        <Button variant="secondary" onClick={() => router.push('/projects')}>
+        <Link href="/" className={buttonVariants({ variant: 'secondary' })}>
           Back
-        </Button>
+        </Link>
         <Button loading={isPending} type="submit">
           Create Project
         </Button>

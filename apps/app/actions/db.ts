@@ -1,7 +1,7 @@
 'use server';
 
 import { count, db, eq, sql } from '@logbun/db';
-import { accounts, integrations, projects, users } from '@logbun/db/schema';
+import { integrations, projects, users } from '@logbun/db/schema';
 import { errorMessage } from '@logbun/utils';
 import crypto from 'crypto';
 
@@ -59,21 +59,19 @@ export const insertUser = async (name: string, email: string, password: string) 
   }
 };
 
-export const insertAccount = async (userId: string) => {
+export const findFirstProject = async (userId: string) => {
   try {
     const query = db
-      .insert(accounts)
-      .values({
-        userId: sql.placeholder('userId'),
-        type: sql.placeholder('type'),
-        provider: sql.placeholder('provider'),
-        providerAccountId: sql.placeholder('providerAccountId'),
-      })
-      .prepare('insert_account');
+      .select()
+      .from(projects)
+      .where(eq(projects.userId, sql.placeholder('userId')))
+      .prepare('find_user');
 
-    await query.execute({ userId, providerAccountId: userId, type: 'credentials', provider: 'credentials' });
+    const [project] = await query.execute({ userId });
+
+    return project;
   } catch (error) {
-    throw new Error(`Error in inserting user: ${errorMessage(error)}`);
+    throw new Error(`Error in finding project: ${errorMessage(error)}`);
   }
 };
 

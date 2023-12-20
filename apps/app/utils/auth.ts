@@ -1,11 +1,20 @@
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@logbun/db';
 import { compare } from 'bcryptjs';
-import { getServerSession, type NextAuthOptions } from 'next-auth';
+import { DefaultSession, getServerSession, type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { redirect } from 'next/navigation';
 import { findUser } from '../actions/db';
 import { loginSchema } from './schema';
+
+declare module 'next-auth' {
+  // eslint-disable-next-line no-unused-vars
+  interface Session {
+    user: {
+      id: string;
+    } & DefaultSession['user'];
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   debug: process.env.NODE_ENV === 'development',
