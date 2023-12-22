@@ -1,5 +1,6 @@
-import { findFirstProject } from '@logbun/app/actions/db';
 import { getSession } from '@logbun/app/utils/auth';
+import { db, eq } from '@logbun/db';
+import { projects } from '@logbun/db/schema';
 import { redirect } from 'next/navigation';
 
 interface Props {
@@ -10,7 +11,7 @@ export default async function Layout({ children }: Props) {
   const session = await getSession();
 
   if (session && session.user) {
-    const project = await findFirstProject(session.user.id);
+    const project = await db.query.projects.findFirst({ where: eq(projects.userId, session.user.id) });
 
     if (project) redirect(`/${project.id}`);
 

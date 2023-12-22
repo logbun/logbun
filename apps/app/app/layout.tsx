@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
   return (
-    <html lang="en" className={cn(inter.variable, 'text-slate-900 font-medium antialiased')}>
+    <html lang="en" className={cn(inter.variable, 'text-slate-900 font-medium')}>
       <body className={cn('relative', { ['debug-screens']: process.env.NODE_ENV === 'development' })}>
         <Root>{children}</Root>
       </body>

@@ -2,7 +2,7 @@
 
 import { Menu as HeadlessMenu, Listbox, Transition } from '@headlessui/react';
 import { cn } from '@logbun/utils';
-import { ChevronDown } from 'lucide-react';
+import { ChevronsUpDown } from 'lucide-react';
 import { Fragment, ReactElement, ReactNode, forwardRef } from 'react';
 import { buttonVariants } from '.';
 import { labelVariants } from './label';
@@ -26,7 +26,7 @@ type SelectOptionsProps = ExtractProps<typeof Listbox.Options>;
 
 type SelectProps = SelectButtonRootProps & {
   value: string | number;
-  label: ReactElement<SelectLabelProps>;
+  label?: ReactElement<SelectLabelProps>;
   button: ReactElement<SelectButtonProps>;
   children: ReactElement<SelectOptionsProps>;
 };
@@ -76,7 +76,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, re
     >
       {children}
       <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
-        <ChevronDown className="w-5 h-5 text-slate-400" aria-hidden="true" />
+        <ChevronsUpDown size={17} strokeWidth={2.5} className="text-slate-400" aria-hidden="true" />
       </span>
     </Listbox.Button>
   );
@@ -88,15 +88,18 @@ const SelectRoot = forwardRef<HTMLButtonElement, SelectProps>((props, ref) => {
     <Listbox {...rest} ref={ref}>
       {({ open }) => (
         <div className="space-y-0.5">
-          {label}
+          {label && label}
           <div className="relative">
             {button}
             <Transition
               show={open}
               as={Fragment}
+              enter="transition ease-out duration-150"
+              enterFrom="opacity-70 translate-y-0"
+              enterTo="opacity-100 translate-y-1"
               leave="transition ease-in duration-100"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
+              leaveFrom="opacity-100 translate-y-1"
+              leaveTo="opacity-70 translate-y-0"
             >
               {children}
             </Transition>

@@ -65,13 +65,30 @@ export const findFirstProject = async (userId: string) => {
       .select()
       .from(projects)
       .where(eq(projects.userId, sql.placeholder('userId')))
-      .prepare('find_user');
+      .limit(1)
+      .prepare('find_first_project');
 
     const [project] = await query.execute({ userId });
 
     return project;
   } catch (error) {
     throw new Error(`Error in finding project: ${errorMessage(error)}`);
+  }
+};
+
+export const findProjects = async (userId: string) => {
+  try {
+    const query = db
+      .select()
+      .from(projects)
+      .where(eq(projects.userId, sql.placeholder('userId')))
+      .prepare('find_projects');
+
+    const project = await query.execute({ userId });
+
+    return project;
+  } catch (error) {
+    throw new Error(`Error in finding projects: ${errorMessage(error)}`);
   }
 };
 
