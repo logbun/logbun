@@ -96,7 +96,7 @@ export const insertProject = async (name: string, platform: string, userId: stri
   try {
     const [integration] = await db.insert(integrations).values({}).returning();
 
-    if (!integration) throw new Error('');
+    if (!integration) throw new Error('Integration not found');
 
     const query = db
       .insert(projects)

@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["deduping", "logbun", "lucide", "microbundle", "sonner"],
+  "cSpell.words": ["deduping", "logbun", "lucide", "microbundle", "sonner", "sourceloc", "unfetch"],
   "npm.packageManager": "pnpm",
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,

@@ -16,6 +16,8 @@
     "microbundle": "^0.15.1"
   },
   "dependencies": {
-    "isomorphic-unfetch": "^4.0.2"
+    "error-stack-parser": "^2.1.4",
+    "isomorphic-unfetch": "^4.0.2",
+    "stack-generator": "^2.0.10"
   }
 }
