@@ -1,39 +1,26 @@
 import { Types } from '@logbun/core';
 
 export default class BrowserTransport implements Types.Transport {
-  public send = async <T = string>(endpoint: string, event: Types.Event, customConfig: RequestInit = {}) => {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      credentials: 'same-origin',
-      ...customConfig,
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'text/json, application/json',
-        body: JSON.stringify(event),
-        ...customConfig.headers,
-      },
-    });
+  private headers: Record<string, string> = {};
 
-    const contentType = response.headers.get('content-type');
+  constructor(headers: Record<string, string> = {}) {
+    this.headers = headers;
+  }
 
-    if (!contentType) return Promise.resolve(null as T);
+  public send = async <T>(options: Types.TransportOptions, payload?: T) => {
+    const requestInit: RequestInit = {
+      method: options.method || 'POST',
+      headers: this.headers,
+    };
 
-    let data = null as T;
-
-    if (contentType.startsWith('application/json')) {
-      const json = await response.json();
-      data = json as T;
+    if (options.method === 'POST' && payload) {
+      requestInit.body = typeof payload === 'string' ? payload : JSON.stringify(payload);
     }
 
-    if (contentType.startsWith('text/plain')) {
-      const text = await response.text();
-      data = text as T;
-    }
+    const response = await fetch(options.endpoint, requestInit);
 
-    if (!response.ok) {
-      throw Error(response.statusText || 'An unexpected error occurred. Please try again');
-    }
+    const body = await response.text();
 
-    return data;
+    return Promise.resolve({ status: response.status, body });
   };
 }

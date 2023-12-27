@@ -96,10 +96,12 @@ export abstract class Client {
       ...event,
     };
 
-    this.transport.send(this.config.endpoint, body, {
-      headers: {
-        'X-API-Key': this.config.apiKey,
+    this.transport.send(
+      {
+        endpoint: this.config.endpoint,
+        headers: { 'X-API-Key': this.config.apiKey },
       },
-    });
+      body
+    );
   };
 }

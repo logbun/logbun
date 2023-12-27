@@ -2,10 +2,10 @@ import { Client, Types, Utils } from '@logbun/core';
 
 const { global } = Utils;
 
-export default function (window = global()) {
+export default function (win = window) {
   return {
     load(client: Client) {
-      const prevOnError = window.onerror;
+      const prevOnError = win.onerror;
 
       function onerror(
         this: WindowEventHandlers,
@@ -39,7 +39,7 @@ export default function (window = global()) {
         }
       }
 
-      window.onerror = onerror;
+      win.onerror = onerror;
     },
   };
 }

@@ -29,8 +29,14 @@ export interface Logger {
   error(...args: unknown[]): unknown;
 }
 
+export type TransportOptions = {
+  method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  headers?: Record<string, number | string | string[] | undefined>;
+  endpoint: string;
+};
+
 export interface Transport {
-  send: <T = string>(endpoint: string, event: Event, customConfig?: RequestInit) => Promise<T>;
+  send: <T = string>(options: TransportOptions, payload?: T) => Promise<{ status: number; body: string }>;
 }
 
 export interface Event {

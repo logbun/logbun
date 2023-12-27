@@ -1,13 +1,11 @@
 import { Client, Utils } from '@logbun/core';
 
-const { global } = Utils;
-
-export default function (window = global()) {
+export default function (win = window) {
   return {
     load(client: Client) {
-      const prevOnUnhandledRejection = window.onunhandledrejection;
+      const prevOnUnhandledRejection = win.onunhandledrejection;
 
-      function onunhandledrejection(this: Window, rejection: PromiseRejectionEvent) {
+      function onunhandledrejection(this: WindowEventHandlers, rejection: PromiseRejectionEvent) {
         let error = rejection.reason;
 
         // Accessing properties on evt.detail can throw errors
@@ -22,12 +20,13 @@ export default function (window = global()) {
 
         client.postEvent(event);
 
+        // TODO: Remove any. I think this breaks
         if (typeof prevOnUnhandledRejection === 'function') {
-          prevOnUnhandledRejection.apply(this, arguments as unknown as [PromiseRejectionEvent]);
+          prevOnUnhandledRejection.apply(this as any, arguments as unknown as [PromiseRejectionEvent]);
         }
       }
 
-      window.onunhandledrejection = onunhandledrejection;
+      win.onunhandledrejection = onunhandledrejection;
     },
   };
 }

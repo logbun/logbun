@@ -10,14 +10,6 @@ export function getErrorStacktrace(error: Error) {
   return StackGenerator.backtrace({ maxStackSize: 10 });
 }
 
-export function global() {
-  if (typeof globalThis !== 'undefined') return globalThis;
-
-  if (typeof self !== 'undefined') return self;
-
-  return window;
-}
-
 export function isError(exception: unknown) {
   const object = Object.prototype.toString.call(exception);
   switch (object) {
