@@ -1,0 +1,35 @@
+{
+  "name": "@logbun/nextjs",
+  "version": "1.0.0",
+  "homepage": "https://www.logbun.com",
+  "main": "dist/logbun-nextjs.cjs.js",
+  "module": "dist/logbun-nextjs.esm.js",
+  "types": "dist/index.d.ts",
+  "author": "Logbun",
+  "description": "Next.js integration for Logbun",
+  "scripts": {
+    "build": "rm -fr dist && tsc --build tsconfig.json && rollup -c rollup.config.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:logbun/logbun-js.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "next": "^13.0 || ^14.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@types/react": "^18.2.45",
+    "rollup": "^4.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@logbun/node": "workspace:^",
+    "@logbun/react": "workspace:^"
+  }
+}
