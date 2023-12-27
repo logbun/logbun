@@ -1,4 +1,4 @@
-import { Client, Types } from '@logbun/core';
+import { Client, Types, Utils } from '@logbun/core';
 import onError from './plugins/onerror';
 import onUnhandledRejection from './plugins/onunhandledrejection';
 import BrowserTransport from './transport';
@@ -6,6 +6,10 @@ import BrowserTransport from './transport';
 class Logbun extends Client {
   constructor(config: Types.Config) {
     super(config);
+  }
+
+  createEvent(...args: unknown[]) {
+    return Utils.createEvent(args);
   }
 }
 

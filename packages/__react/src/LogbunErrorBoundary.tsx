@@ -1,35 +1,31 @@
-import Logbun from '@logbun/js';
+// import { Client } from '@logbun/js/src';
 import React from 'react';
 
 export type Props = {
-  client: typeof Logbun;
+  client: any;
   children: React.ReactNode;
   fallback?: Function;
 };
 
 export type State = {
   error?: Error;
-  info?: React.ErrorInfo;
 };
 
-export default class LogbunErrorBoundary extends React.Component<Props, State> {
-  state = {
-    error: undefined,
-    info: undefined,
-  };
+export class LogbunErrorBoundary extends React.Component<Props, State> {
+  state = { error: undefined };
 
   static getDerivedStateFromError(error: Error): State {
     return { error };
   }
 
-  public componentDidCatch(error: Error, info: React.ErrorInfo) {
+  public componentDidCatch(error: Error) {
     const { client } = this.props;
 
     const event = client.createEvent(error);
 
-    client.postEvent(event);
+    client.sendEvent(event);
 
-    if (!this.state.error) this.setState({ error, info });
+    if (!this.state.error) this.setState({ error });
   }
 
   public render(): React.ReactNode {
