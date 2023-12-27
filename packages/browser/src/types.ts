@@ -2,6 +2,13 @@ export interface BrowserOptions {
   token: string;
   debug?: boolean;
   endpoint?: string;
+  metadata: {
+    sdk: {
+      name: string;
+      version: string;
+      url: string;
+    };
+  };
 }
 
 export interface LoggerOptions {

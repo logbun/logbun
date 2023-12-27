@@ -9,9 +9,11 @@ function getErrorStacktrace(error: Error) {
   if (isStackError(problem)) {
     return ErrorStackParser.parse(problem);
   }
+
   return StackGenerator.backtrace({ maxStackSize: 10 });
 }
 
+// Move to client method
 export function createEvent(error: Error) {
   if (isError(error)) {
     const stacktrace = getErrorStacktrace(error);

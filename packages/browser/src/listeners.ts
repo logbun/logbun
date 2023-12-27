@@ -22,7 +22,7 @@ export const onError = (client: Client) => {
       event = createEvent(problem);
     }
 
-    client.prepareEvent(event);
+    client.sendEvent(event);
   };
 };
 
@@ -40,6 +40,6 @@ export const onUnhandledRejection = (client: Client) => {
 
     const event = createEvent(error);
 
-    client.prepareEvent(event);
+    client.sendEvent(event);
   });
 };

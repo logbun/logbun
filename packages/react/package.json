@@ -1,5 +1,5 @@
 {
-  "name": "@logbun/browser",
+  "name": "@logbun/react",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -7,17 +7,19 @@
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && microbundle --tsconfig tsconfig.json --no-sourcemap --define VERSION=$(node -p \"require('./package.json').version\")"
+    "build": "rm -rf dist && microbundle --tsconfig tsconfig.json --no-sourcemap"
+  },
+  "peerDependencies": {
+    "react": "16.x || 17.x || 18.x"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/react": "^18.2.45",
     "microbundle": "^0.15.1"
   },
   "dependencies": {
-    "error-stack-parser": "^2.1.4",
-    "isomorphic-unfetch": "^4.0.2",
-    "stack-generator": "^2.0.10"
+    "@logbun/js": "workspace:^"
   }
 }

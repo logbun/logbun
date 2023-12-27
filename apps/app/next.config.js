@@ -1,4 +1,4 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  transpilePackages: ["@logbun/ui"],
+  transpilePackages: ['@logbun/ui'],
 };

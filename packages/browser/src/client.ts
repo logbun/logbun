@@ -1,5 +1,6 @@
 import { Api } from './api';
 import { Event } from './event';
+import { createEvent } from './process';
 import { BrowserOptions, ErrorEvent, LoggerOptions } from './types';
 
 const noop = () => {};
@@ -40,7 +41,11 @@ export class Client {
     }
   }
 
-  public prepareEvent(event: Event) {
+  public createEvent(error: Error) {
+    return createEvent(error);
+  }
+
+  public sendEvent(event: Event) {
     const data = event.toJSON();
 
     const prepared: ErrorEvent = {
@@ -52,3 +57,5 @@ export class Client {
     this.api.postEvent(prepared);
   }
 }
+
+// Client.createEvent = createEvent;

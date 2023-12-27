@@ -1,0 +1,39 @@
+{
+  "name": "@logbun/core",
+  "version": "1.0.0",
+  "author": {
+    "name": "Meek Dekowski",
+    "email": "meek@logbun.com"
+  },
+  "description": "Easy to use and privacy-friendly javascript error tracking for founders who ship fast.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.json"
+  },
+  "keywords": [
+    "logbun",
+    "exception",
+    "error",
+    "javascript",
+    "monitoring"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:logbun/logbun-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/logbun/logbun-js/issues"
+  },
+  "dependencies": {
+    "error-stack-parser": "^2.1.4",
+    "stack-generator": "^2.0.10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

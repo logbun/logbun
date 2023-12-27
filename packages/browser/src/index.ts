@@ -10,19 +10,19 @@ const Logbun: LogbunType = {
   client: null,
 };
 
-export const init = (options: BrowserOptions | string) => {
+export const init = (options: BrowserOptions) => {
   if (Logbun.client) {
     Logbun.client.logger.warn('Logbun.init() was called more than once. Ignoring.');
     return Logbun.client;
   }
 
-  if (typeof options === 'string') options = { token: options };
-
   const defaultOptions: Omit<BrowserOptions, 'token'> = {
     debug: true,
+    // metadata: { sdk: { name: '', version: '', url: '' } },
+    ...options,
   };
 
-  Logbun.client = new Client({ ...defaultOptions, ...options });
+  Logbun.client = new Client(defaultOptions);
 
   onError(Logbun.client);
 
@@ -32,3 +32,5 @@ export const init = (options: BrowserOptions | string) => {
 
   return Logbun.client;
 };
+
+export * from './client';

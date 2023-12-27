@@ -1,0 +1,45 @@
+{
+  "name": "@logbun/js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/logbun/logbun-js/tree/master/packages/js",
+  "main": "dist/logbun.js",
+  "browser": "dist/logbun.js",
+  "author": {
+    "name": "Meek Dekowski",
+    "email": "meek@logbun.com"
+  },
+  "description": "Universal browser javaScript error notifier for LogBun",
+  "scripts": {
+    "build2": "rm -fr dist && tsc --build tsconfig.json",
+    "build": "rm -fr dist && tsc --build tsconfig.json && rollup -c rollup.config.mjs"
+  },
+  "keywords": [
+    "logbun",
+    "exception",
+    "error",
+    "javascript",
+    "monitoring"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:logbun/logbun-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/logbun/logbun-js/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^4.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@logbun/core": "workspace:^"
+  }
+}
