@@ -1,0 +1,14 @@
+{
+  "name": "logbun-node-example",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@logbun/node": "workspace:^"
+  }
+}

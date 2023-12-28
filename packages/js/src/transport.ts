@@ -20,8 +20,6 @@ export default class BrowserTransport implements Types.Transport {
       requestInit.body = typeof payload === 'string' ? payload : JSON.stringify(payload);
     }
 
-    console.log(requestInit);
-
     const response = await fetch(options.endpoint, requestInit);
 
     const body = await response.text();

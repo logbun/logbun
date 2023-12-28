@@ -82,6 +82,7 @@ export abstract class Client {
 
   public notify = (error: unknown) => {
     const event = createEvent(error);
+
     this.send(event);
   };
 
@@ -96,7 +97,7 @@ export abstract class Client {
 
     const body: ErrorEvent = {
       timestamp: Math.floor(Date.now() / 1000),
-      host: window.location.origin,
+      // host: window.location.origin,
       ...event,
     };
 

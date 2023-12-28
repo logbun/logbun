@@ -47,5 +47,4 @@ export interface Event {
 
 export interface ErrorEvent extends Event {
   timestamp: number;
-  host: string;
 }

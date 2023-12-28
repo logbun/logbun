@@ -121,6 +121,12 @@ importers:
         specifier: ^14.2.1
         version: 14.2.1
 
+  examples/node:
+    dependencies:
+      '@logbun/node':
+        specifier: workspace:^
+        version: link:../../packages/node
+
   packages/__nextjs:
     dependencies:
       '@logbun/js':
@@ -300,6 +306,9 @@ importers:
       '@types/node':
         specifier: ^20.10.5
         version: 20.10.5
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
       rollup:
         specifier: ^4.9.1
         version: 4.9.1
