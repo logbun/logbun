@@ -2,7 +2,7 @@ import Logbun from '@logbun/js';
 import React from 'react';
 
 export type Props = {
-  client: typeof Logbun;
+  logbun: typeof Logbun;
   children: React.ReactNode;
   fallback?: Function;
 };
@@ -23,11 +23,11 @@ export default class LogbunErrorBoundary extends React.Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, info: React.ErrorInfo) {
-    const { client } = this.props;
+    const { logbun } = this.props;
 
-    const event = client.createEvent(error);
+    const event = logbun.createEvent(error);
 
-    client.send(event);
+    logbun.send(event);
 
     if (!this.state.error) this.setState({ error, info });
   }

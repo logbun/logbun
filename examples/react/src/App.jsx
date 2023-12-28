@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Logbun } from '@logbun/react';
+import './App.css';
+import reactLogo from './assets/react.svg';
 
 function App() {
-  const [count, setCount] = useState(0)
+  function handledError() {
+    try {
+      // eslint-disable-next-line no-undef
+      console.log(THIS_VARIABLE_DOES_NOT_EXIST);
+    } catch (e) {
+      Logbun.notify(e);
+    }
+  }
+
+  function unhandledError() {
+    let number = 1;
+    number.toUpperCase();
+  }
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" rel="noreferrer">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Logbun React Example</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <button onClick={handledError}>Logbun.notify(error)</button>
+        <button onClick={unhandledError}>throw new Error(error)</button>
+        <p>Handled by ErrorBoundry in main.jsx</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

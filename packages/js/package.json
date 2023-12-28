@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "homepage": "https://www.logbun.com",
   "main": "dist/logbun.js",
+  "module": "dist/logbun.esm.js",
   "browser": "dist/logbun.js",
   "types": "dist/index.d.ts",
   "author": "Logbun",

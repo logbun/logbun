@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "build:sdk": "turbo run build --filter=core --filter=js --filter=node --filter=react --filter=nextjs",
+    "sdk:dev": "turbo dev --filter=core --filter=js --filter=node",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""

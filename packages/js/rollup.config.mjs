@@ -22,6 +22,11 @@ export default [
   },
   {
     input: 'dist/index.js',
+    output: { file: pkg.module, format: 'es', sourcemap: true, exports: 'named' },
+    plugins: sharedPlugins,
+  },
+  {
+    input: 'dist/index.js',
     output: { name: 'Logbun', file: miniFile, format: 'umd', sourcemap: true },
     plugins: [...sharedPlugins, terser(), copy({ targets: [{ src: miniFile, dest: '../../examples/browser' }] })],
   },
