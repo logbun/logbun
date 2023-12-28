@@ -7,7 +7,8 @@
   "author": "Logbun",
   "description": "Core classes and utilities for Logbun",
   "scripts": {
-    "build": "tsc --build tsconfig.json"
+    "build": "tsc --build tsconfig.json",
+    "dev": "tsc -p tsconfig.json --watch"
   },
   "license": "MIT",
   "repository": {

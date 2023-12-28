@@ -4,7 +4,10 @@ export default class BrowserTransport implements Types.Transport {
   private headers: Record<string, string> = {};
 
   constructor(headers: Record<string, string> = {}) {
-    this.headers = headers;
+    this.headers = {
+      'Content-Type': 'application/json',
+      ...headers,
+    };
   }
 
   public send = async <T>(options: Types.TransportOptions, payload?: T) => {
@@ -13,9 +16,11 @@ export default class BrowserTransport implements Types.Transport {
       headers: this.headers,
     };
 
-    if (options.method === 'POST' && payload) {
+    if (requestInit.method === 'POST' && payload) {
       requestInit.body = typeof payload === 'string' ? payload : JSON.stringify(payload);
     }
+
+    console.log(requestInit);
 
     const response = await fetch(options.endpoint, requestInit);
 

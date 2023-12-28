@@ -38,6 +38,7 @@ export function isStackError(error?: Error & { stacktrace?: string; 'opera#sourc
 
 export function normalizeError(exception: unknown) {
   let error = new Error(`Application received an unexpected ${exception === null ? 'null' : typeof exception} type`);
+
   error.name = 'Invalid Error';
 
   switch (typeof exception) {

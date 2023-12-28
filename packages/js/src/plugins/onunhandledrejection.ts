@@ -18,7 +18,7 @@ export default function (win = window) {
 
         const event = Utils.createEvent(error);
 
-        client.postEvent(event);
+        client.send(event);
 
         // TODO: Remove any. I think this breaks
         if (typeof prevOnUnhandledRejection === 'function') {

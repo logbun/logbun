@@ -1,4 +1,5 @@
 import { Config, ErrorEvent, Event, Logger, SDK, Transport } from './types';
+import { createEvent } from './utils';
 
 export abstract class Client {
   protected pluginsLoaded: boolean = false;
@@ -22,10 +23,6 @@ export abstract class Client {
     this.logger = this.loadLogger();
 
     this.transport = config.transport;
-
-    if (!config.apiKey) {
-      this.logger.info('Api key not provided, client will not send events.');
-    }
 
     this.sdk = {
       name: '@logbun/core',
@@ -69,7 +66,13 @@ export abstract class Client {
 
   public init = (config: Partial<Config>) => {
     this.config = { ...this.config, ...config };
+
+    if (!config.apiKey) {
+      this.logger.info('Api key not provided, client will not send events.');
+    }
+
     this.loadPlugins();
+
     return this;
   };
 
@@ -77,17 +80,18 @@ export abstract class Client {
     this.sdk = sdk;
   };
 
-  public postEvent = (event: Event) => {
+  public notify = (error: unknown) => {
+    const event = createEvent(error);
+    this.send(event);
+  };
+
+  public send = (event: Event) => {
     if (!this.config.endpoint) {
       return this.logger.error('No endpoint');
     }
 
     if (!this.transport) {
       return this.logger.warn('Transport disabled. Skipping');
-    }
-
-    if (!this.config.apiKey) {
-      return this.logger.warn('No api key. Skipping');
     }
 
     const body: ErrorEvent = {

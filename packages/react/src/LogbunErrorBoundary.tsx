@@ -27,7 +27,7 @@ export default class LogbunErrorBoundary extends React.Component<Props, State> {
 
     const event = client.createEvent(error);
 
-    client.postEvent(event);
+    client.send(event);
 
     if (!this.state.error) this.setState({ error, info });
   }

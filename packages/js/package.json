@@ -8,7 +8,15 @@
   "author": "Logbun",
   "description": "Logbun error reporter for browser javascript",
   "scripts": {
-    "build": "rm -fr dist && tsc --build tsconfig.json && rollup -c rollup.config.mjs"
+    "clean": "rm -fr dist",
+    "build:ts": "tsc --build tsconfig.json",
+    "build:rollup": "rollup -c rollup.config.mjs",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
+    "build:rollup:watch": "rollup -c rollup.config.mjs --watch",
+    "build": "run-p build:ts build:rollup",
+    "dev": "run-p build:ts:watch build:rollup:watch",
+    "copy-to-browser-example": "rm -rf ../../examples/browser/logbun.min.js && cp ./dist/logbun.min.js ../../examples/browser/",
+    "build:browser": "pnpm build && pnpm copy-to-browser-example"
   },
   "license": "MIT",
   "repository": {
@@ -23,7 +31,9 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
+    "npm-run-all": "^4.1.5",
     "rollup": "^4.9.1",
+    "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {

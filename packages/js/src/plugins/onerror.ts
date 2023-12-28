@@ -1,7 +1,5 @@
 import { Client, Types, Utils } from '@logbun/core';
 
-const { global } = Utils;
-
 export default function (win = window) {
   return {
     load(client: Client) {
@@ -32,7 +30,7 @@ export default function (win = window) {
           event = Utils.createEvent(error);
         }
 
-        client.postEvent(event);
+        client.send(event);
 
         if (typeof prevOnError === 'function') {
           prevOnError.apply(this, arguments as OnErrorEventHandlerNonNull['arguments']);
