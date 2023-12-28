@@ -4,7 +4,7 @@
   "homepage": "https://www.logbun.com",
   "main": "dist/logbun.js",
   "browser": "dist/logbun.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "author": "Logbun",
   "description": "Logbun error reporter for Node.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "build:rollup": "rollup -c rollup.config.mjs",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "build:rollup:watch": "rollup -c rollup.config.mjs --watch",
-    "build": "run-p build:ts build:rollup",
+    "build": "run-p clean build:ts build:rollup",
     "dev": "run-p build:ts:watch build:rollup:watch"
   },
   "license": "MIT",

@@ -7,4 +7,6 @@ Logbun.setSDK({
   version: '__VERSION__',
 });
 
-export { Logbun, LogbunErrorBoundary };
+export default Logbun;
+
+export { LogbunErrorBoundary };

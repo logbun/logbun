@@ -10,7 +10,7 @@ export type LogbunNextJsConfig = {
 export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: LogbunNextJsConfig): NextConfig {
   return {
     ...defaultConfig,
-    webpack: async (webpackConfig, context) => {
+    webpack: (webpackConfig, context) => {
       const { isServer, dir: projectDir, nextRuntime } = context;
 
       const configType = isServer ? (nextRuntime === 'edge' ? 'edge' : 'server') : 'browser';
@@ -38,12 +38,11 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
           }
 
           if (!logbunConfigFile) {
-            console.debug('Logbun config file not found. Using current nextjs config file');
+            console.debug(`Logbun ${configType} config file not found. Using current nextjs config file`);
             return originalEntry;
           }
 
-          // We want to append the logbun config file too all existing keys on the result of entries
-
+          // We want to append the logbun config file path to keys that start with pages/ on server and main-app or pages/_app on browser
           const currentEntries: { [key: string]: string | object } =
             typeof originalEntry === 'function' ? await originalEntry() : { ...originalEntry };
 
@@ -52,28 +51,34 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
           }
 
           Object.entries(currentEntries).forEach(([key, value]) => {
-            if (typeof value === 'string') {
-              result[key] = [value, `./${logbunConfigFile}`];
-            } else if (Array.isArray(value)) {
-              result[key] = [...value, `./${logbunConfigFile}`];
-            } else if (value && typeof value === 'object' && 'import' in value) {
-              const origImport = value.import as string | string[];
+            const addServer = configType === 'server' && key.startsWith('pages/');
 
-              let newImport = [`./${logbunConfigFile}`];
+            const addBrowser = configType === 'browser' && ['pages/_app', 'main-app'].includes(key);
 
-              if (typeof origImport === 'string') {
-                newImport = [...newImport, origImport];
+            if (addServer || addBrowser) {
+              if (typeof value === 'string') {
+                currentEntries[key] = [value, `./${logbunConfigFile}`];
+              } else if (Array.isArray(value)) {
+                currentEntries[key] = [...value, `./${logbunConfigFile}`];
+              } else if (value && typeof value === 'object' && 'import' in value) {
+                const origImport = value.import as string | string[];
+
+                let newImport = [`./${logbunConfigFile}`];
+
+                if (typeof origImport === 'string') {
+                  newImport = [...newImport, origImport];
+                } else {
+                  newImport = [...newImport, ...origImport];
+                }
+
+                currentEntries[key] = { ...value, import: newImport };
               } else {
-                newImport = [...newImport, ...origImport];
+                console.error('Could not inject file');
               }
-
-              result[key] = { ...value, import: newImport };
-            } else {
-              console.error('Could not inject file');
             }
           });
 
-          return result;
+          return currentEntries;
         },
       };
     },
