@@ -4,7 +4,7 @@
   "scripts": {
     "build": "turbo build",
     "sdk:dev": "turbo dev --filter=core --filter=js --filter=node",
-    "dev": "turbo dev",
+    "dev": "turbo dev --filter=app",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
