@@ -2,6 +2,7 @@ import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@logbun/db';
 import { compare } from 'bcryptjs';
 import { DefaultSession, getServerSession, type NextAuthOptions } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { redirect } from 'next/navigation';
 import { findUser } from '../actions/db';
@@ -23,7 +24,7 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login',
     signOut: '/logout',
   },
-  adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db) as Adapter,
   session: { strategy: 'jwt' },
   providers: [
     CredentialsProvider({

@@ -2,14 +2,10 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createProject } from '@logbun/app/actions/project';
-import Angular from '@logbun/app/assets/platforms/angular.svg';
-import Express from '@logbun/app/assets/platforms/express.svg';
 import Javascript from '@logbun/app/assets/platforms/javascript.svg';
 import Next from '@logbun/app/assets/platforms/next.svg';
 import Node from '@logbun/app/assets/platforms/node.svg';
 import React from '@logbun/app/assets/platforms/react.svg';
-import Svelte from '@logbun/app/assets/platforms/svelte.svg';
-import Vue from '@logbun/app/assets/platforms/vue.svg';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
 import { Button, Select, TextInput, buttonVariants } from '@logbun/ui';
 import { cn, errorMessage, find } from '@logbun/utils';
@@ -23,13 +19,13 @@ import { toast } from 'sonner';
 
 const platforms = [
   { key: 'javascript', name: 'Browser Javascript', icon: Javascript },
-  { key: 'angular', name: 'Angular', icon: Angular },
+  // { key: 'angular', name: 'Angular', icon: Angular },
   { key: 'next', name: 'Next.JS', icon: Next },
   { key: 'react', name: 'React', icon: React },
-  { key: 'svelte', name: 'Svelte', icon: Svelte },
-  { key: 'vue', name: 'Vue', icon: Vue },
+  // { key: 'svelte', name: 'Svelte', icon: Svelte },
+  // { key: 'vue', name: 'Vue', icon: Vue },
   { key: 'node', name: 'Node.JS', icon: Node },
-  { key: 'express', name: 'Express', icon: Express },
+  // { key: 'express', name: 'Express', icon: Express },
 ];
 
 export default function ProjectForm() {
