@@ -2,7 +2,7 @@
   "name": "browser",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "serve . -p 4040 -n"
   },
