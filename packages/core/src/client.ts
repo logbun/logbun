@@ -10,6 +10,8 @@ export abstract class Client {
 
   public logger: Logger;
 
+  protected metadata: Record<string, unknown>;
+
   public readonly transport: Transport;
 
   constructor(config: Config) {
@@ -23,6 +25,8 @@ export abstract class Client {
     this.logger = this.loadLogger();
 
     this.transport = config.transport;
+
+    this.metadata = config.metadata || {};
 
     this.sdk = {
       name: '@logbun/core',
@@ -80,10 +84,14 @@ export abstract class Client {
     this.sdk = sdk;
   };
 
+  public addMetadata = (key: string, value: unknown) => {
+    this.metadata = { ...this.metadata, [key]: value };
+  };
+
   public notify = (error: unknown) => {
     const event = createEvent(error);
 
-    this.send(event);
+    this.send({ ...event, level: 'info', handled: true });
   };
 
   public send = (event: Event) => {
@@ -95,9 +103,17 @@ export abstract class Client {
       return this.logger.warn('Transport disabled. Skipping');
     }
 
+    if (!this.config.apiKey) {
+      return this.logger.warn('Api key not provided, client will not send events.');
+    }
+
+    const metadata = event.metadata || {};
+
     const body: ErrorEvent = {
       timestamp: Math.floor(Date.now() / 1000),
-      // host: window.location.origin,
+      level: 'error',
+      handled: false,
+      metadata: { ...this.metadata, ...metadata },
       ...event,
     };
 

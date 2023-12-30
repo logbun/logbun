@@ -12,6 +12,7 @@ const sharedPlugins = [
 ];
 
 const mainFile = pkg.browser;
+
 const miniFile = pkg.browser.replace('.js', '.min.js');
 
 export default [
@@ -28,6 +29,16 @@ export default [
   {
     input: 'dist/index.js',
     output: { name: 'Logbun', file: miniFile, format: 'umd', sourcemap: true },
-    plugins: [...sharedPlugins, terser(), copy({ targets: [{ src: miniFile, dest: '../../examples/browser' }] })],
+    plugins: [
+      ...sharedPlugins,
+      terser(),
+      copy({
+        targets: [{ src: miniFile, dest: '../../examples/browser' }],
+        flatten: false,
+        copyOnce: true,
+        verbose: true,
+        hook: 'closeBundle',
+      }),
+    ],
   },
 ];

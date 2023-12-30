@@ -17,6 +17,7 @@ export interface Config {
   environment?: string;
   logger?: Logger;
   sdk?: SDK;
+  metadata?: Record<string, unknown>;
   transport: Transport;
   plugins: Plugin[];
 }
@@ -31,7 +32,7 @@ export interface Logger {
 
 export type TransportOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
-  headers?: Record<string, number | string | string[] | undefined>;
+  headers?: Record<string, string>;
   endpoint: string;
 };
 
@@ -43,6 +44,11 @@ export interface Event {
   name: string;
   message: string;
   stacktrace: StackFrame[];
+
+  environment?: string;
+  handled?: boolean;
+  level?: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
+  metadata?: Record<string, unknown>;
 }
 
 export interface ErrorEvent extends Event {

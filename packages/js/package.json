@@ -14,7 +14,7 @@
     "build:rollup": "rollup -c rollup.config.mjs",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "build:rollup:watch": "rollup -c rollup.config.mjs --watch",
-    "build": "run-p clean build:ts build:rollup",
+    "build": "run-s clean build:ts build:rollup",
     "dev": "run-p build:ts:watch build:rollup:watch",
     "copy-to-browser-example": "rm -rf ../../examples/browser/logbun.min.js && cp ./dist/logbun.min.js ../../examples/browser/",
     "build:browser": "pnpm build && pnpm copy-to-browser-example"

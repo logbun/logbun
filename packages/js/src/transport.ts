@@ -11,9 +11,11 @@ export default class BrowserTransport implements Types.Transport {
   }
 
   public send = async <T>(options: Types.TransportOptions, payload?: T) => {
+    const headers = options.headers || {};
+
     const requestInit: RequestInit = {
       method: options.method || 'POST',
-      headers: this.headers,
+      headers: { ...this.headers, ...headers },
     };
 
     if (requestInit.method === 'POST' && payload) {

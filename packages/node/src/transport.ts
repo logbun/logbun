@@ -14,12 +14,15 @@ export default class NodeTransport implements Types.Transport {
 
   public send = async <T>(options: Types.TransportOptions, payload?: T) => {
     const { protocol, hostname, pathname: path, port } = new URL(options.endpoint);
+
     const transport = protocol === 'http:' ? http : https;
+
+    const headers = options.headers || {};
 
     return new Promise<{ status: number; body: string }>((resolve: any, reject) => {
       const httpOptions: http.RequestOptions = {
         method: options.method || 'POST',
-        headers: { ...this.headers, ...options.headers },
+        headers: { ...this.headers, ...headers },
         path,
         protocol,
         hostname,
