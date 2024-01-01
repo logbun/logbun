@@ -1,0 +1,42 @@
+name: Publish CDN
+on:
+  push:
+    branches: main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Setup Node 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install -no-frozen-lockfile
+
+      - name: Build JS browser
+        run: pnpm build
+        working-directory: './packages/js'
+
+      - name: Publish to CDN
+        run: pnpm cdn-upload
+        working-directory: './packages/js'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+          AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+          BUNNY_URL: ${{ secrets.BUNNY_URL }}
+          BUNNY_ACCESS_KEY: ${{ secrets.BUNNY_ACCESS_KEY }}
