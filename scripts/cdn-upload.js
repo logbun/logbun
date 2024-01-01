@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* eslint-disable turbo/no-undeclared-env-vars */
+
 const fs = require('fs');
 const path = require('path');
 const semver = require('semver');
@@ -7,16 +7,14 @@ const { S3 } = require('@aws-sdk/client-s3');
 
 const packageDir = process.cwd();
 const packageJson = require(packageDir + '/package.json');
-const packageName = packageJson.name;
 const packageVersion = packageJson.version;
+const files = process.argv.slice(2);
 
 const bucketName = process.env.AWS_BUCKET;
 const endpointUrl = process.env.AWS_ENDPOINT;
 
 const bunnyUrl = process.env.BUNNY_URL;
 const bunnyAccessKey = process.env.BUNNY_ACCESS_KEY;
-// const callerReference = `${packageName}@${packageVersion}`;
-const files = process.argv.slice(2);
 
 const s3Client = new S3({
   endpoint: endpointUrl,
