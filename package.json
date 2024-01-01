@@ -3,11 +3,15 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "sdk:dev": "turbo dev --filter=core --filter=js --filter=node",
-    "dev": "turbo dev --filter=app",
+    "dev": "turbo dev",
+    "dev:sdk": "turbo dev --filter=core --filter=js --filter=node",
     "publish-packages": "turbo run build lint && changeset version && changeset publish",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "packageManager": "pnpm@8.13.0",
+  "dependencies": {
+    "@changesets/cli": "^2.27.1"
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.484.0",
@@ -17,11 +21,7 @@
     "semver": "^7.5.4",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.27.1"
   }
 }
