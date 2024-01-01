@@ -4,9 +4,9 @@ import { Menu as HeadlessMenu, Listbox, Transition } from '@headlessui/react';
 import { cn } from '@logbun/utils';
 import { ChevronsUpDown } from 'lucide-react';
 import { Fragment, ReactElement, ReactNode, forwardRef } from 'react';
-import { buttonVariants } from '.';
+import { buttonVariants } from '..';
+import { ExtractProps } from '../types';
 import { labelVariants } from './label';
-import { ExtractProps } from './types';
 
 type SelectButtonRootProps = ExtractProps<typeof HeadlessMenu.Button>;
 
@@ -19,6 +19,7 @@ type SelectLabelProps = ExtractProps<typeof Listbox.Label> & {
 };
 
 type SelectOptionProps = ExtractProps<typeof Listbox.Option> & {
+  // eslint-disable-next-line no-unused-vars
   children: ReactNode | ((bag: { selected: boolean }) => ReactElement);
 };
 

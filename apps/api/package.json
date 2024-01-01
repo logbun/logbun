@@ -1,4 +1,6 @@
 {
+  "name": "@logbun/api",
+  "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts"
   },

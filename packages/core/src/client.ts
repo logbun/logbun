@@ -114,6 +114,7 @@ export abstract class Client {
       level: 'error',
       handled: false,
       metadata: { ...this.metadata, ...metadata },
+      sdk: this.sdk,
       ...event,
     };
 

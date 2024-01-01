@@ -5,6 +5,6 @@
     "moduleResolution": "Bundler",
     "module": "ES2022"
   },
-  "include": ["."],
+  "include": ["index.tsx", "src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,5 +1,4 @@
 import { cn } from '@logbun/utils';
-import React from 'react';
 import { Label } from './label';
 
 export interface FormControlProps {

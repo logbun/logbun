@@ -16,8 +16,8 @@
     "build:rollup:watch": "rollup -c rollup.config.mjs --watch",
     "build": "run-s clean build:ts build:rollup",
     "dev": "run-p build:ts:watch build:rollup:watch",
-    "copy-to-browser-example": "rm -rf ../../examples/browser/logbun.min.js && cp ./dist/logbun.min.js ../../examples/browser/",
-    "build:browser": "pnpm build && pnpm copy-to-browser-example"
+    "cdn-upload": "node --env-file=../../.env ../../scripts/cdn-upload.js dist/*.min.js",
+    "postpublish": "pnpm cdn-upload"
   },
   "license": "MIT",
   "repository": {

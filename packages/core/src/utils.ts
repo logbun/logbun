@@ -76,3 +76,29 @@ export function createEvent(error: unknown): Event {
     stacktrace,
   };
 }
+
+export function cleanStackFrames(stacks: ErrorStackParser.StackFrame[]) {
+  const defaultShift = 3;
+
+  let shift = 0;
+
+  const isLogBunFrame = (frame: ErrorStackParser.StackFrame) => {
+    if (!frame.fileName) return false;
+    return frame.fileName.indexOf('@logbun') > -1;
+  };
+
+  stacks.forEach((frame, index, frames) => {
+    if (isLogBunFrame(frame)) {
+      shift += 1;
+    } else if (!frame.fileName || frame.fileName === '<anonymous>') {
+      const nextFrame = frames[index + 1];
+      if (nextFrame && isLogBunFrame(nextFrame)) {
+        shift += 1;
+      } else {
+        return; // Break when a non Logbun frame is encountered
+      }
+    }
+  });
+
+  return shift || defaultShift;
+}

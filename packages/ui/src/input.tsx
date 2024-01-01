@@ -36,10 +36,10 @@ export const inputVariants = cva(
   }
 );
 
-type VariantPropsValues = Omit<VariantProps<typeof inputVariants>, 'start' | 'end'> & {
-  start?: React.ReactNode;
-  end?: React.ReactNode;
-};
+// type VariantPropsValues = Omit<VariantProps<typeof inputVariants>, 'start' | 'end'> & {
+//   start?: React.ReactNode;
+//   end?: React.ReactNode;
+// };
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
   icon?: ReactElement;
@@ -47,7 +47,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement>, Varia
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const { className, variant, children, iconPosition = 'start', icon, ...rest } = props;
+  const { className, variant, iconPosition = 'start', icon, ...rest } = props;
 
   return (
     <div className="relative rounded-lg">

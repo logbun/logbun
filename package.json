@@ -5,17 +5,23 @@
     "build": "turbo build",
     "sdk:dev": "turbo dev --filter=core --filter=js --filter=node",
     "dev": "turbo dev --filter=app",
+    "publish-packages": "turbo run build lint && changeset version && changeset publish",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.484.0",
     "@logbun/eslint-config": "workspace:*",
     "@logbun/typescript-config": "workspace:*",
     "prettier": "^3.1.0",
+    "semver": "^7.5.4",
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.9.0",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.27.1"
   }
 }

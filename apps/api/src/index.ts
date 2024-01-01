@@ -6,16 +6,15 @@ import { logger } from 'hono/logger';
 import { UAParser } from 'ua-parser-js';
 import { z } from 'zod';
 
-// columnNumber: 19;
-// fileName: 'http://localhost:5173/src/App.tsx?t=1703878704178';
-// functionName: 'handledError';
-// lineNumber: 23;
-// source: '    at handledError (http://localhost:5173/src/App.tsx?t=1703878704178:23:19)';
-
 export const eventSchema = z.object({
   name: z.string(),
   message: z.string(),
   timestamp: z.number(),
+  sdk: z.object({
+    name: z.string(),
+    url: z.string(),
+    version: z.string(),
+  }),
   stacktrace: z.array(
     z.object({
       fileName: z.string().optional(),
@@ -26,7 +25,7 @@ export const eventSchema = z.object({
   ),
   level: z.string().default('error'),
   handled: z.boolean().default(false),
-  metadata: z.any().default({}),
+  metadata: z.record(z.string(), z.any()).default({}),
   screenWidth: z.number().default(0),
 });
 
@@ -42,14 +41,12 @@ app.post('/event', async (c) => {
 
   const userAgent = c.req.header('user-agent');
 
-  console.log(c.req.raw.headers);
-
   const apiKey = c.req.header('x-api-key');
 
   const body = eventSchema.safeParse(rawBody);
 
   if (body.success) {
-    const { name, message, timestamp, level, handled, metadata, stacktrace } = body.data;
+    const { name, message, timestamp, level, handled, metadata, stacktrace, sdk } = body.data;
 
     const { os, browser, device } = UAParser(userAgent);
 
@@ -75,9 +72,8 @@ app.post('/event', async (c) => {
       metadata,
       stacktrace,
       stack,
+      sdk,
     };
-
-    // console.log(options);
 
     return c.json(options, 200);
   } else {
