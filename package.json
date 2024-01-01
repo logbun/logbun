@@ -19,7 +19,7 @@
     "@logbun/typescript-config": "workspace:*",
     "prettier": "^3.1.0",
     "semver": "^7.5.4",
-    "turbo": "latest"
+    "turbo": "^1.10.16"
   },
   "engines": {
     "node": ">=18"
