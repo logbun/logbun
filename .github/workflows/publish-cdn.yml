@@ -31,8 +31,7 @@ jobs:
         run: pnpm build --filter="./packages/*"
 
       - name: Publish to CDN
-        run: pnpm cdn-upload
-        working-directory: './packages/js'
+        run: node scripts/cdn-upload.js packages/js/dist/*.min.js
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
