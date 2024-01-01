@@ -1,12 +1,9 @@
+/* eslint-disable no-unused-vars */
 // import { headers } from 'next/headers';
 import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
-  const origin = request.headers.get('origin');
-
-  console.log('Body: ', body);
-  // console.log('Headers: ', headers());
+  // const body = await request.json();
 
   return new Response('Success', {
     status: 200,

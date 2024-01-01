@@ -1,4 +1,3 @@
-import { findProjects } from '@logbun/app/actions/db';
 import { denyAccess, getSession } from '@logbun/app/utils/auth';
 import Nav from './nav';
 
@@ -11,7 +10,7 @@ export default async function Layout({ children }: Props) {
 
   if (!session || !session.user) return denyAccess();
 
-  const projects = await findProjects(session.user.id);
+  // const projects = await findProjects(session.user.id);
 
   return (
     <div className="flex h-full bg-slate-200 bg-opacity-70">

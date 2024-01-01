@@ -7,7 +7,7 @@
   "module": "dist/logbun-react.esm.js",
   "unpkg": "dist/logbun-react.js",
   "author": "Logbun",
-  "description": "Logbun error reporter for react application",
+  "description": "React.js integration for Logbun",
   "scripts": {
     "clean": "rm -fr dist",
     "build:ts": "tsc --build tsconfig.json",
@@ -20,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:logbun/logbun-js.git"
+    "url": "git@github.com:logbun/logbun.git"
   },
   "publishConfig": {
     "access": "public"

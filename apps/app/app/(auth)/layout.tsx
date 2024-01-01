@@ -1,5 +1,5 @@
 import { getSession } from '@logbun/app/utils/auth';
-import { Icon } from '@logbun/ui/logo';
+import { Icon } from '@logbun/ui';
 import { redirect } from 'next/navigation';
 
 interface Props {

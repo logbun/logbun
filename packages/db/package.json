@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "./index.ts",
   "types": "./index.ts",
+  "private": "true",
   "scripts": {
     "db:push": "pnpm with-env drizzle-kit push:pg -- --verbose",
     "dev": "pnpm with-env drizzle-kit studio --verbose",

@@ -7,14 +7,14 @@ import {
   QuestionMarkCircleIcon,
 } from '@heroicons/react/24/solid';
 import { cn } from '@logbun/utils';
-import { AlertCircle, FileText, LucideIcon } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 
-const options = [
-  { name: 'Documentation', href: '/docs', icon: FileText },
-  { name: 'Give Feedback', href: '/feedback', icon: AlertCircle },
-];
+// const options = [
+//   { name: 'Documentation', href: '/docs', icon: FileText },
+//   { name: 'Give Feedback', href: '/feedback', icon: AlertCircle },
+// ];
 
 interface NavLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   selected: boolean;
@@ -23,7 +23,7 @@ interface NavLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 }
 
 function NavLink(props: NavLinkProps) {
-  const { icon, children, className, selected, ...rest } = props;
+  const { children, className, selected, ...rest } = props;
 
   return (
     <Link

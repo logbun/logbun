@@ -6,20 +6,20 @@
   "browser": "dist/logbun.js",
   "types": "dist/index.d.ts",
   "author": "Logbun",
-  "description": "Logbun error reporter for Node.js",
+  "description": "Node.js integration for Logbun",
   "scripts": {
     "clean": "rm -fr dist",
     "build:ts": "tsc --build tsconfig.json",
     "build:rollup": "rollup -c rollup.config.mjs",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "build:rollup:watch": "rollup -c rollup.config.mjs --watch",
-    "build": "run-p clean build:ts build:rollup",
+    "build": "run-s clean build:ts build:rollup",
     "dev": "run-p build:ts:watch build:rollup:watch"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:logbun/logbun-js.git"
+    "url": "git@github.com:logbun/logbun.git"
   },
   "publishConfig": {
     "access": "public"

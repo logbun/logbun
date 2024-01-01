@@ -30,7 +30,7 @@ export abstract class Client {
 
     this.sdk = {
       name: '@logbun/core',
-      url: 'https://github.com/logbun/logbun-js/tree/master/packages/core',
+      url: 'https://github.com/logbun/logbun/tree/master/packages/core',
       version: '__VERSION__',
     };
   }

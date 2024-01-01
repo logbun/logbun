@@ -1,8 +1,9 @@
 {
   "name": "@logbun/tailwind-config",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tailwind config for Logbun",
   "main": "index.js",
+  "private": "true",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

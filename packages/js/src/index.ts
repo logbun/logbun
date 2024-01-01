@@ -20,7 +20,7 @@ const instance = new Logbun({
 
 instance.setSDK({
   name: '@logbun/js',
-  url: 'https://github.com/logbun/logbun-js/tree/master/packages/core/packages/js',
+  url: 'https://github.com/logbun/logbun/tree/master/packages/core/packages/js',
   version: '__VERSION__',
 });
 

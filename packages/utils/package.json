@@ -1,7 +1,8 @@
 {
   "name": "@logbun/utils",
   "version": "1.0.0",
-  "description": "",
+  "description": "Utils for Logbun",
+  "private": "true",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

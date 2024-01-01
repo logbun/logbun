@@ -1,21 +1,20 @@
 'use client';
 
-import Next from '@logbun/app/assets/platforms/next.svg';
 import { Select } from '@logbun/ui';
 import { cn, find } from '@logbun/utils';
 import { Check } from 'lucide-react';
 import { useParams } from 'next/navigation';
 
-const platforms = [
-  { key: 'javascript', name: 'Browser Javascript', icon: Next },
-  { key: 'angular', name: 'Angular', icon: Next },
-  { key: 'next', name: 'Next.JS', icon: Next },
-  { key: 'react', name: 'React', icon: Next },
-  { key: 'svelte', name: 'Svelte', icon: Next },
-  { key: 'vue', name: 'Vue', icon: Next },
-  { key: 'node', name: 'Node.JS', icon: Next },
-  { key: 'express', name: 'Express', icon: Next },
-];
+// const platforms = [
+//   { key: 'javascript', name: 'Browser Javascript', icon: Next },
+//   { key: 'angular', name: 'Angular', icon: Next },
+//   { key: 'next', name: 'Next.JS', icon: Next },
+//   { key: 'react', name: 'React', icon: Next },
+//   { key: 'svelte', name: 'Svelte', icon: Next },
+//   { key: 'vue', name: 'Vue', icon: Next },
+//   { key: 'node', name: 'Node.JS', icon: Next },
+//   { key: 'express', name: 'Express', icon: Next },
+// ];
 
 interface Props {
   projects: { id: string; name: string }[];
