@@ -83,6 +83,15 @@ const run = async () => {
     }
   }
 
+  // Update latest
+  const latest = 'latest';
+
+  for (const file of files) {
+    const localPath = `${packageDir}/${file}`;
+    const uploadPath = `${latest}/${path.basename(file)}`;
+    await upload(localPath, uploadPath);
+  }
+
   await invalidate();
 };
 
