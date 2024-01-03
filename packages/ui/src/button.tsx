@@ -32,7 +32,7 @@ export const buttonVariants = cva(
           'disabled:hover:bg-gray-500',
         ],
         secondary: ['bg-gray-200', 'text-gray-500', 'hover:bg-gray-300'],
-        default: ['text-gray-900', 'hover:bg-gray-50', 'shadow-none'],
+        default: ['text-gray-900', 'hover:bg-gray-50'],
       },
       size: {
         small: ['py-1.5', 'px-2.5', 'gap-x-1'],

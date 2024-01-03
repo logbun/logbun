@@ -73,7 +73,11 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, re
   return (
     <Listbox.Button
       ref={ref}
-      className={cn(buttonVariants({ variant: 'secondary' }), 'w-full justify-start cursor-default', className)}
+      className={cn(
+        buttonVariants({ variant: 'secondary' }),
+        'w-full justify-start cursor-default bg-white hover:bg-gray-100 ring-1 ring-gray-200',
+        className
+      )}
     >
       {children}
       <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
