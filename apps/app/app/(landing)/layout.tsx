@@ -13,7 +13,7 @@ export default async function Layout({ children }: Props) {
   if (user) {
     const project = await db.query.projects.findFirst({ where: eq(projects.userId, user.id) });
 
-    if (project) redirect(`/${project.id}`);
+    // if (project) redirect(`/${project.id}`);
 
     redirect('/projects');
   }

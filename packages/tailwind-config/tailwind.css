@@ -44,13 +44,13 @@
 
 @layer utilities {
   .container-sm {
-    @apply mx-auto px-4 md:px-12 max-w-4xl;
+    @apply mx-auto px-4 md:px-4 max-w-4xl;
   }
   .container-md {
-    @apply mx-auto px-4 md:px-12 max-w-5xl;
+    @apply mx-auto px-4 md:px-4 max-w-5xl;
   }
   .container-lg {
-    @apply mx-auto px-4 md:px-12 max-w-6xl;
+    @apply mx-auto px-4 md:px-4 max-w-6xl;
   }
   .container-xl {
     @apply mx-auto px-4 max-w-7xl;

@@ -12,7 +12,7 @@ import Gravatar from 'react-gravatar';
 import { toast } from 'sonner';
 
 const navigation = [
-  { icon: LayoutList, name: 'Projects', href: '/' },
+  { icon: LayoutList, name: 'Projects', href: '/projects' },
   { icon: Book, name: 'Docs', href: '/docs' },
   { icon: Settings, name: 'Settings', href: '/settings' },
 ];
@@ -47,21 +47,21 @@ export default function Nav({ email }: Props) {
       </Link>
 
       <div
-        className="flex items-center justify-between flex-1 px-4"
+        className="flex items-center justify-between flex-1"
         style={{
           ['--max-width' as string]: '56rem',
           ['--offset' as string]: 'calc((100% - var(--max-width)) / 2)',
           maxWidth: 'calc(var(--max-width) + var(--offset))',
         }}
       >
-        <div className="flex items-center space-x-5">
+        <div className="flex items-center px-4 space-x-5">
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
                 'flex items-center space-x-1 text-sm font-medium transition-colors',
-                pathname.endsWith(item.href) ? 'text-gray-900 hover:text-gray-500' : 'text-gray-500 hover:text-gray-900'
+                pathname.includes(item.href) ? 'text-gray-900 hover:text-gray-450' : 'text-gray-450 hover:text-gray-900'
               )}
             >
               <item.icon size={18} />
