@@ -43,17 +43,17 @@ export default function Nav() {
         <Transition
           as={Fragment}
           enter="transition ease-out duration-150"
-          enterFrom="opacity-70 translate-y-0"
-          enterTo="opacity-100 translate-y-1"
+          enterFrom="opacity-70 trangray-y-0"
+          enterTo="opacity-100 trangray-y-1"
           leave="transition ease-in duration-100"
-          leaveFrom="opacity-100 translate-y-1"
-          leaveTo="opacity-70 translate-y-0"
+          leaveFrom="opacity-100 trangray-y-1"
+          leaveTo="opacity-70 trangray-y-0"
         >
           <Menu.Items className="absolute right-0 z-10 py-1 mt-2 text-sm origin-top-right bg-white rounded-md shadow-lg w-52 ring-1 ring-black ring-opacity-5 focus:outline-none">
             {navigation.map((item) => (
               <Menu.Item key={item.name}>
                 {({ active }) => (
-                  <Link href={item.href} className={cn(active ? 'bg-slate-100' : '', 'block px-4 py-2 text-slate-700')}>
+                  <Link href={item.href} className={cn(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-gray-700')}>
                     {item.name}
                   </Link>
                 )}

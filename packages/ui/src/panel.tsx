@@ -2,26 +2,32 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './car
 
 interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export const Panel = ({ children }: PanelProps) => {
-  return <Card>{children}</Card>;
+export const Panel = ({ children, ...rest }: PanelProps) => {
+  return <Card {...rest}>{children}</Card>;
 };
 
-export const PanelHeader = ({ children }: PanelProps) => {
+export const PanelHeader = ({ children, ...rest }: PanelProps) => {
   return (
     <CardHeader className="pt-8">
-      <CardTitle className="text-center">{children}</CardTitle>
+      <CardTitle {...rest} className="text-center">
+        {children}
+      </CardTitle>
     </CardHeader>
   );
 };
 
-export const PanelContent = ({ children }: PanelProps) => {
+export const PanelContent = ({ children, ...rest }: PanelProps) => {
   return (
-    <CardContent>
+    <CardContent {...rest}>
       <div className="flex flex-col flex-grow">{children}</div>
     </CardContent>
   );
 };
 
-export const PanelDescription = ({ children }: PanelProps) => {
-  return <CardDescription className="text-center">{children}</CardDescription>;
+export const PanelDescription = ({ children, ...rest }: PanelProps) => {
+  return (
+    <CardDescription {...rest} className="text-center">
+      {children}
+    </CardDescription>
+  );
 };

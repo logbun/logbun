@@ -3,7 +3,7 @@ import { forwardRef } from 'react';
 
 export const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
   <div ref={ref} className={cn('bg-white rounded-lg', className)} {...props} />
-  // <div ref={ref} className={cn('bg-white rounded-lg shadow-md shadow-slate-300/50', className)} {...props} />
+  // <div ref={ref} className={cn('bg-white rounded-lg shadow-md shadow-gray-300/50', className)} {...props} />
 ));
 
 export const CardHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
@@ -23,7 +23,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTM
 );
 
 export const CardDescription = forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
-  ({ className, ...props }, ref) => <div ref={ref} className={cn('text-base text-slate-500', className)} {...props} />
+  ({ className, ...props }, ref) => <div ref={ref} className={cn('text-base text-gray-500', className)} {...props} />
 );
 
 export const CardFooter = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

@@ -11,19 +11,19 @@ export const inputVariants = cva(
     'rounded-lg',
     'w-full',
     'ring-1',
-    'placeholder:text-slate-400/80',
+    'placeholder:text-gray-400/80',
     'focus:ring-2',
     'disabled:cursor-not-allowed',
-    'disabled:bg-slate-50',
-    'disabled:text-slate-500',
-    'disabled:ring-slate-200',
+    'disabled:bg-gray-50',
+    'disabled:text-gray-500',
+    'disabled:ring-gray-200',
     'sm:text-sm',
     'sm:leading-6',
   ],
   {
     variants: {
       variant: {
-        default: ['focus:border-blue-500', 'ring-slate-300', 'focus:ring-blue-200', 'text-slate-900'],
+        default: ['focus:border-blue-500', 'ring-gray-300', 'focus:ring-blue-200', 'text-gray-900'],
       },
       iconPosition: {
         start: 'pl-10',
@@ -53,7 +53,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     <div className="relative rounded-lg">
       {iconPosition === 'start' && icon && (
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          {cloneElement(icon, { className: 'text-slate-400', size: 18 })}
+          {cloneElement(icon, { className: 'text-gray-400', size: 18 })}
         </div>
       )}
       <input
@@ -63,7 +63,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       />
       {iconPosition === 'end' && icon && (
         <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-          {cloneElement(icon, { className: 'text-slate-400', size: 18 })}
+          {cloneElement(icon, { className: 'text-gray-400', size: 18 })}
         </div>
       )}
     </div>

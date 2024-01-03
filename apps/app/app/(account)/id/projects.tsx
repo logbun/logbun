@@ -28,10 +28,10 @@ export default function Projects({ projects }: Props) {
   return (
     <Select
       button={
-        <Select.Button className="px-1.5 py-1.5 shadow shadow-slate-300 ring-0">
+        <Select.Button className="px-1.5 py-1.5 shadow shadow-gray-300 ring-0">
           <span className="flex items-center">
-            <span className="inline-flex items-center justify-center flex-shrink-0 rounded-md w-7 h-7 bg-slate-200">
-              <span className="font-medium leading-none uppercase text-md text-slate-600">
+            <span className="inline-flex items-center justify-center flex-shrink-0 rounded-md w-7 h-7 bg-gray-200">
+              <span className="font-medium leading-none uppercase text-md text-gray-600">
                 {selected?.name.charAt(0)}
               </span>
             </span>
@@ -48,7 +48,7 @@ export default function Projects({ projects }: Props) {
             {({ selected }: { selected: boolean }) => (
               <>
                 <div className="flex items-center">
-                  <span className="inline-flex items-center justify-center flex-shrink-0 w-6 h-6 rounded-md bg-slate-600">
+                  <span className="inline-flex items-center justify-center flex-shrink-0 w-6 h-6 rounded-md bg-gray-600">
                     <span className="text-xs font-medium leading-none text-white uppercase">
                       {option.name.charAt(0)}
                     </span>
@@ -58,7 +58,7 @@ export default function Projects({ projects }: Props) {
                   </span>
                 </div>
                 {selected ? (
-                  <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-800">
+                  <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-800">
                     <Check className="w-4 h-4" />
                   </span>
                 ) : null}

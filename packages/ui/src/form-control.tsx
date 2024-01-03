@@ -21,7 +21,7 @@ export const FormControl = (props: FormControlProps) => {
           id={`${name}-helper-${error ? 'error' : 'text'}`}
           className={cn('text-xs whitespace-pre-line', {
             ['text-red-500']: error,
-            ['text-slate-500']: !error,
+            ['text-gray-500']: !error,
           })}
         >
           {helperText}

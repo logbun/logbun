@@ -75,4 +75,9 @@ export const authOptions: NextAuthOptions = {
 
 export const getSession = () => getServerSession(authOptions);
 
+export const getCurrentUser = async () => {
+  const session = await getSession();
+  return session ? session.user : null;
+};
+
 export const denyAccess = () => redirect('/login');

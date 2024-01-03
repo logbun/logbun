@@ -96,7 +96,7 @@ export default function ProjectForm() {
                           </span>
                         </div>
                         {selected ? (
-                          <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-800">
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-800">
                             <Check className="w-4 h-4" />
                           </span>
                         ) : null}

@@ -30,14 +30,14 @@ function NavLink(props: NavLinkProps) {
       className={cn(
         'group flex gap-x-2 rounded-md p-2 text-sm font-medium',
         selected
-          ? 'bg-slate-300 bg-opacity-50 text-slate-800'
-          : 'text-slate-600 hover:text-slate-700 hover:bg-slate-300 hover:bg-opacity-50',
+          ? 'bg-gray-300 bg-opacity-50 text-gray-800'
+          : 'text-gray-600 hover:text-gray-700 hover:bg-gray-300 hover:bg-opacity-50',
         className
       )}
       {...rest}
     >
       <props.icon
-        className={cn('h-5 w-5 shrink-0', selected ? 'text-slate-500' : 'text-slate-400 group-hover:text-slate-500')}
+        className={cn('h-5 w-5 shrink-0', selected ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500')}
       />
       {children}
     </Link>
