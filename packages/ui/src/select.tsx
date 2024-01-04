@@ -52,7 +52,7 @@ const SelectOption = forwardRef<HTMLLIElement, SelectOptionProps>((props, ref) =
     <Listbox.Option
       ref={ref}
       className={({ active }: { active: boolean }) =>
-        cn(active ? 'bg-slate-100' : '', 'relative cursor-default select-none py-2 pl-3 pr-9 text-slate-900', className)
+        cn(active ? 'bg-gray-100' : '', 'relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900', className)
       }
       {...rest}
     />
@@ -73,11 +73,15 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, re
   return (
     <Listbox.Button
       ref={ref}
-      className={cn(buttonVariants({ variant: 'secondary' }), 'w-full justify-start cursor-default', className)}
+      className={cn(
+        buttonVariants({ variant: 'secondary' }),
+        'w-full justify-start cursor-default bg-white hover:bg-gray-100 ring-1 ring-gray-200',
+        className
+      )}
     >
       {children}
       <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
-        <ChevronsUpDown size={17} strokeWidth={2.5} className="text-slate-400" aria-hidden="true" />
+        <ChevronsUpDown size={17} strokeWidth={2.5} className="text-gray-400" aria-hidden="true" />
       </span>
     </Listbox.Button>
   );
@@ -96,11 +100,11 @@ const SelectRoot = forwardRef<HTMLButtonElement, SelectProps>((props, ref) => {
               show={open}
               as={Fragment}
               enter="transition ease-out duration-150"
-              enterFrom="opacity-70 translate-y-0"
-              enterTo="opacity-100 translate-y-1"
+              enterFrom="opacity-70 trangray-y-0"
+              enterTo="opacity-100 trangray-y-1"
               leave="transition ease-in duration-100"
-              leaveFrom="opacity-100 translate-y-1"
-              leaveTo="opacity-70 translate-y-0"
+              leaveFrom="opacity-100 trangray-y-1"
+              leaveTo="opacity-70 trangray-y-0"
             >
               {children}
             </Transition>

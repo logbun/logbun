@@ -9,15 +9,15 @@ const people = [
 
 function ProjectId() {
   return (
-    <div className="flex-grow h-full bg-white shadow-md shadow-slate-300/50 sm:rounded-lg">
+    <div className="flex-grow h-full bg-white shadow-md shadow-gray-300/50 sm:rounded-lg">
       <div className="px-6 py-2 sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-lg font-semibold leading-tight tracking-tight text-slate-900">Issues</h1>
+          <h1 className="text-lg font-semibold leading-tight tracking-tight text-gray-900">Issues</h1>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <button
             type="button"
-            className="block px-3 py-2 text-sm font-semibold text-center text-white rounded-md shadow-sm bg-slate-600 hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600"
+            className="block px-3 py-2 text-sm font-semibold text-center text-white rounded-md shadow-sm bg-gray-600 hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
           >
             Add user
           </button>
@@ -28,29 +28,29 @@ function ProjectId() {
           <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
             <div className="overflow-hidden">
               <table className="min-w-full">
-                <thead className="border-slate-200 bg-slate-50 border-y">
+                <thead className="border-gray-200 bg-gray-50 border-y">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3 pl-4 pr-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500 sm:pl-6"
+                      className="py-3 pl-4 pr-3 text-xs font-semibold tracking-wider text-left uppercase text-gray-500 sm:pl-6"
                     >
                       Name
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500"
+                      className="px-3 py-3 text-xs font-semibold tracking-wider text-left uppercase text-gray-500"
                     >
                       Title
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500"
+                      className="px-3 py-3 text-xs font-semibold tracking-wider text-left uppercase text-gray-500"
                     >
                       Email
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3 text-xs font-semibold tracking-wider text-left uppercase text-slate-500"
+                      className="px-3 py-3 text-xs font-semibold tracking-wider text-left uppercase text-gray-500"
                     >
                       Role
                     </th>
@@ -59,17 +59,17 @@ function ProjectId() {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-200">
+                <tbody className="divide-y divide-gray-200">
                   {people.map((person) => (
                     <tr key={person.name}>
-                      <td className="py-3.5 pl-4 pr-3 text-sm font-medium text-slate-900 whitespace-nowrap sm:pl-6">
+                      <td className="py-3.5 pl-4 pr-3 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                         {person.name}
                       </td>
-                      <td className="px-3 py-3.5 text-sm text-slate-500 whitespace-nowrap">{person.title}</td>
-                      <td className="px-3 py-3.5 text-sm text-slate-500 whitespace-nowrap">{person.email}</td>
-                      <td className="px-3 py-3.5 text-sm text-slate-500 whitespace-nowrap">{person.role}</td>
+                      <td className="px-3 py-3.5 text-sm text-gray-500 whitespace-nowrap">{person.title}</td>
+                      <td className="px-3 py-3.5 text-sm text-gray-500 whitespace-nowrap">{person.email}</td>
+                      <td className="px-3 py-3.5 text-sm text-gray-500 whitespace-nowrap">{person.role}</td>
                       <td className="relative py-3.5 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-                        <a href="#" className="text-slate-600 hover:text-slate-900">
+                        <a href="#" className="text-gray-600 hover:text-gray-900">
                           Edit<span className="sr-only">, {person.name}</span>
                         </a>
                       </td>

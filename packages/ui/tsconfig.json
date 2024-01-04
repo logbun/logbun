@@ -3,7 +3,10 @@
   "compilerOptions": {
     "outDir": "dist",
     "moduleResolution": "Bundler",
-    "module": "ES2022"
+    "module": "ES2022",
+    "paths": {
+      "react": ["./node_modules/@types/react"]
+    }
   },
   "include": ["index.tsx", "src/**/*"],
   "exclude": ["node_modules", "dist"]

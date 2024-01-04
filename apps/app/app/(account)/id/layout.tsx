@@ -17,7 +17,7 @@ export default async function Layout({ children }: Props) {
   const projects = await findProjects(session.user.id);
 
   return (
-    <div className="w-full h-full bg-slate-200 bg-opacity-70">
+    <div className="w-full h-full bg-gray-200 bg-opacity-70">
       <div className="relative flex w-full h-full max-w-screen-xl mx-auto space-x-10">
         <div className="z-50 flex flex-col w-16 sm:w-56">
           <div className="flex flex-col grow">

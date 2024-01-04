@@ -1,4 +1,4 @@
-import { getSession } from '@logbun/app/utils/auth';
+import { getCurrentUser } from '@logbun/app/utils/auth';
 import { db, eq } from '@logbun/db';
 import { projects } from '@logbun/db/schema';
 import { redirect } from 'next/navigation';
@@ -8,14 +8,14 @@ interface Props {
 }
 
 export default async function Layout({ children }: Props) {
-  const session = await getSession();
+  const user = await getCurrentUser();
 
-  if (session && session.user) {
-    const project = await db.query.projects.findFirst({ where: eq(projects.userId, session.user.id) });
+  if (user) {
+    const project = await db.query.projects.findFirst({ where: eq(projects.userId, user.id) });
 
-    if (project) redirect(`/${project.id}`);
+    // if (project) redirect(`/${project.id}`);
 
-    redirect('/new');
+    redirect('/projects');
   }
 
   return <>{children}</>;
