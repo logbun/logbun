@@ -5,6 +5,7 @@ import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { UAParser } from 'ua-parser-js';
 import { z } from 'zod';
+import { client } from './db/clickhouse';
 
 export const eventSchema = z.object({
   name: z.string(),
@@ -56,7 +57,7 @@ app.post('/event', async (c) => {
 
     const fingerprint = crypto.createHash('md5').update(key).digest('hex');
 
-    const options = {
+    const values = {
       apiKey,
       browser: browser.name,
       browserVersion: browser.version,
@@ -70,12 +71,16 @@ app.post('/event', async (c) => {
       level,
       handled,
       metadata,
-      stacktrace,
+      stacktrace: stacktrace.map((stack) => JSON.stringify(stack)),
       stack,
-      sdk,
+      sdk: JSON.stringify(sdk),
     };
 
-    return c.json(options, 200);
+    console.log(values);
+
+    await client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
+
+    return c.json({ message: 'Successfully created event' }, 200);
   } else {
     return c.json({ message: 'Invalid request body' }, 400);
   }
