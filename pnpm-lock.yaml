@@ -39,6 +39,9 @@ importers:
       '@logbun/clickhouse':
         specifier: workspace:^
         version: link:../../packages/clickhouse
+      '@logbun/db':
+        specifier: workspace:^
+        version: link:../../packages/db
       hono:
         specifier: ^3.11.11
         version: 3.11.11

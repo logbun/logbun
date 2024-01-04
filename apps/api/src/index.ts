@@ -1,4 +1,5 @@
 import { serve } from '@hono/node-server';
+import { nanoid } from '@logbun/db';
 import crypto from 'crypto';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -58,6 +59,7 @@ app.post('/event', async (c) => {
     const fingerprint = crypto.createHash('md5').update(key).digest('hex');
 
     const values = {
+      id: nanoid(),
       apiKey,
       browser: browser.name,
       browserVersion: browser.version,
@@ -75,8 +77,6 @@ app.post('/event', async (c) => {
       stack,
       sdk: JSON.stringify(sdk),
     };
-
-    console.log(values);
 
     await client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
 
