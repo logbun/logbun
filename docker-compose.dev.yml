@@ -21,6 +21,9 @@ services:
       CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
     volumes:
       - clickhouse_data:/var/lib/clickhouse/
+    ports:
+      - 19000:9000
+      - 18123:8123
 
   adminer:
     image: adminer

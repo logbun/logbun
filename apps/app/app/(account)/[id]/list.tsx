@@ -1,15 +1,27 @@
 'use client';
 
 import SearchIcon from '@logbun/app/assets/illustrations/search.svg';
+import Logbun from '@logbun/js';
 import { Button, buttonVariants } from '@logbun/ui';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { toast } from 'sonner';
 
 const issues = [];
 
 export default function List() {
   const pathname = usePathname();
+
+  const simulateEvent = () => {
+    const logbun = Logbun.init({
+      apiKey: 'YOUR_API_KEY',
+      endpoint: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/event' : undefined,
+    });
+
+    logbun.notify('This is a test event');
+    toast.success('Test notification sent');
+  };
 
   return (
     <>
@@ -26,7 +38,7 @@ export default function List() {
           <Link href={`${pathname}/settings/tracking`} className={buttonVariants()}>
             Installation instructions {'->'}
           </Link>
-          <Button variant="default" size="small">
+          <Button onClick={simulateEvent} variant="default" size="small">
             Create sample event
           </Button>
         </div>
