@@ -23,7 +23,7 @@ export const inputVariants = cva(
   {
     variants: {
       variant: {
-        default: ['focus:border-blue-500', 'ring-gray-300', 'focus:ring-blue-200', 'text-gray-900'],
+        default: ['focus:border-blue-500', 'ring-gray-200', 'focus:ring-blue-200', 'text-gray-900'],
       },
       iconPosition: {
         start: 'pl-10',
@@ -35,11 +35,6 @@ export const inputVariants = cva(
     },
   }
 );
-
-// type VariantPropsValues = Omit<VariantProps<typeof inputVariants>, 'start' | 'end'> & {
-//   start?: React.ReactNode;
-//   end?: React.ReactNode;
-// };
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement>, VariantProps<typeof inputVariants> {
   icon?: ReactElement;

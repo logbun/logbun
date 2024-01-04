@@ -46,8 +46,8 @@ export default function ProjectForm() {
   };
 
   return (
-    <form className="w-full space-y-3" onSubmit={handleSubmit(onSubmit)}>
-      <div className="w-full p-4 bg-white rounded-xl">
+    <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
+      <div className="p-4 bg-white rounded-xl">
         <div className="max-w-xs space-y-3">
           <TextInput
             {...register('name', { required: true })}
@@ -55,7 +55,6 @@ export default function ProjectForm() {
             placeholder="Project name"
             error={!!errors.name?.message}
             helperText={errors.name?.message}
-            className="ring-gray-200"
           />
           <Controller
             control={control}
@@ -104,7 +103,7 @@ export default function ProjectForm() {
           />
         </div>
       </div>
-      <div className="flex items-center justify-start pt-2 space-x-3">
+      <div className="flex items-center justify-start pt-4 space-x-3">
         <Link href="/" className={buttonVariants({ variant: 'secondary' })}>
           Back
         </Link>
