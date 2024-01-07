@@ -88,14 +88,18 @@ export abstract class Client {
     this.metadata = { ...this.metadata, [key]: value };
   };
 
-  public notify = (error: unknown) => {
+  public notify = (error: unknown, config: Partial<Config> = {}) => {
     const event = createEvent(error);
 
-    this.send({ ...event, level: 'info', handled: true });
+    this.config?.beforeNotify?.(event);
+
+    this.send({ ...event, level: 'info', handled: true }, config);
   };
 
-  public send = (event: Event) => {
-    if (!this.config.endpoint) {
+  public send = (event: Event, config: Partial<Config> = {}) => {
+    const options = { ...this.config, ...config };
+
+    if (!options.endpoint) {
       return this.logger.error('No endpoint');
     }
 
@@ -103,7 +107,7 @@ export abstract class Client {
       return this.logger.warn('Transport disabled. Skipping');
     }
 
-    if (!this.config.apiKey) {
+    if (!options.apiKey) {
       return this.logger.warn('Api key not provided, client will not send events.');
     }
 
@@ -118,12 +122,16 @@ export abstract class Client {
       ...event,
     };
 
-    this.transport.send(
-      {
-        endpoint: this.config.endpoint,
-        headers: { 'X-API-Key': this.config.apiKey },
-      },
-      body
-    );
+    this.transport
+      .send(
+        {
+          endpoint: options.endpoint,
+          headers: { 'X-API-Key': options.apiKey },
+        },
+        body
+      )
+      .then(() => {
+        options.afterNotify?.(body);
+      });
   };
 }

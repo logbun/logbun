@@ -20,6 +20,8 @@ export interface Config {
   metadata?: Record<string, unknown>;
   transport: Transport;
   plugins: Plugin[];
+  beforeNotify?: (event: Event) => void;
+  afterNotify?: (event: ErrorEvent) => void;
 }
 
 export interface Logger {

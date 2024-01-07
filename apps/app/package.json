@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 2000",
+    "dev": "pnpm with-env next dev --port 2000",
     "build": "next build",
     "start": "next start",
+    "with-env": "dotenv -e ../../.env --",
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
@@ -13,11 +14,14 @@
     "@headlessui/react": "1.7.17",
     "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.3",
+    "@logbun/clickhouse": "workspace:^",
     "@logbun/db": "workspace:^",
     "@logbun/js": "workspace:^",
+    "@logbun/node": "workspace:^",
     "@logbun/tailwind-config": "workspace:^",
     "@logbun/ui": "workspace:*",
     "@logbun/utils": "workspace:^",
+    "@tanstack/react-table": "^8.11.3",
     "bcryptjs": "^2.4.3",
     "lucide-react": "^0.303.0",
     "next": "^14.0.4",
@@ -45,6 +49,7 @@
     "@types/react-gravatar": "^2.6.14",
     "@types/react-syntax-highlighter": "^15.5.11",
     "autoprefixer": "^10.4.16",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8.56.0",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3"

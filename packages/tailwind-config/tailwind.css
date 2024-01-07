@@ -5,7 +5,7 @@
 @layer components {
   html,
   body {
-    @apply bg-gray-100;
+    @apply bg-gray-50;
   }
 
   h1,
@@ -44,15 +44,15 @@
 
 @layer utilities {
   .container-sm {
-    @apply mx-auto px-4 md:px-4 max-w-4xl;
+    @apply mx-auto max-w-4xl px-2 sm:px-4 lg:px-8;
   }
   .container-md {
-    @apply mx-auto px-4 md:px-4 max-w-5xl;
+    @apply mx-auto max-w-5xl px-2 sm:px-4 lg:px-8;
   }
   .container-lg {
-    @apply mx-auto px-4 md:px-4 max-w-6xl;
+    @apply mx-auto max-w-6xl px-2 sm:px-4 lg:px-8;
   }
   .container-xl {
-    @apply mx-auto px-4 max-w-7xl;
+    @apply mx-auto max-w-7xl px-2 sm:px-4 lg:px-8;
   }
 }

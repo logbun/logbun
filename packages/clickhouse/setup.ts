@@ -1,8 +1,13 @@
-import { ClickHouseClient, createClient } from '@clickhouse/client';
+import { ClickHouseClient } from '@clickhouse/client';
+import { clickhouseClient } from '.';
 
 export const setupClickhouseDb = async (client: ClickHouseClient) => {
   await client.exec({
     query: 'CREATE DATABASE IF NOT EXISTS logbun',
+  });
+
+  await client.exec({
+    query: 'DROP TABLE IF EXISTS logbun.event',
   });
 
   await client.exec({
@@ -14,25 +19,22 @@ export const setupClickhouseDb = async (client: ClickHouseClient) => {
             level String,
             handled UInt8,
             metadata String,
-            stacktrace Array(String),
+            stacktrace String,
             stack String,
             sdk String,
             os String,
             browser String,
             device String,
-            fingerprint String
-        ) ENGINE = MergeTree()
-        ORDER BY (id, timestamp)`,
+            fingerprint String,
+            apiKey String,
+            sign Int8
+        ) ENGINE = CollapsingMergeTree(sign)
+        ORDER BY (id, fingerprint, timestamp)`,
   });
 };
 
 async function main() {
-  const client = createClient({
-    host: process.env.CLICKHOUSE_HOST,
-    password: process.env.CLICKHOUSE_PASSWORD,
-    database: process.env.CLICKHOUSE_DB,
-    username: process.env.CLICKHOUSE_USER,
-  });
+  const client = clickhouseClient();
 
   await setupClickhouseDb(client);
 }

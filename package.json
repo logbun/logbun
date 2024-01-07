@@ -5,6 +5,7 @@
     "build": "turbo build",
     "dev": "turbo dev --filter=app",
     "dev:sdk": "turbo dev --filter=core --filter=js --filter=node",
+    "build:sdk": "turbo build --filter=core --filter=js --filter=node",
     "publish-packages": "turbo run build lint && changeset version && changeset publish",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

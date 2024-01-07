@@ -5,7 +5,7 @@
   "main": "./index.ts",
   "private": "true",
   "scripts": {
-    "migrate": "pnpm with-env tsx src/setup.ts",
+    "migrate": "pnpm with-env tsx setup.ts",
     "with-env": "dotenv -e ../../.env --"
   },
   "keywords": [],

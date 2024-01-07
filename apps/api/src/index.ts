@@ -1,4 +1,5 @@
 import { serve } from '@hono/node-server';
+import { clickhouseClient } from '@logbun/clickhouse';
 import { nanoid } from '@logbun/db';
 import crypto from 'crypto';
 import { Hono } from 'hono';
@@ -6,7 +7,8 @@ import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { UAParser } from 'ua-parser-js';
 import { z } from 'zod';
-import { client } from './db/clickhouse';
+
+const client = clickhouseClient();
 
 export const eventSchema = z.object({
   name: z.string(),
@@ -73,9 +75,10 @@ app.post('/event', async (c) => {
       level,
       handled,
       metadata,
-      stacktrace: stacktrace.map((stack) => JSON.stringify(stack)),
+      stacktrace: JSON.stringify(stacktrace),
       stack,
       sdk: JSON.stringify(sdk),
+      sign: 1,
     };
 
     await client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
