@@ -12,7 +12,6 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^0.3.12",
     "@headlessui/react": "1.7.17",
-    "@heroicons/react": "^2.1.1",
     "@hookform/resolvers": "^3.3.3",
     "@logbun/clickhouse": "workspace:^",
     "@logbun/db": "workspace:^",
@@ -23,6 +22,7 @@
     "@logbun/utils": "workspace:^",
     "@tanstack/react-table": "^8.11.3",
     "bcryptjs": "^2.4.3",
+    "date-fns": "^3.1.0",
     "lucide-react": "^0.303.0",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",

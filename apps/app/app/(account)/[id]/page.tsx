@@ -1,6 +1,6 @@
-import { EventResponse } from '@logbun/app/types';
+import { EventResultResponse } from '@logbun/app/types';
 import { clickhouseClient } from '@logbun/clickhouse';
-import List from './list';
+import Events from './events';
 
 export const relative = true;
 
@@ -16,6 +16,7 @@ async function getEvents(apiKey: string) {
     message,
     fingerprint,
     level,
+    handled,
     COUNT(fingerprint) AS count,
     MIN(timestamp) AS createdAt,
     MAX(timestamp) AS updatedAt
@@ -24,25 +25,27 @@ FROM
 WHERE
     apiKey = '${apiKey}'
 GROUP BY
-    fingerprint, name, message, level
+    fingerprint, name, message, level, handled
 ORDER BY updatedAt DESC`;
 
   const response = await client.query({ query, format: 'JSONEachRow' });
 
   const data = await response.json();
 
-  return data as EventResponse[];
+  return data as EventResultResponse[];
 }
 
 export default async function Page() {
   const events = await getEvents('YOUR_API_KEY');
 
+  console.log(events);
+
   return (
-    <div className="pt-12 container-sm">
-      <h3>Issues</h3>
-      <div className="w-full py-8">
-        <List events={events} />
-      </div>
+    <div className="py-6 container-lg">
+      {/* <List events={events} /> */}
+      <Events events={events} />
     </div>
   );
 }
+
+// Error, Occurences, Last

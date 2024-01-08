@@ -1,4 +1,4 @@
-export type EventResponse = {
+export interface EventResponse {
   id: string;
   name?: string;
   message?: string;
@@ -15,4 +15,11 @@ export type EventResponse = {
   fingerprint: string;
   apiKey: string;
   sign?: number;
-};
+}
+
+export interface EventResultResponse extends EventResponse {
+  count: number;
+  createdAt: string;
+  updatedAt: string;
+  aggregate: string[];
+}
