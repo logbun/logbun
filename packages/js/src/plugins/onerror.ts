@@ -1,6 +1,6 @@
 import { Client, Types, Utils } from '@logbun/core';
 
-export default function (win = window) {
+export default function (win = Utils.getGlobal()) {
   return {
     load(client: Client) {
       const prevOnError = win.onerror;

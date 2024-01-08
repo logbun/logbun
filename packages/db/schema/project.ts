@@ -1,11 +1,13 @@
 import { relations } from 'drizzle-orm';
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
-import { customAlphabet, nanoid } from 'nanoid';
+import { customAlphabet } from 'nanoid';
 import { users } from '.';
 
+const shortid = (number: number) => customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', number);
+
 export const projects = pgTable('project', {
-  id: text('id').notNull().primaryKey().$defaultFn(nanoid),
-  token: text('token').notNull().$defaultFn(customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', 32)),
+  id: text('id').notNull().primaryKey().$defaultFn(shortid(18)),
+  apiKey: text('api_key').notNull().$defaultFn(shortid(32)),
   name: text('name').notNull(),
   platform: text('platform').notNull(),
   userId: text('userId')
@@ -19,7 +21,7 @@ export const projects = pgTable('project', {
 });
 
 export const integrations = pgTable('integration', {
-  id: text('id').notNull().primaryKey().$defaultFn(nanoid),
+  id: text('id').notNull().primaryKey().$defaultFn(shortid(18)),
   slackUrl: text('slack_url'),
   discordUrl: text('discord_url'),
   webhookUrl: text('webhook_url'),

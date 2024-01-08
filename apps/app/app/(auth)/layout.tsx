@@ -12,8 +12,8 @@ export default async function Layout({ children }: Props) {
   if (user) redirect('/');
 
   return (
-    <div className="flex flex-col justify-center w-full h-full bg-gray-200">
-      <div className="w-full max-w-sm px-4 mx-auto space-y-4">
+    <div className="flex flex-col justify-center w-full h-full bg-gray-100">
+      <div className="w-full max-w-md px-4 mx-auto space-y-4">
         <Icon className="w-auto h-10 mx-auto" />
         {children}
       </div>

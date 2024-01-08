@@ -1,4 +1,5 @@
-import { denyAccess, getSession } from '@logbun/app/utils/auth';
+import { denyAccess, getCurrentUser } from '@logbun/app/utils/auth';
+import { Panel, PanelContent, PanelHeader } from '@logbun/ui';
 import ProjectForm from './form';
 
 export const metadata = {
@@ -6,15 +7,19 @@ export const metadata = {
 };
 
 export default async function ProjectPage() {
-  const session = await getSession();
+  const user = await getCurrentUser();
 
-  if (!session) denyAccess();
+  if (!user) denyAccess();
 
   return (
-    <div className="pt-12 container-sm">
-      <h3>Create your project</h3>
-      <div className="w-full py-8">
-        <ProjectForm />
+    <div className="pt-12 container-lg">
+      <div className="w-full max-w-lg px-4 py-8 mx-auto">
+        <Panel>
+          <PanelHeader className="-mt-2 text-2xl">Create your project</PanelHeader>
+          <PanelContent>
+            <ProjectForm />
+          </PanelContent>
+        </Panel>
       </div>
     </div>
   );

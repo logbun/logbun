@@ -10,7 +10,8 @@
     "nextjs",
     "sonner",
     "sourceloc",
-    "unfetch"
+    "unfetch",
+    "xlarge"
   ],
   "npm.packageManager": "pnpm",
   "files.trimTrailingWhitespace": true,

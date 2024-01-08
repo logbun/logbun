@@ -39,7 +39,7 @@ export default function RegisterForm() {
 
         toast.success('Registered!');
 
-        router.push('/new');
+        router.push('/');
       } catch (error) {
         toast.error(errorMessage(error));
       }

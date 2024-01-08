@@ -1,4 +1,4 @@
-import { getSession } from '@logbun/app/utils/auth';
+import { getCurrentUser } from '@logbun/app/utils/auth';
 import { Panel, PanelContent, PanelDescription, PanelHeader } from '@logbun/ui';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -9,13 +9,13 @@ export const metadata = {
 };
 
 export default async function LogInPage() {
-  const session = await getSession();
+  const user = await getCurrentUser();
 
-  if (session) redirect('/');
+  if (user) redirect('/');
 
   return (
     <Panel>
-      <PanelHeader>{metadata.title}</PanelHeader>
+      <PanelHeader>Welcome to Logbun</PanelHeader>
       <PanelContent>
         <LogInForm />
         <PanelDescription>

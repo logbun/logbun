@@ -47,63 +47,59 @@ export default function ProjectForm() {
 
   return (
     <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
-      <div className="p-4 bg-white rounded-xl">
-        <div className="max-w-xs space-y-3">
-          <TextInput
-            {...register('name', { required: true })}
-            label="Name"
-            placeholder="Project name"
-            error={!!errors.name?.message}
-            helperText={errors.name?.message}
-          />
-          <Controller
-            control={control}
-            name="platform"
-            render={({ field: { onChange, value } }) => {
-              const selected = find(platforms, ['key', value]);
+      <TextInput
+        {...register('name', { required: true })}
+        label="Name"
+        placeholder="Project name"
+        error={!!errors.name?.message}
+        helperText={errors.name?.message}
+      />
+      <Controller
+        control={control}
+        name="platform"
+        render={({ field: { onChange, value } }) => {
+          const selected = find(platforms, ['key', value]);
 
-              return (
-                <Select
-                  label={<Select.Label>Platform</Select.Label>}
-                  button={
-                    <Select.Button>
-                      <span className="flex items-center">
-                        <Image src={selected?.icon} alt="icon" className="flex-shrink-0 w-6 h-6 rounded-md" />
-                        <span className="block ml-2 truncate">{selected?.name}</span>
-                      </span>
-                    </Select.Button>
-                  }
-                  value={value}
-                  onChange={onChange}
-                >
-                  <Select.Options>
-                    {platforms.map((option) => (
-                      <Select.Option value={option.key} key={option.key}>
-                        {({ selected }: { selected: boolean }) => (
-                          <>
-                            <div className="flex items-center">
-                              <Image src={option.icon} alt="logo" className="flex-shrink-0 w-6 h-6 rounded-md" />
-                              <span className={cn(selected ? 'font-semibold' : 'font-medium', 'ml-3 block truncate')}>
-                                {option.name}
-                              </span>
-                            </div>
-                            {selected ? (
-                              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-800">
-                                <Check className="w-4 h-4" />
-                              </span>
-                            ) : null}
-                          </>
-                        )}
-                      </Select.Option>
-                    ))}
-                  </Select.Options>
-                </Select>
-              );
-            }}
-          />
-        </div>
-      </div>
-      <div className="flex items-center justify-start pt-4 space-x-3">
+          return (
+            <Select
+              label={<Select.Label>Platform</Select.Label>}
+              button={
+                <Select.Button className="py-1.5 px-1.5">
+                  <span className="flex items-center">
+                    <Image src={selected?.icon} alt="icon" className="flex-shrink-0 w-6 h-6 rounded" />
+                    <span className="block ml-2 truncate">{selected?.name}</span>
+                  </span>
+                </Select.Button>
+              }
+              value={value}
+              onChange={onChange}
+            >
+              <Select.Options>
+                {platforms.map((option) => (
+                  <Select.Option value={option.key} key={option.key}>
+                    {({ selected }: { selected: boolean }) => (
+                      <>
+                        <div className="flex items-center">
+                          <Image src={option.icon} alt="logo" className="flex-shrink-0 w-6 h-6 rounded-md" />
+                          <span className={cn(selected ? 'font-semibold' : 'font-medium', 'ml-3 block truncate')}>
+                            {option.name}
+                          </span>
+                        </div>
+                        {selected ? (
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-800">
+                            <Check className="w-4 h-4" />
+                          </span>
+                        ) : null}
+                      </>
+                    )}
+                  </Select.Option>
+                ))}
+              </Select.Options>
+            </Select>
+          );
+        }}
+      />
+      <div className="flex items-center justify-start pt-4 space-x-4">
         <Link href="/" className={buttonVariants({ variant: 'secondary' })}>
           Back
         </Link>

@@ -2,8 +2,8 @@ import { cn } from '@logbun/utils';
 import { forwardRef } from 'react';
 
 export const Card = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn('bg-white rounded-lg', className)} {...props} />
-  // <div ref={ref} className={cn('bg-white rounded-lg shadow-md shadow-gray-300/50', className)} {...props} />
+  // <div ref={ref} className={cn('bg-white rounded-lg', className)} {...props} />
+  <div ref={ref} className={cn('bg-white rounded-md shadow-md', className)} {...props} />
 ));
 
 export const CardHeader = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(

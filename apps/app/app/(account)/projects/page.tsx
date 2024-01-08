@@ -17,15 +17,15 @@ export default async function Projects() {
   const projects = await findProjects(user.id);
 
   return (
-    <div className="pt-12 container-sm">
+    <div className="pt-12 container-lg">
       <div className="flex items-center justify-between">
         <h3>Projects</h3>
-        <Link href="/new" className={buttonVariants({ variant: 'secondary', size: 'small' })}>
-          <Plus size={18} />
+        <Link href="/new" className={buttonVariants()}>
+          <Plus size={20} />
           Create
         </Link>
       </div>
-      <div className="py-8 space-y-4">
+      <div className="py-8">
         <List projects={projects} />
       </div>
     </div>

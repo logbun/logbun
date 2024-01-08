@@ -73,11 +73,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, re
   return (
     <Listbox.Button
       ref={ref}
-      className={cn(
-        buttonVariants({ variant: 'secondary' }),
-        'w-full justify-start cursor-default bg-white hover:bg-gray-100 ring-1 ring-gray-200',
-        className
-      )}
+      className={cn(buttonVariants({ variant: 'secondary' }), 'w-full justify-start cursor-default', className)}
     >
       {children}
       <span className="absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none">
@@ -99,12 +95,12 @@ const SelectRoot = forwardRef<HTMLButtonElement, SelectProps>((props, ref) => {
             <Transition
               show={open}
               as={Fragment}
-              enter="transition ease-out duration-150"
-              enterFrom="opacity-70 trangray-y-0"
-              enterTo="opacity-100 trangray-y-1"
-              leave="transition ease-in duration-100"
-              leaveFrom="opacity-100 trangray-y-1"
-              leaveTo="opacity-70 trangray-y-0"
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
             >
               {children}
             </Transition>

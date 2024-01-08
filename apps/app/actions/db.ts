@@ -1,9 +1,39 @@
 'use server';
 
-import { count, db, eq, sql } from '@logbun/db';
+import { clickhouseClient } from '@logbun/clickhouse';
+import { count, db, desc, eq, sql } from '@logbun/db';
 import { integrations, projects, users } from '@logbun/db/schema';
 import { errorMessage } from '@logbun/utils';
 import crypto from 'crypto';
+import { EventResultResponse } from '../types';
+
+export const getEvents = async (apiKey: string) => {
+  const client = clickhouseClient();
+
+  const query = `SELECT
+    any(name) as name,
+    any(message) as message,
+    any(level) as level,
+    any(handled) as handled,
+    any(id) as id,
+    fingerprint,
+    COUNT(fingerprint) AS count,
+    MIN(timestamp) AS createdAt,
+    MAX(timestamp) AS updatedAt
+FROM
+    logbun.event
+WHERE
+    apiKey = '${apiKey}'
+GROUP BY
+    fingerprint
+ORDER BY updatedAt DESC`;
+
+  const response = await client.query({ query, format: 'JSONEachRow' });
+
+  const data = await response.json();
+
+  return data as EventResultResponse[];
+};
 
 export const countUserByEmail = async (email: string) => {
   try {
@@ -59,6 +89,23 @@ export const insertUser = async (name: string, email: string, password: string) 
   }
 };
 
+export const findProject = async (id: string) => {
+  try {
+    const query = db
+      .select()
+      .from(projects)
+      .where(eq(projects.id, sql.placeholder('id')))
+      .limit(1)
+      .prepare('find_project');
+
+    const [project] = await query.execute({ id });
+
+    return project;
+  } catch (error) {
+    throw new Error(`Error in finding project: ${errorMessage(error)}`);
+  }
+};
+
 export const findFirstProject = async (userId: string) => {
   try {
     const query = db
@@ -82,6 +129,8 @@ export const findProjects = async (userId: string) => {
       .select()
       .from(projects)
       .where(eq(projects.userId, sql.placeholder('userId')))
+      .limit(20)
+      .orderBy(desc(projects.updatedAt))
       .prepare('find_projects');
 
     const project = await query.execute({ userId });

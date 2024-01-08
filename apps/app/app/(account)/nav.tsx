@@ -11,8 +11,9 @@ import Gravatar from 'react-gravatar';
 import { toast } from 'sonner';
 
 const settings = [
-  { name: 'Settings', href: '/settings' },
-  { name: 'Billing', href: '/billing' },
+  { name: 'Projects', href: '/projects' },
+  // { name: 'Settings', href: '/settings' },
+  // { name: 'Billing', href: '/billing' },
 ];
 
 interface Props {
@@ -35,15 +36,15 @@ export default function Nav({ email }: Props) {
   };
 
   return (
-    <nav className="container-lg">
-      <div className="flex items-center justify-between h-24">
-        <Link className="flex" href="/">
+    <nav className="border-b">
+      <div className="flex items-center justify-between h-16 container-lg">
+        <Link className="flex" href="/projects">
           <Logo className="w-auto h-8" />
         </Link>
 
-        <Menu as="div" className="relative">
+        <Menu as="div" className="relative -mr-2">
           <Menu.Button className="relative flex items-center max-w-xs px-2 py-1.5 space-x-3 transition-colors rounded-md hover:bg-gray-100 focus:outline-none">
-            <span className="font-medium truncate">{email}</span>
+            <span className="truncate">{email}</span>
             <Gravatar className="rounded-full w-7 h-7" rating="pg" default="retro" email={email} />
           </Menu.Button>
           <Transition

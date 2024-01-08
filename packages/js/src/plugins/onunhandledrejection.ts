@@ -1,6 +1,6 @@
 import { Client, Utils } from '@logbun/core';
 
-export default function (win = window) {
+export default function (win = Utils.getGlobal()) {
   return {
     load(client: Client) {
       const prevOnUnhandledRejection = win.onunhandledrejection;

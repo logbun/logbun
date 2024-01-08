@@ -7,23 +7,22 @@ export const inputVariants = cva(
     'block',
     'border',
     'border-transparent',
-    'py-1.5',
-    'rounded-lg',
+    'py-2',
+    'rounded-md',
     'w-full',
     'ring-1',
-    'placeholder:text-gray-400/80',
     'focus:ring-2',
     'disabled:cursor-not-allowed',
     'disabled:bg-gray-50',
     'disabled:text-gray-500',
     'disabled:ring-gray-200',
     'sm:text-sm',
-    'sm:leading-6',
+    'ring-inset',
   ],
   {
     variants: {
       variant: {
-        default: ['focus:border-blue-500', 'ring-gray-200', 'focus:ring-blue-200', 'text-gray-900'],
+        default: ['focus:border-blue-500', 'ring-gray-300', 'focus:ring-blue-200', 'text-gray-900'],
       },
       iconPosition: {
         start: 'pl-10',

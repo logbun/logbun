@@ -2,6 +2,18 @@ import ErrorStackParser from 'error-stack-parser';
 import StackGenerator from 'stack-generator';
 import { Event } from './types';
 
+export function getGlobal() {
+  if (typeof globalThis !== 'undefined') {
+    return globalThis;
+  }
+
+  if (typeof self !== 'undefined') {
+    return self;
+  }
+
+  return window;
+}
+
 export function getErrorStacktrace(error: Error) {
   if (isStackError(error)) {
     return ErrorStackParser.parse(error);

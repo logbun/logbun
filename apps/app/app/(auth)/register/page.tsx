@@ -9,7 +9,7 @@ export const metadata = {
 export default async function RegisterPage() {
   return (
     <Panel>
-      <PanelHeader>{metadata.title}</PanelHeader>
+      <PanelHeader>Create an account</PanelHeader>
       <PanelContent>
         <RegisterForm />
         <PanelDescription>

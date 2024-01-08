@@ -1,7 +1,16 @@
+'use client';
+
+import SearchIcon from '@logbun/app/assets/illustrations/search.svg';
 import { EventResultResponse } from '@logbun/app/types';
+import Logbun from '@logbun/js';
+import { Button, buttonVariants } from '@logbun/ui';
 import { cn } from '@logbun/utils';
 import { formatDistance } from 'date-fns';
 import { ChevronRightIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 const emojis = {
   fatal: { icon: '💀', bg: 'bg-gray-100' },
@@ -17,68 +26,111 @@ interface Props {
 }
 
 export default function Events({ events }: Props) {
+  const pathname = usePathname();
+
+  const router = useRouter();
+
+  const sendSampleEvent = () => {
+    const instance = Logbun.init({
+      apiKey: 'YOUR_API_KEY',
+      endpoint: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/event' : undefined,
+    });
+
+    instance.notify('This is a test event', {
+      afterNotify: () => {
+        router.refresh();
+        toast.success('Sample event sent');
+      },
+    });
+  };
+
   return (
     <>
-      <div className="flex justify-between py-5 text-xs font-medium text-gray-500 uppercase">
-        <div className="flex-1 sm:flex-2">Error</div>
-        <div className="flex-1">Occurrences</div>
-        <div className="flex-1">Severity</div>
-        <div className="flex-1">Last Seen</div>
-      </div>
+      {events.length === 0 && (
+        <div className="flex flex-col items-center justify-center">
+          <Image src={SearchIcon} alt="files" className="w-32 h-32" />
+          <h6 className="flex items-center py-3 space-x-2">
+            <span className="relative flex w-3 h-3">
+              <span className="absolute inline-flex w-full h-full rounded-full opacity-75 bg-amber-200 animate-ping"></span>
+              <span className="relative inline-flex w-3 h-3 scale-75 rounded-full bg-amber-300"></span>
+            </span>
+            <span>Waiting for your first error event</span>
+          </h6>
+          <Link href={`${pathname}/settings/tracking`} className={buttonVariants({ className: 'my-2', size: 'large' })}>
+            📝 Installation instructions
+          </Link>
+          <Button onClick={sendSampleEvent} variant="default" size="large">
+            Create sample event
+          </Button>
+        </div>
+      )}
 
-      <ul role="list" className="space-y-6">
-        {events.map((event) => {
-          const option = event.level ? emojis[event.level] : emojis.info;
+      {events.length > 0 && (
+        <>
+          <div className="flex justify-between pb-5 text-xs font-medium text-gray-500 uppercase">
+            <div className="flex-1 sm:flex-2">Error</div>
+            <div className="flex-1">Occurrences</div>
+            <div className="flex-1">Severity</div>
+            <div className="flex-1">Last Seen</div>
+          </div>
 
-          return (
-            <li
-              key={event.fingerprint}
-              className="relative flex items-center justify-between flex-1 p-3.5 bg-white rounded-xl shadow-md shadow-gray-100 ring-1 ring-gray-200/50"
-            >
-              {/* Error */}
-              <div className="flex flex-1 gap-x-4 sm:flex-2">
-                <div
-                  className={cn(
-                    'flex items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50',
-                    option.bg
-                  )}
-                >
-                  {option.icon}
-                </div>
-                <div className="truncate">
-                  <p className="font-medium truncate">{event.message}</p>
-                  <p className="text-sm text-gray-500 truncate">{event.name}</p>
-                </div>
-              </div>
+          <ul role="list" className="space-y-6">
+            {events.map((event) => {
+              const option = event.level ? emojis[event.level] : emojis.info;
 
-              {/* Occurrences */}
-              <p className="flex-1 leading-6">{event.count}</p>
+              return (
+                <li key={event.fingerprint}>
+                  <Link
+                    href={`/${event.id}`}
+                    className="relative transition-all hover:bg-opacity-10 flex items-center justify-between flex-1 p-3.5 bg-white rounded-lg shadow-md shadow-gray-100 ring-1 ring-gray-200/50"
+                  >
+                    {/* Error */}
+                    <div className="flex flex-1 gap-x-4 sm:flex-2">
+                      <div
+                        className={cn(
+                          'flex items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50',
+                          option.bg
+                        )}
+                      >
+                        {option.icon}
+                      </div>
+                      <div className="truncate">
+                        <p className="font-medium truncate">{event.message}</p>
+                        <p className="text-sm text-gray-500 truncate">{event.name}</p>
+                      </div>
+                    </div>
 
-              {/* Severity */}
-              <div className="flex-1">
-                <div
-                  className={cn(
-                    'rounded-full py-1 px-2 inline-flex text-xs font-medium ring-1 ring-inset',
-                    event.handled
-                      ? 'text-gray-600 bg-gray-50 ring-gray-500/10'
-                      : 'text-red-700 bg-red-50 ring-red-600/10'
-                  )}
-                >
-                  {event.handled ? 'Handled' : 'Unhandled'}
-                </div>
-              </div>
+                    {/* Occurrences */}
+                    <p className="flex-1 leading-6">{event.count}</p>
 
-              {/* Last Seen*/}
-              <div className="flex items-center justify-between flex-1 gap-x-4">
-                <p className="leading-5 text-gray-500">
-                  {formatDistance(new Date(event.updatedAt), new Date(), { addSuffix: true })}
-                </p>
-                <ChevronRightIcon className="flex-none w-5 h-5 text-gray-400" aria-hidden="true" />
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+                    {/* Severity */}
+                    <div className="flex-1">
+                      <div
+                        className={cn(
+                          'rounded-full py-1 px-2 inline-flex text-xs font-medium ring-1 ring-inset',
+                          event.handled
+                            ? 'text-gray-600 bg-gray-50 ring-gray-500/10'
+                            : 'text-red-700 bg-red-50 ring-red-600/10'
+                        )}
+                      >
+                        {event.handled ? 'Handled' : 'Unhandled'}
+                      </div>
+                    </div>
+
+                    {/* Last Seen*/}
+                    <div className="flex items-center justify-between flex-1 gap-x-4">
+                      <p className="leading-5 text-gray-500">
+                        {formatDistance(new Date(event.updatedAt), new Date(), { addSuffix: true })}
+                      </p>
+                      <ChevronRightIcon className="flex-none w-5 h-5 text-gray-400" aria-hidden="true" />
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </>
   );
 }

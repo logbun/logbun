@@ -8,7 +8,7 @@ create table if not exists "integration"(
 --> statement-breakpoint
 create table if not exists "project"(
   "id" text primary key not null,
-  "token" text not null,
+  "api_key" text not null,
   "name" text not null,
   "platform" text not null,
   "userId" text not null,

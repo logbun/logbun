@@ -1,5 +1,5 @@
-import { EventResultResponse } from '@logbun/app/types';
-import { clickhouseClient } from '@logbun/clickhouse';
+import { findProject, getEvents } from '@logbun/app/actions/db';
+import { notFound } from 'next/navigation';
 import Events from './events';
 
 export const relative = true;
@@ -8,44 +8,23 @@ export const metadata = {
   title: 'Issues',
 };
 
-const client = clickhouseClient();
-
-async function getEvents(apiKey: string) {
-  const query = `SELECT
-    name,
-    message,
-    fingerprint,
-    level,
-    handled,
-    COUNT(fingerprint) AS count,
-    MIN(timestamp) AS createdAt,
-    MAX(timestamp) AS updatedAt
-FROM
-    logbun.event
-WHERE
-    apiKey = '${apiKey}'
-GROUP BY
-    fingerprint, name, message, level, handled
-ORDER BY updatedAt DESC`;
-
-  const response = await client.query({ query, format: 'JSONEachRow' });
-
-  const data = await response.json();
-
-  return data as EventResultResponse[];
+interface Props {
+  params: { id: string };
 }
 
-export default async function Page() {
-  const events = await getEvents('YOUR_API_KEY');
+export default async function Page({ params: { id } }: Props) {
+  const project = await findProject(id);
 
-  console.log(events);
+  if (!project) notFound();
+
+  const events = await getEvents(project.apiKey);
 
   return (
-    <div className="py-6 container-lg">
-      {/* <List events={events} /> */}
-      <Events events={events} />
+    <div className="pt-12 container-lg">
+      <h3>{project ? project.name : 'Project'}</h3>
+      <div className="py-8">
+        <Events events={events} />
+      </div>
     </div>
   );
 }
-
-// Error, Occurences, Last

@@ -1,3 +1,14 @@
+export interface Project {
+  id: string;
+  name: string;
+  userId: string;
+  apiKey: string;
+  platform: string;
+  integrationId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface EventResponse {
   id: string;
   name?: string;

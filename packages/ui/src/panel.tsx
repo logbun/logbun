@@ -1,3 +1,4 @@
+import { cn } from '@logbun/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './card';
 
 interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -6,10 +7,10 @@ export const Panel = ({ children, ...rest }: PanelProps) => {
   return <Card {...rest}>{children}</Card>;
 };
 
-export const PanelHeader = ({ children, ...rest }: PanelProps) => {
+export const PanelHeader = ({ children, className, ...rest }: PanelProps) => {
   return (
     <CardHeader className="pt-8">
-      <CardTitle {...rest} className="text-center">
+      <CardTitle {...rest} className={cn(className, 'text-center')}>
         {children}
       </CardTitle>
     </CardHeader>
@@ -24,9 +25,9 @@ export const PanelContent = ({ children, ...rest }: PanelProps) => {
   );
 };
 
-export const PanelDescription = ({ children, ...rest }: PanelProps) => {
+export const PanelDescription = ({ children, className, ...rest }: PanelProps) => {
   return (
-    <CardDescription {...rest} className="text-center">
+    <CardDescription {...rest} className={cn(className, 'text-center')}>
       {children}
     </CardDescription>
   );
