@@ -21,9 +21,9 @@ export default async function Page({ params: { id } }: Props) {
 
   return (
     <div className="pt-12 container-lg">
-      <h3>{project ? project.name : 'Project'}</h3>
+      <h3>{project.name}</h3>
       <div className="py-8">
-        <Events events={events} />
+        <Events project={project} events={events} />
       </div>
     </div>
   );

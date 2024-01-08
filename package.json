@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev --filter=app --filter=db",
+    "dev": "turbo dev --filter=app --filter=db --filter=api",
     "dev:sdk": "turbo dev --filter=core --filter=js --filter=node",
     "build:sdk": "turbo build --filter=core --filter=js --filter=node",
     "publish-packages": "turbo run build lint && changeset version && changeset publish",

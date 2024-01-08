@@ -16,6 +16,7 @@ export const getEvents = async (apiKey: string) => {
     any(level) as level,
     any(handled) as handled,
     any(id) as id,
+    any(timestamp) AS datetime,
     fingerprint,
     COUNT(fingerprint) AS count,
     MIN(timestamp) AS createdAt,
@@ -31,6 +32,8 @@ ORDER BY updatedAt DESC`;
   const response = await client.query({ query, format: 'JSONEachRow' });
 
   const data = await response.json();
+
+  console.log(data);
 
   return data as EventResultResponse[];
 };

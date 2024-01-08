@@ -1,11 +1,11 @@
 'use client';
 
 import SearchIcon from '@logbun/app/assets/illustrations/search.svg';
-import { EventResultResponse } from '@logbun/app/types';
+import { EventResultResponse, Project } from '@logbun/app/types';
 import Logbun from '@logbun/js';
 import { Button, buttonVariants } from '@logbun/ui';
 import { cn } from '@logbun/utils';
-import { formatDistance } from 'date-fns';
+import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import { ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,17 +22,18 @@ const emojis = {
 } as const;
 
 interface Props {
+  project: Project;
   events: EventResultResponse[];
 }
 
-export default function Events({ events }: Props) {
+export default function Events({ project, events }: Props) {
   const pathname = usePathname();
 
   const router = useRouter();
 
   const sendSampleEvent = () => {
     const instance = Logbun.init({
-      apiKey: 'YOUR_API_KEY',
+      apiKey: project.apiKey,
       endpoint: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/event' : undefined,
     });
 
@@ -78,6 +79,8 @@ export default function Events({ events }: Props) {
             {events.map((event) => {
               const option = event.level ? emojis[event.level] : emojis.info;
 
+              console.log(new Date(event.updatedAt));
+
               return (
                 <li key={event.fingerprint}>
                   <Link
@@ -120,7 +123,7 @@ export default function Events({ events }: Props) {
                     {/* Last Seen*/}
                     <div className="flex items-center justify-between flex-1 gap-x-4">
                       <p className="leading-5 text-gray-500">
-                        {formatDistance(new Date(event.updatedAt), new Date(), { addSuffix: true })}
+                        {formatDistanceToNow(fromUnixTime(event.updatedAt), { addSuffix: true })}
                       </p>
                       <ChevronRightIcon className="flex-none w-5 h-5 text-gray-400" aria-hidden="true" />
                     </div>

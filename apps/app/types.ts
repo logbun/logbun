@@ -15,7 +15,7 @@ export interface EventResponse {
   message?: string;
   timestamp?: string;
   level?: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
-  handled?: number;
+  handled?: boolean;
   metadata?: string;
   stacktrace?: string;
   stack?: string;
@@ -30,7 +30,6 @@ export interface EventResponse {
 
 export interface EventResultResponse extends EventResponse {
   count: number;
-  createdAt: string;
-  updatedAt: string;
-  aggregate: string[];
+  createdAt: number;
+  updatedAt: number;
 }
