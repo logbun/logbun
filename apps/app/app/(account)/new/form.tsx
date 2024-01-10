@@ -66,7 +66,7 @@ export default function ProjectForm() {
               button={
                 <Select.Button className="py-1.5 px-1.5">
                   <span className="flex items-center">
-                    <Image src={selected?.icon} alt="icon" className="flex-shrink-0 w-6 h-6 rounded" />
+                    <Image src={selected?.icon} alt="icon" height={26} width={26} className="flex-shrink-0 rounded" />
                     <span className="block ml-2 truncate">{selected?.name}</span>
                   </span>
                 </Select.Button>

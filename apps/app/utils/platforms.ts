@@ -5,7 +5,7 @@ import React from '@logbun/app/assets/platforms/react.svg';
 
 export const platforms = [
   { key: 'js', name: 'Browser Javascript', icon: Javascript },
-  { key: 'next', name: 'Next.JS', icon: Next },
+  { key: 'nextjs', name: 'Next.JS', icon: Next },
   { key: 'react', name: 'React', icon: React },
   { key: 'node', name: 'Node.JS', icon: Node },
 ];

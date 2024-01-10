@@ -1,4 +1,7 @@
 import { findProject } from '@logbun/app/actions/db';
+import { platforms } from '@logbun/app/utils';
+import { Card, CardDescription, CardHeader, CardTitle } from '@logbun/ui';
+import { find } from '@logbun/utils';
 import { notFound } from 'next/navigation';
 import Code from './code';
 import { libraries } from './libraries';
@@ -12,13 +15,19 @@ export default async function Tracking({ params: { id } }: Props) {
 
   if (!project) notFound();
 
-  const library = libraries[project.platform as keyof typeof libraries] || libraries.js;
+  const key = project.platform as keyof typeof libraries;
+
+  const steps = libraries[key] || libraries.js;
+
+  const platform = find(platforms, ['key', project.platform]);
 
   return (
-    <div className="py-8">
-      <h5>Configure {library.title}</h5>
-      <p className="pb-5 text-gray-500">Use these instructions to install Logbun on your app.</p>
-      <Code steps={library.steps} />
-    </div>
+    <Card className="shadow">
+      <CardHeader className="pb-0">
+        <CardTitle>Configure {platform?.name} SDK</CardTitle>
+        <CardDescription>Use these instructions to install Logbun on your {platform?.name} app.</CardDescription>
+      </CardHeader>
+      <Code project={project} steps={steps} />
+    </Card>
   );
 }

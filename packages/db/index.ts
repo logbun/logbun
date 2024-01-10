@@ -11,3 +11,5 @@ export const db = drizzle(sql, { schema });
 export { nanoid } from 'nanoid';
 
 export * from 'drizzle-orm';
+
+export * from './schema';

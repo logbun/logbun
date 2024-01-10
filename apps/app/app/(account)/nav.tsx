@@ -38,7 +38,7 @@ export default function Nav({ email }: Props) {
   return (
     <nav className="border-b">
       <div className="flex items-center justify-between h-16 container-lg">
-        <Link className="flex" href="/projects">
+        <Link className="flex outline-none focus:outline-none" href="/projects">
           <Logo className="w-auto h-8" />
         </Link>
 

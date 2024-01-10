@@ -7,6 +7,7 @@ export const svgVariants = cva(['animate-spin', 'w-4', 'h-4'], {
     variant: {
       primary: ['text-white'],
       secondary: ['text-gray-500'],
+      danger: ['text-red-500'],
       default: ['text-indigo-500'],
     },
   },

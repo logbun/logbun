@@ -50,18 +50,18 @@ export default function Events({ project, events }: Props) {
       {events.length === 0 && (
         <div className="flex flex-col items-center justify-center">
           <Image src={SearchIcon} alt="files" className="w-32 h-32" />
-          <h6 className="flex items-center py-3 space-x-2">
+          <h5 className="flex items-center py-3 space-x-2">
             <span className="relative flex w-3 h-3">
               <span className="absolute inline-flex w-full h-full rounded-full opacity-75 bg-amber-200 animate-ping"></span>
               <span className="relative inline-flex w-3 h-3 scale-75 rounded-full bg-amber-300"></span>
             </span>
             <span>Waiting for your first error event</span>
-          </h6>
-          <Link href={`${pathname}/settings/tracking`} className={buttonVariants({ className: 'my-2', size: 'large' })}>
+          </h5>
+          <Link href={`${pathname}/settings/tracking`} className={buttonVariants({ className: 'my-2' })}>
             📝 Installation instructions
           </Link>
-          <Button onClick={sendSampleEvent} variant="default" size="large">
-            Create sample event
+          <Button onClick={sendSampleEvent} variant="default">
+            🚨 Create sample event
           </Button>
         </div>
       )}
