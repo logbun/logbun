@@ -18,9 +18,8 @@ interface Props {
 export default function TrackingCode({ project, steps }: Props) {
   const normalize = (code: string) => code.replaceAll('API_KEY', project.apiKey);
 
-  const renderSnippet = ({ message, snippet }: LibraryContent) => (
+  const renderSnippet = ({ snippet }: LibraryContent) => (
     <div>
-      {/* {message && <p className="text-gray-500">{message}</p>} */}
       {snippet && (
         <div className="relative bg-gray-100 rounded">
           <button className="absolute top-0 right-0 p-2 text-gray-500">
