@@ -37,6 +37,10 @@ export default function Events({ project, events }: Props) {
       endpoint: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/event' : undefined,
     });
 
+    // undefinedFunction();
+    // router.refresh();
+    // toast.success('Sample event sent');
+
     instance.notify('This is a test event', {
       afterNotify: () => {
         router.refresh();
@@ -70,7 +74,7 @@ export default function Events({ project, events }: Props) {
         <>
           <div className="flex justify-between pb-5 text-xs font-medium text-gray-500 uppercase">
             <div className="flex-1 sm:flex-2">Error</div>
-            <div className="flex-1">Occurrences</div>
+            <div className="flex-1">Count</div>
             <div className="flex-1">Severity</div>
             <div className="flex-1">Last Seen</div>
           </div>
@@ -79,12 +83,10 @@ export default function Events({ project, events }: Props) {
             {events.map((event) => {
               const option = event.level ? emojis[event.level] : emojis.info;
 
-              console.log(new Date(event.updatedAt));
-
               return (
                 <li key={event.fingerprint}>
                   <Link
-                    href={`/${event.id}`}
+                    href={`/${project.id}/${event.fingerprint}`}
                     className="relative transition-all hover:bg-opacity-10 flex items-center justify-between flex-1 p-3.5 bg-white rounded-lg shadow-md shadow-gray-100 ring-1 ring-gray-200/50"
                   >
                     {/* Error */}
@@ -98,8 +100,8 @@ export default function Events({ project, events }: Props) {
                         {option.icon}
                       </div>
                       <div className="truncate">
-                        <p className="font-medium truncate">{event.message}</p>
-                        <p className="text-sm text-gray-500 truncate">{event.name}</p>
+                        <p className="font-medium truncate">{event.name}</p>
+                        <p className="text-sm text-gray-500 truncate">{event.message}</p>
                       </div>
                     </div>
 

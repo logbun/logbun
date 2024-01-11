@@ -11,21 +11,23 @@ export interface Project {
 
 export interface EventResponse {
   id: string;
-  name?: string;
-  message?: string;
-  timestamp?: string;
-  level?: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
-  handled?: boolean;
+  name: string;
+  message: string;
+  level: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
+  handled: boolean;
   metadata?: string;
-  stacktrace?: string;
-  stack?: string;
-  sdk?: string;
-  os?: string;
-  browser?: string;
-  device?: string;
+  stacktrace: string;
+  stack: string;
+  sdk: string;
+  os: string;
+  osVersion: string;
+  browser: string;
+  browserVersion: string;
+  device: string;
   fingerprint: string;
+  timestamp: number;
   apiKey: string;
-  sign?: number;
+  sign: number;
 }
 
 export interface EventResultResponse extends EventResponse {

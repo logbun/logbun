@@ -33,8 +33,6 @@ ORDER BY updatedAt DESC`;
 
   const data = await response.json();
 
-  console.log(data);
-
   return data as EventResultResponse[];
 };
 
@@ -144,6 +142,7 @@ export const findProjects = async (userId: string) => {
   }
 };
 
+// Depreciated
 export const insertProject = async (name: string, platform: string, userId: string) => {
   try {
     const [integration] = await db.insert(integrations).values({}).returning();

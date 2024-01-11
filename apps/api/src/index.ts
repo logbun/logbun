@@ -74,7 +74,7 @@ app.post('/event', async (c) => {
       timestamp,
       level,
       handled,
-      metadata,
+      metadata: JSON.stringify(metadata),
       stacktrace: JSON.stringify(stacktrace),
       stack,
       sdk: JSON.stringify(sdk),

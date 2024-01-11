@@ -46,7 +46,6 @@ export interface Event {
   name: string;
   message: string;
   stacktrace: StackFrame[];
-
   environment?: string;
   handled?: boolean;
   level?: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
