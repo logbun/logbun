@@ -56,7 +56,15 @@ export default function Header({ event }: Props) {
 
   const device = event.device as unknown as keyof typeof devices;
 
+  const options = {
+    browser: browsers[browser],
+    os: oss[os],
+    device: devices[device],
+  };
+
   const onResolve = () => {};
+
+  const Unknown = () => <div className="w-8 h-8 bg-gray-300 rounded-full" />;
 
   return (
     <>
@@ -65,8 +73,8 @@ export default function Header({ event }: Props) {
           <ChevronLeft size={18} />
           <span>All errors</span>
         </Link>
-        <div className="flex items-center text-sm text-gray-500 gap-x-1">
-          <Fingerprint size={12} />
+        <div className="flex items-center text-gray-500 gap-x-1">
+          <Fingerprint size={16} />
           <span>{event.fingerprint}</span>
         </div>
       </div>
@@ -107,10 +115,10 @@ export default function Header({ event }: Props) {
         </div>
         <div className="flex items-center gap-x-6">
           <div className="flex items-center gap-x-2">
-            {browsers[browser] ? (
-              <Image className="w-8 h-8 rounded-full" src={browsers[browser]} alt="Browser" />
+            {options.browser ? (
+              <Image className="w-8 h-8 rounded-full" src={options.browser} alt="Browser" />
             ) : (
-              <div className="w-8 h-8 bg-gray-300 rounded-full" />
+              <Unknown />
             )}
             <div>
               <div className="font-medium leading-none">{event.browser}</div>
@@ -118,23 +126,19 @@ export default function Header({ event }: Props) {
             </div>
           </div>
           <div className="flex items-center gap-x-2">
-            {oss[os] ? (
-              <Image className="w-8 h-8 rounded-full" src={oss[os]} alt="OS" />
-            ) : (
-              <div className="w-8 h-8 bg-gray-300 rounded-full" />
-            )}
+            {options.os ? <Image className="w-8 h-8 rounded-full" src={options.os} alt="OS" /> : <Unknown />}
             <div>
               <div className="font-medium leading-none">{event.os}</div>
               <div className="text-sm text-gray-500">Version: {event.osVersion}</div>
             </div>
           </div>
           <div className="flex items-center gap-x-2">
-            {devices[device] ? (
+            {options.device ? (
               <div className="flex items-center justify-center w-10 h-10 text-gray-500 bg-gray-200 rounded-full">
-                {devices[device]}
+                {options.device}
               </div>
             ) : (
-              <div className="w-8 h-8 bg-gray-300 rounded-full" />
+              <Unknown />
             )}
             <div className="font-medium leading-none capitalize">{event.device}</div>
           </div>

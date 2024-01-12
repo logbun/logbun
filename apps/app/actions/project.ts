@@ -93,6 +93,8 @@ export const getEventDetails = async (fingerprint: string) => {
     os,
     osVersion,
     device,
+    stacktrace,
+    stack,
     count(fingerprint) AS count,
     min(timestamp) AS createdAt,
     max(timestamp) AS updatedAt
@@ -100,7 +102,18 @@ export const getEventDetails = async (fingerprint: string) => {
   WHERE
     fingerprint = '${fingerprint}'
   GROUP BY
-    fingerprint, name, message, level, handled, browser, browserVersion, os, osVersion, device`;
+    fingerprint,
+    name,
+    message,
+    level,
+    handled,
+    browser,
+    browserVersion,
+    os,
+    osVersion,
+    device,
+    stack,
+    stacktrace`;
 
   const response = await client.query({ query, format: 'JSONEachRow' });
 

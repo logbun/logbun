@@ -26,7 +26,7 @@ export default async function Page({ params: { id, fingerprint } }: Props) {
   return (
     <div className="container-lg">
       <Header event={event} />
-      <div className="py-8">
+      <div className="py-12">
         <Details event={event} />
       </div>
     </div>

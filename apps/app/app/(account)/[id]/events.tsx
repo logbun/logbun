@@ -90,16 +90,16 @@ export default function Events({ project, events }: Props) {
                     className="relative transition-all hover:bg-opacity-10 flex items-center justify-between flex-1 p-3.5 bg-white rounded-lg shadow-md shadow-gray-100 ring-1 ring-gray-200/50"
                   >
                     {/* Error */}
-                    <div className="flex flex-1 gap-x-4 sm:flex-2">
+                    <div className="flex flex-1 min-w-0 gap-x-4 sm:flex-2">
                       <div
                         className={cn(
-                          'flex items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50',
+                          'flex flex-shrink-0 items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50',
                           option.bg
                         )}
                       >
                         {option.icon}
                       </div>
-                      <div className="truncate">
+                      <div className="overflow-hidden">
                         <p className="font-medium truncate">{event.name}</p>
                         <p className="text-sm text-gray-500 truncate">{event.message}</p>
                       </div>

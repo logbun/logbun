@@ -82,29 +82,32 @@ export function createEvent(error: unknown): Event {
 
   const stacktrace = getErrorStacktrace(exception);
 
+  const backtrace = stacktrace.splice(0, calculateStackShift(stacktrace));
+
+  console.log({ backtrace });
+
   return {
     name: exception.name,
     message: exception.message,
-    stacktrace,
+    stacktrace: backtrace,
   };
 }
 
-export function cleanStackFrames(stacks: ErrorStackParser.StackFrame[]) {
+export function calculateStackShift(stacks: ErrorStackParser.StackFrame[]) {
   const defaultShift = 3;
 
   let shift = 0;
 
-  const isLogBunFrame = (frame: ErrorStackParser.StackFrame) => {
-    if (!frame.fileName) return false;
-    return frame.fileName.indexOf('@logbun') > -1;
+  const isLogBunFrame = ({ fileName, functionName }: ErrorStackParser.StackFrame) => {
+    return fileName?.includes('logbun') || functionName?.includes('logbun');
   };
 
   stacks.forEach((frame, index, frames) => {
     if (isLogBunFrame(frame)) {
       shift += 1;
     } else if (!frame.fileName || frame.fileName === '<anonymous>') {
-      const nextFrame = frames[index + 1];
-      if (nextFrame && isLogBunFrame(nextFrame)) {
+      const next = frames[index + 1];
+      if (next && isLogBunFrame(next)) {
         shift += 1;
       } else {
         return; // Break when a non Logbun frame is encountered
@@ -112,5 +115,36 @@ export function cleanStackFrames(stacks: ErrorStackParser.StackFrame[]) {
     }
   });
 
+  console.log('shift', shift || defaultShift);
+
   return shift || defaultShift;
 }
+
+const calculateShift = (stacks: ErrorStackParser.StackFrame[]) => {
+  const isInternalCode = ({ fileName, functionName }: ErrorStackParser.StackFrame) => {
+    return fileName?.includes('logbun') || functionName?.includes('logbun');
+  };
+
+  let shift = 0;
+
+  for (let i = 0; i < stacks.length; i++) {
+    const frame = stacks[i];
+
+    if (frame && isInternalCode(frame)) {
+      shift += 1;
+      continue;
+    }
+
+    if (frame && (!frame.fileName || frame.fileName === '<anonymous>')) {
+      const next = stacks[i + 1];
+
+      if (next && isInternalCode(next)) {
+        shift += 1;
+        continue;
+      }
+    }
+
+    break;
+  }
+  return shift || 3;
+};
