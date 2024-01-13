@@ -1,0 +1,23 @@
+{
+  "name": "@logbun/core-plugins",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/logbun.js",
+  "module": "dist/logbun.mjs",
+  "typings": "dist/logbun.d.ts",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "rollup": "^4.9.1",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.0"
+  },
+  "dependencies": {
+    "fetch-retry": "^5.0.6",
+    "form-data": "^4.0.0",
+    "node-fetch": "^3.3.2"
+  }
+}
