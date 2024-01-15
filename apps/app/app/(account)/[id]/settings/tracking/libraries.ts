@@ -1,5 +1,10 @@
 import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
 
+type Options = {
+  apiKey?: string;
+  cdnUrl?: string;
+};
+
 export type LibraryContent = {
   title?: string;
   snippet?: SyntaxHighlighterProps;
@@ -11,7 +16,7 @@ export type LibraryConfig = {
   content?: LibraryContent | LibraryContent[];
 };
 
-const configLibrary = (platform: string, config: LibraryConfig[]) => {
+const configLibrary = (platform: string, config: LibraryConfig[] = []) => {
   return [
     {
       title: 'Install Logbun',
@@ -45,42 +50,42 @@ const configLibrary = (platform: string, config: LibraryConfig[]) => {
   ];
 };
 
-export const libraries = {
-  js: configLibrary('js', [
-    {
-      title: 'Configure the integration',
-      content: [
-        {
-          title: 'ECMAScript',
+export const generateLibraries = ({ apiKey, cdnUrl }: Options) => {
+  return {
+    js: configLibrary('js', [
+      {
+        title: 'Install Logbun',
+        message: 'Please under the head tag',
+        content: {
+          title: 'CDN',
           snippet: {
-            children: `import Logbun from "@logbun/js"
-const logbun = new Logbun({ apiKey: "API_KEY" })`,
+            children: `<script src="${cdnUrl}/logbun-cdn/latest/logbun.min.js"></script>`,
+            language: 'html',
+          },
+        },
+      },
+      {
+        title: 'Configure the integration',
+        content: {
+          snippet: {
+            children: `Logbun.init({ apiKey: '${apiKey}' });`,
             language: 'javascript',
           },
         },
-        {
-          title: 'CommonJS',
+      },
+    ]).slice(1),
+    react: configLibrary('react', [
+      {
+        title: 'Configure the integration in your root file.',
+        content: {
           snippet: {
-            children: `const Logbun = require("@logbun/js")
-const logbun = new Logbun({ apiKey: "API_KEY" })`,
-            language: 'javascript',
-          },
-        },
-      ],
-    },
-  ]),
-  react: configLibrary('react', [
-    {
-      title: 'Configure the integration in your root file.',
-      content: {
-        snippet: {
-          children: `import Logbun, { LogbunErrorBoundary } from '@logbun/react';
+            children: `import Logbun, { LogbunErrorBoundary } from '@logbun/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-Logbun.init({ apiKey: 'API_KEY' });
+Logbun.init({ apiKey: '${apiKey}' });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <LogbunErrorBoundary logbun={Logbun}>
@@ -90,75 +95,75 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </LogbunErrorBoundary>
 );
 `,
-          language: 'jsx',
+            language: 'jsx',
+          },
         },
       },
-    },
-  ]),
-  node: configLibrary('node', [
-    {
-      title: 'Configure the integration',
-      content: [
-        {
-          title: 'ECMAScript',
-          snippet: {
-            children: `import Logbun from "@logbun/node"
-const logbun = new Logbun({ apiKey: "API_KEY" })`,
-            language: 'javascript',
+    ]),
+    node: configLibrary('node', [
+      {
+        title: 'Configure the integration',
+        content: [
+          {
+            title: 'ECMAScript',
+            snippet: {
+              children: `import Logbun from "@logbun/node"
+const logbun = new Logbun({ apiKey: "${apiKey}" })`,
+              language: 'javascript',
+            },
           },
-        },
-        {
-          title: 'CommonJS',
-          snippet: {
-            children: `const Logbun = require("@logbun/node")
-const logbun = new Logbun({ apiKey: "API_KEY" })`,
-            language: 'javascript',
+          {
+            title: 'CommonJS',
+            snippet: {
+              children: `const Logbun = require("@logbun/node")
+const logbun = new Logbun({ apiKey: "${apiKey}" })`,
+              language: 'javascript',
+            },
           },
-        },
-      ],
-    },
-  ]),
-  nextjs: configLibrary('nextjs', [
-    {
-      title: 'Create Initialization Config Files',
-      message:
-        'Create logbun.client.config.js, logbun.server.config.js and logbun.edge.config.js in the root directory of your project and add your initialization code.',
-      content: [
-        {
-          title: 'logbun.client.config.js',
-          snippet: {
-            children: `//logbun.client.config.js
+        ],
+      },
+    ]),
+    nextjs: configLibrary('nextjs', [
+      {
+        title: 'Create Initialization Config Files',
+        message:
+          'Create logbun.client.config.js, logbun.server.config.js and logbun.edge.config.js in the root directory of your project and add your initialization code.',
+        content: [
+          {
+            title: 'logbun.client.config.js',
+            snippet: {
+              children: `//logbun.client.config.js
 import Logbun from "@logbun/nextjs"
-Logbun.init({ apiKey: "API_KEY" })`,
-            language: 'javascript',
+Logbun.init({ apiKey: "${apiKey}" })`,
+              language: 'javascript',
+            },
           },
-        },
-        {
-          title: 'logbun.server.config.js',
-          snippet: {
-            children: `//logbun.server.config.js
+          {
+            title: 'logbun.server.config.js',
+            snippet: {
+              children: `//logbun.server.config.js
 import Logbun from "@logbun/nextjs"
-Logbun.init({ apiKey: "API_KEY" })`,
-            language: 'javascript',
+Logbun.init({ apiKey: "${apiKey}" })`,
+              language: 'javascript',
+            },
           },
-        },
-        {
-          title: 'logbun.edge.config.js',
-          snippet: {
-            children: `//logbun.edge.config.js
+          {
+            title: 'logbun.edge.config.js',
+            snippet: {
+              children: `//logbun.edge.config.js
 import Logbun from "@logbun/nextjs"
-Logbun.init({ apiKey: "API_KEY" })`,
-            language: 'javascript',
+Logbun.init({ apiKey: "${apiKey}" })`,
+              language: 'javascript',
+            },
           },
-        },
-      ],
-    },
-    {
-      title: 'Extend your Next.js Configuration',
-      message: 'Use withLogbunConfig to extend the default Next.js usage of webpack.',
-      content: {
-        snippet: {
-          children: `/** @type {import('next').NextConfig} */
+        ],
+      },
+      {
+        title: 'Extend your Next.js Configuration',
+        message: 'Use withLogbunConfig to extend the default Next.js usage of webpack.',
+        content: {
+          snippet: {
+            children: `/** @type {import('next').NextConfig} */
 const moduleExports = {};
 
 const logbunConfig = {
@@ -169,18 +174,18 @@ const { withLogbunConfig } = require('@logbun/nextjs');
 
 module.exports = withLogbunConfig(moduleExports, logbunConfig);
 `,
-          language: 'javascript',
+            language: 'javascript',
+          },
         },
       },
-    },
-    {
-      title: 'Report React Component Render Errors',
-      message: 'To capture React render errors you need to add Error components to the root.',
-      content: [
-        {
-          title: 'global-error.tsx',
-          snippet: {
-            children: `"use client";
+      {
+        title: 'Report React Component Render Errors',
+        message: 'To capture React render errors you need to add Error components to the root.',
+        content: [
+          {
+            title: 'global-error.tsx',
+            snippet: {
+              children: `"use client";
 
 import Logbun from "@logbun/nextjs";
 import NextError from "next/error";
@@ -204,13 +209,13 @@ export default function GlobalError({
     </html>
   );
 }`,
-            language: 'typescript',
+              language: 'typescript',
+            },
           },
-        },
-        {
-          title: 'error.tsx',
-          snippet: {
-            children: `"use client";
+          {
+            title: 'error.tsx',
+            snippet: {
+              children: `"use client";
 
 import { useEffect } from "react";
 import Logbun from "@logbun/nextjs";
@@ -231,10 +236,11 @@ export default function ErrorPage({
     </div>
   );
 }`,
-            language: 'typescript',
+              language: 'typescript',
+            },
           },
-        },
-      ],
-    },
-  ]),
+        ],
+      },
+    ]),
+  };
 };

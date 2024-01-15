@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createProject } from '@logbun/app/actions/project';
+import { createProject } from '@logbun/app/actions';
 import { platforms } from '@logbun/app/utils';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
 import { Button, Select, TextInput, buttonVariants } from '@logbun/ui';

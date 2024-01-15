@@ -10,6 +10,6 @@ export const find = <T, P>(items: T[], method: [keyof T, P]) => {
   return items.find((item) => item[key] === search);
 };
 
-export const shortid = (number: number) => {
+export const shortid = (number = 18) => {
   return customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', number);
 };

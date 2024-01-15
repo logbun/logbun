@@ -1,11 +1,36 @@
 'use server';
 
 import { createClient } from '@logbun/clickhouse';
-import { db, eq, integrations, projects } from '@logbun/db';
+import { db, desc, eq, integrations, projects } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
 import { EventResultResponse } from '../types';
 import { getCurrentUser } from '../utils/auth';
 import { ProjectFormTypes, projectSchema } from '../utils/schema';
+
+export const findProjects = async (userId: string) => {
+  try {
+    const project = await db
+      .select()
+      .from(projects)
+      .where(eq(projects.userId, userId))
+      .limit(20)
+      .orderBy(desc(projects.updatedAt));
+
+    return project;
+  } catch (error) {
+    throw new Error(`Error in finding projects: ${errorMessage(error)}`);
+  }
+};
+
+export const findProject = async (id: string) => {
+  try {
+    const [project] = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
+
+    return project;
+  } catch (error) {
+    throw new Error(`Error in finding project: ${errorMessage(error)}`);
+  }
+};
 
 export async function createProject(data: ProjectFormTypes) {
   try {
@@ -50,25 +75,25 @@ export async function deleteProject({ id }: { id: string }) {
   }
 }
 
-export const getEvents = async (apiKey: string) => {
+export const getEvents = async (projectId: string) => {
   const client = createClient();
 
   const query = `SELECT
-    fingerprint,
+    key,
     any(name) as name,
     any(message) as message,
     any(level) as level,
     any(handled) as handled,
     any(id) as id,
-    count(fingerprint) AS count,
+    count(key) AS count,
     min(timestamp) AS createdAt,
     max(timestamp) AS updatedAt
   FROM
     logbun.event
   WHERE
-    apiKey = '${apiKey}'
+    projectId = '${projectId}'
   GROUP BY
-    fingerprint
+    key
   ORDER BY updatedAt DESC`;
 
   const response = await client.query({ query, format: 'JSONEachRow' });
@@ -78,13 +103,13 @@ export const getEvents = async (apiKey: string) => {
   return data as EventResultResponse[];
 };
 
-export const getEventDetails = async (fingerprint: string) => {
+export const getEventDetails = async (key: string) => {
   const client = createClient();
 
   const query = `SELECT
     any(id) as id,
     name,
-    fingerprint,
+    key,
     message,
     level,
     handled,
@@ -94,15 +119,14 @@ export const getEventDetails = async (fingerprint: string) => {
     osVersion,
     device,
     stacktrace,
-    stack,
-    count(fingerprint) AS count,
+    count(key) AS count,
     min(timestamp) AS createdAt,
     max(timestamp) AS updatedAt
   FROM logbun.event
   WHERE
-    fingerprint = '${fingerprint}'
+    key = '${key}'
   GROUP BY
-    fingerprint,
+    key,
     name,
     message,
     level,
@@ -112,7 +136,6 @@ export const getEventDetails = async (fingerprint: string) => {
     os,
     osVersion,
     device,
-    stack,
     stacktrace`;
 
   const response = await client.query({ query, format: 'JSONEachRow' });

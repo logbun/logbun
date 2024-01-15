@@ -1,7 +1,6 @@
 'use client';
 
 import { Tab } from '@headlessui/react';
-import { Project } from '@logbun/app/types';
 import { cn } from '@logbun/utils';
 import { Clipboard } from 'lucide-react';
 import CopyToClipboard from 'react-copy-to-clipboard';
@@ -11,13 +10,10 @@ import { toast } from 'sonner';
 import { LibraryConfig, LibraryContent } from './libraries';
 
 interface Props {
-  project: Project;
   steps: LibraryConfig[];
 }
 
-export default function TrackingCode({ project, steps }: Props) {
-  const normalize = (code: string) => code.replaceAll('API_KEY', project.apiKey);
-
+export default function TrackingCode({ steps }: Props) {
   const renderSnippet = ({ snippet }: LibraryContent) => (
     <div>
       {snippet && (
@@ -39,7 +35,7 @@ export default function TrackingCode({ project, steps }: Props) {
             customStyle={{ background: 'none', fontSize: '0.8rem' }}
             {...snippet}
           >
-            {Array.isArray(snippet.children) ? snippet.children.map(normalize) : normalize(snippet.children)}
+            {snippet.children}
           </SyntaxHighlighter>
         </div>
       )}

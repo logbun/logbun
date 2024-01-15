@@ -1,4 +1,4 @@
-import { createClient } from '.';
+import { createClient } from './index';
 
 async function main() {
   try {
@@ -6,7 +6,7 @@ async function main() {
 
     await client.exec({ query: 'CREATE DATABASE IF NOT EXISTS logbun' });
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'production') {
       await client.exec({ query: 'DROP TABLE IF EXISTS logbun.event' });
     }
 
@@ -20,8 +20,7 @@ async function main() {
               handled Boolean,
               resolved Boolean,
               metadata JSON,
-              stacktrace JSON,
-              stack String,
+              stacktrace Array(JSON),
               sdk JSON,
               os String,
               osVersion String,
@@ -29,7 +28,7 @@ async function main() {
               browserVersion String,
               device String,
               key String,
-              apiKey String,
+              projectId String,
               sign Int8
           ) ENGINE = CollapsingMergeTree(sign)
             ORDER BY (id, key, timestamp)`,

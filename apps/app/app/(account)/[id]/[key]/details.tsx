@@ -8,28 +8,28 @@ interface Props {
   event: EventResultResponse;
 }
 
-interface StackFrameOptions {
-  isConstructor?: boolean;
-  isEval?: boolean;
-  isNative?: boolean;
-  isToplevel?: boolean;
-  columnNumber?: number;
-  lineNumber?: number;
-  fileName?: string;
-  functionName?: string;
-  source?: string;
-  args?: any[];
-  evalOrigin?: StackFrameOptions;
-}
+// interface StackFrameOptions {
+//   isConstructor?: boolean;
+//   isEval?: boolean;
+//   isNative?: boolean;
+//   isToplevel?: boolean;
+//   columnNumber?: number;
+//   lineNumber?: number;
+//   fileName?: string;
+//   functionName?: string;
+//   source?: string;
+//   args?: any[];
+//   evalOrigin?: StackFrameOptions;
+// }
 
 export default function Details({ event }: Props) {
-  const stacks = JSON.parse(event.stacktrace) as StackFrameOptions[];
+  // const stacks = JSON.parse(event.stacktrace) as StackFrameOptions[];
 
   return (
     <>
       <h4>Stacktrace</h4>
       <dl className="space-y-3 divide-y">
-        {stacks.map((frame) => {
+        {event.stacktrace.map((frame) => {
           const title = `${frame.fileName} in ${frame.functionName} at line ${frame.lineNumber}`;
 
           return (

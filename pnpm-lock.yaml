@@ -42,6 +42,9 @@ importers:
       '@logbun/db':
         specifier: workspace:^
         version: link:../../packages/db
+      '@logbun/utils':
+        specifier: workspace:^
+        version: link:../../packages/utils
       hono:
         specifier: ^3.11.11
         version: 3.11.11

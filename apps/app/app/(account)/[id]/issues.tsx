@@ -23,10 +23,10 @@ const emojis = {
 
 interface Props {
   project: Project;
-  events: EventResultResponse[];
+  issues: EventResultResponse[];
 }
 
-export default function Events({ project, events }: Props) {
+export default function Events({ project, issues }: Props) {
   const pathname = usePathname();
 
   const router = useRouter();
@@ -51,7 +51,7 @@ export default function Events({ project, events }: Props) {
 
   return (
     <>
-      {events.length === 0 && (
+      {issues.length === 0 && (
         <div className="flex flex-col items-center justify-center">
           <Image src={SearchIcon} alt="files" className="w-32 h-32" />
           <h5 className="flex items-center py-3 space-x-2">
@@ -70,7 +70,7 @@ export default function Events({ project, events }: Props) {
         </div>
       )}
 
-      {events.length > 0 && (
+      {issues.length > 0 && (
         <>
           <div className="flex justify-between pb-5 text-xs font-medium text-gray-500 uppercase">
             <div className="flex-1 sm:flex-2">Error</div>
@@ -80,13 +80,13 @@ export default function Events({ project, events }: Props) {
           </div>
 
           <ul role="list" className="space-y-6">
-            {events.map((event) => {
+            {issues.map((event) => {
               const option = event.level ? emojis[event.level] : emojis.info;
 
               return (
-                <li key={event.fingerprint}>
+                <li key={event.key}>
                   <Link
-                    href={`/${project.id}/${event.fingerprint}`}
+                    href={`/${project.id}/${event.key}`}
                     className="relative transition-all hover:bg-opacity-10 flex items-center justify-between flex-1 p-3.5 bg-white rounded-lg shadow-md shadow-gray-100 ring-1 ring-gray-200/50"
                   >
                     {/* Error */}

@@ -84,8 +84,6 @@ export function createEvent(error: unknown): Event {
 
   const backtrace = stacktrace.splice(0, calculateStackShift(stacktrace));
 
-  console.log({ backtrace });
-
   return {
     name: exception.name,
     message: exception.message,
@@ -115,36 +113,34 @@ export function calculateStackShift(stacks: ErrorStackParser.StackFrame[]) {
     }
   });
 
-  console.log('shift', shift || defaultShift);
-
   return shift || defaultShift;
 }
 
-const calculateShift = (stacks: ErrorStackParser.StackFrame[]) => {
-  const isInternalCode = ({ fileName, functionName }: ErrorStackParser.StackFrame) => {
-    return fileName?.includes('logbun') || functionName?.includes('logbun');
-  };
+// const calculateShift = (stacks: ErrorStackParser.StackFrame[]) => {
+//   const isInternalCode = ({ fileName, functionName }: ErrorStackParser.StackFrame) => {
+//     return fileName?.includes('logbun') || functionName?.includes('logbun');
+//   };
 
-  let shift = 0;
+//   let shift = 0;
 
-  for (let i = 0; i < stacks.length; i++) {
-    const frame = stacks[i];
+//   for (let i = 0; i < stacks.length; i++) {
+//     const frame = stacks[i];
 
-    if (frame && isInternalCode(frame)) {
-      shift += 1;
-      continue;
-    }
+//     if (frame && isInternalCode(frame)) {
+//       shift += 1;
+//       continue;
+//     }
 
-    if (frame && (!frame.fileName || frame.fileName === '<anonymous>')) {
-      const next = stacks[i + 1];
+//     if (frame && (!frame.fileName || frame.fileName === '<anonymous>')) {
+//       const next = stacks[i + 1];
 
-      if (next && isInternalCode(next)) {
-        shift += 1;
-        continue;
-      }
-    }
+//       if (next && isInternalCode(next)) {
+//         shift += 1;
+//         continue;
+//       }
+//     }
 
-    break;
-  }
-  return shift || 3;
-};
+//     break;
+//   }
+//   return shift || 3;
+// };

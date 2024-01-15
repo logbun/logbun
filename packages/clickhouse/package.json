@@ -5,8 +5,8 @@
   "types": "./dist/index.d.ts",
   "private": "true",
   "scripts": {
-    "db:migrate": "pnpm with-env tsx setup.ts",
-    "build": "tsup",
+    "migrate": "pnpm with-env tsx setup.ts",
+    "build": "tsup index.ts",
     "with-env": "dotenv -e ../../.env --"
   },
   "keywords": [],

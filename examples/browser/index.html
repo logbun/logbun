@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Logbun Browser Example</title>
-    <script src="logbun.min.js"></script>
+    <script src="http://localhost:9000/logbun-cdn/latest/logbun.min.js"></script>
+
+    <!-- <script src="logbun.min.js"></script> -->
   </head>
   <body>
     <h1>Logbun Browser Example</h1>
@@ -13,6 +15,22 @@
       <button type="button" id="handled-error">Logbun.notify(error)</button>
       <button type="button" id="unhandled-error">throw new Error(error)</button>
     </div>
+    <!-- <script>
+      (function (l, o, g, b, u, n) {
+        l['LogBunObject'] = g;
+        l[g] =
+          l[g] ||
+          function () {
+            (l[g].q = l[g].q || []).push(arguments);
+          };
+        (u = o.createElement('script')), (n = o.getElementsByTagName('script')[0]);
+        u.id = g;
+        u.src = b;
+        u.async = 1;
+        n.parentNode.insertBefore(u, n);
+      })(window, document, 'lb', 'http://localhost:9000/latest/logbun.min.js');
+      lb('init', { apiKey: 'u8u6uq41kozwiu8kio62icn5pz2oyzc8' });
+    </script> -->
     <script src="app.js"></script>
   </body>
 </html>

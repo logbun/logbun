@@ -13,8 +13,8 @@ const files = process.argv.slice(2);
 const bucketName = process.env.AWS_BUCKET;
 const endpointUrl = process.env.AWS_ENDPOINT;
 
-const bunnyUrl = process.env.BUNNY_URL;
-const bunnyAccessKey = process.env.BUNNY_ACCESS_KEY;
+const bunnyUrl = process.env.NEXT_PUBLIC_CDN_URL;
+const bunnyAccessKey = process.env.CDN_ACCESS_KEY;
 
 const s3Client = new S3({
   endpoint: endpointUrl,
@@ -92,7 +92,7 @@ const run = async () => {
     await upload(localPath, uploadPath);
   }
 
-  await invalidate();
+  if (bunnyAccessKey) await invalidate();
 };
 
 run();

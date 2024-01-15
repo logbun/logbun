@@ -16,7 +16,18 @@ export interface EventResponse {
   level: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
   handled: boolean;
   metadata?: string;
-  stacktrace: string;
+  stacktrace: Array<{
+    isConstructor?: boolean;
+    isEval?: boolean;
+    isNative?: boolean;
+    isToplevel?: boolean;
+    columnNumber?: number;
+    lineNumber?: number;
+    fileName?: string;
+    functionName?: string;
+    source?: string;
+    args?: any[];
+  }>;
   stack: string;
   sdk: string;
   os: string;
@@ -24,9 +35,9 @@ export interface EventResponse {
   browser: string;
   browserVersion: string;
   device: string;
-  fingerprint: string;
+  key: string;
   timestamp: number;
-  apiKey: string;
+  projectId: string;
   sign: number;
 }
 

@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server';
 import { createClient } from '@logbun/clickhouse';
-import { nanoid } from '@logbun/db';
+import { db, eq, projects } from '@logbun/db';
+import { shortid } from '@logbun/utils';
 import crypto from 'crypto';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
@@ -56,28 +57,31 @@ app.post('/event', async (c) => {
 
     const stack = stacktrace.reduce((acc, cur) => acc + cur.source, '');
 
-    const key = `${name}${message}${stack}`;
+    const [project] = await db.select({ id: projects.id }).from(projects).where(eq(projects.apiKey, apiKey));
 
-    const fingerprint = crypto.createHash('md5').update(key).digest('hex');
+    if (!project) throw new Error('Project with API Key not found');
+
+    const hex = `${project.id}${name}${message}${stack}`;
+
+    const key = crypto.createHash('md5').update(hex).digest('hex');
 
     const values = {
-      id: nanoid(),
-      apiKey,
+      id: shortid(),
+      projectId: project.id,
       browser: browser.name,
       browserVersion: browser.version,
       os: os.name,
       osVersion: os.version,
       device: device.type || 'desktop',
-      fingerprint,
+      key,
       name,
       message,
       timestamp,
       level,
       handled,
-      metadata: JSON.stringify(metadata),
-      stacktrace: JSON.stringify(stacktrace),
-      stack,
-      sdk: JSON.stringify(sdk),
+      metadata,
+      stacktrace,
+      sdk,
       sign: 1,
     };
 

@@ -1,5 +1,4 @@
-import { getEventDetails } from '@logbun/app/actions';
-import { findProject } from '@logbun/app/actions/db';
+import { findProject, getEventDetails } from '@logbun/app/actions';
 import { notFound } from 'next/navigation';
 import Details from './details';
 import Header from './header';
@@ -9,15 +8,15 @@ export const metadata = {
 };
 
 interface Props {
-  params: { id: string; fingerprint: string };
+  params: { id: string; key: string };
 }
 
-export default async function Page({ params: { id, fingerprint } }: Props) {
+export default async function Page({ params: { id, key } }: Props) {
   const project = await findProject(id);
 
   if (!project) notFound();
 
-  const event = await getEventDetails(fingerprint);
+  const event = await getEventDetails(key);
 
   if (!event) notFound();
 

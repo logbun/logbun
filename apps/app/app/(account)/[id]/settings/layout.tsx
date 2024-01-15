@@ -1,4 +1,4 @@
-import { findProject } from '@logbun/app/actions/db';
+import { findProject } from '@logbun/app/actions';
 import { notFound } from 'next/navigation';
 import Side from './side';
 

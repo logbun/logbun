@@ -20,8 +20,8 @@ export default function Header() {
           key={tab.name}
           href={tab.href}
           className={cn(
-            path === tab.href ? 'bg-gray-100' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800',
-            'rounded px-3 py-2 font-medium w-full text-sm outline-none focus:outline-none transition-colors'
+            path === tab.href ? 'bg-gray-100' : 'text-gray-800 hover:bg-gray-100 hover:text-gray-900',
+            'rounded px-4 py-2 font-medium w-full text-sm outline-none focus:outline-none transition-colors'
           )}
         >
           {tab.name}

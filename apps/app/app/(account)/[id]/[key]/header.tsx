@@ -75,7 +75,7 @@ export default function Header({ event }: Props) {
         </Link>
         <div className="flex items-center text-gray-500 gap-x-1">
           <Fingerprint size={16} />
-          <span>{event.fingerprint}</span>
+          <span>{event.key}</span>
         </div>
       </div>
 

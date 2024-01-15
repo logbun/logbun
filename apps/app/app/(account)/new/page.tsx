@@ -1,4 +1,3 @@
-import { denyAccess, getCurrentUser } from '@logbun/app/utils/auth';
 import { Box } from '@logbun/ui';
 import ProjectForm from './form';
 
@@ -7,10 +6,6 @@ export const metadata = {
 };
 
 export default async function ProjectPage() {
-  const user = await getCurrentUser();
-
-  if (!user) denyAccess();
-
   return (
     <div className="pt-12 container-lg">
       <div className="w-full max-w-lg px-4 py-8 mx-auto">

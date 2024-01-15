@@ -1,10 +1,10 @@
-import { findProject } from '@logbun/app/actions/db';
+import { findProject } from '@logbun/app/actions';
 import { platforms } from '@logbun/app/utils';
 import { Card, CardDescription, CardHeader, CardTitle } from '@logbun/ui';
 import { find } from '@logbun/utils';
 import { notFound } from 'next/navigation';
 import Code from './code';
-import { libraries } from './libraries';
+import { generateLibraries } from './libraries';
 
 interface Props {
   params: { id: string };
@@ -14,6 +14,11 @@ export default async function Tracking({ params: { id } }: Props) {
   const project = await findProject(id);
 
   if (!project) notFound();
+
+  const libraries = generateLibraries({
+    apiKey: project.apiKey,
+    cdnUrl: process.env.NEXT_PUBLIC_CDN_URL,
+  });
 
   const key = project.platform as keyof typeof libraries;
 
@@ -27,7 +32,7 @@ export default async function Tracking({ params: { id } }: Props) {
         <CardTitle>Configure {platform?.name} SDK</CardTitle>
         <CardDescription>Use these instructions to install Logbun on your {platform?.name} app.</CardDescription>
       </CardHeader>
-      <Code project={project} steps={steps} />
+      <Code steps={steps} />
     </Card>
   );
 }

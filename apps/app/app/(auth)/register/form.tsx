@@ -26,18 +26,13 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<RegisterFormTypes> = async ({ name, email, password }) => {
     startTransition(async () => {
       try {
-        const { success, message } = await createUser(
-          {
-            name,
-            email,
-            password,
-          },
-          { origin: window.location.origin }
-        );
+        const { success, message } = await createUser({
+          name,
+          email,
+          password,
+        });
 
         if (!success) throw new Error(message);
-
-        toast.success('Registered!');
 
         router.push(`/confirm/?email=${email}`);
       } catch (error) {
