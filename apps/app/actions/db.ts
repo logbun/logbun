@@ -1,10 +1,9 @@
 'use server';
 
 import { createClient } from '@logbun/clickhouse';
-import { count, db, desc, eq, sql } from '@logbun/db';
-import { integrations, projects, users } from '@logbun/db/schema';
+import { db, desc, eq, sql } from '@logbun/db';
+import { integrations, projects } from '@logbun/db/schema';
 import { errorMessage } from '@logbun/utils';
-import crypto from 'crypto';
 import { EventResultResponse } from '../types';
 
 export const getEvents = async (apiKey: string) => {
@@ -36,59 +35,59 @@ ORDER BY updatedAt DESC`;
   return data as EventResultResponse[];
 };
 
-export const countUserByEmail = async (email: string) => {
-  try {
-    const query = db
-      .select({ value: count(users.email) })
-      .from(users)
-      .where(eq(users.email, sql.placeholder('email')))
-      .prepare('count_user');
+// export const countUserByEmail = async (email: string) => {
+//   try {
+//     const query = db
+//       .select({ value: count(users.email) })
+//       .from(users)
+//       .where(eq(users.email, sql.placeholder('email')))
+//       .prepare('count_user');
 
-    const [user] = await query.execute({ email });
+//     const [user] = await query.execute({ email });
 
-    return user ? user.value : 0;
-  } catch (error) {
-    throw new Error(`Error in counting users: ${errorMessage(error)}`);
-  }
-};
+//     return user ? user.value : 0;
+//   } catch (error) {
+//     throw new Error(`Error in counting users: ${errorMessage(error)}`);
+//   }
+// };
 
-export const findUser = async (email: string) => {
-  try {
-    const query = db
-      .select()
-      .from(users)
-      .where(eq(users.email, sql.placeholder('email')))
-      .prepare('find_user');
+// export const findUser = async (email: string) => {
+//   try {
+//     const query = db
+//       .select()
+//       .from(users)
+//       .where(eq(users.email, sql.placeholder('email')))
+//       .prepare('find_user');
 
-    const [user] = await query.execute({ email });
+//     const [user] = await query.execute({ email });
 
-    return user;
-  } catch (error) {
-    throw new Error(`Error in finding user: ${errorMessage(error)}`);
-  }
-};
+//     return user;
+//   } catch (error) {
+//     throw new Error(`Error in finding user: ${errorMessage(error)}`);
+//   }
+// };
 
-export const insertUser = async (name: string, email: string, password: string) => {
-  try {
-    const query = db
-      .insert(users)
-      .values({
-        id: sql.placeholder('id'),
-        name: sql.placeholder('name'),
-        email: sql.placeholder('email'),
-        password: sql.placeholder('password'),
-      })
-      .prepare('insert_user');
+// export const insertUser = async (name: string, email: string, password: string) => {
+//   try {
+//     const query = db
+//       .insert(users)
+//       .values({
+//         id: sql.placeholder('id'),
+//         name: sql.placeholder('name'),
+//         email: sql.placeholder('email'),
+//         password: sql.placeholder('password'),
+//       })
+//       .prepare('insert_user');
 
-    const id = crypto.randomUUID();
+//     const id = crypto.randomUUID();
 
-    await query.execute({ id, name, email, password });
+//     await query.execute({ id, name, email, password });
 
-    return id;
-  } catch (error) {
-    throw new Error(`Error in inserting user: ${errorMessage(error)}`);
-  }
-};
+//     return id;
+//   } catch (error) {
+//     throw new Error(`Error in inserting user: ${errorMessage(error)}`);
+//   }
+// };
 
 export const findProject = async (id: string) => {
   try {

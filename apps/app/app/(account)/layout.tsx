@@ -1,4 +1,4 @@
-import { denyAccess, getCurrentUser } from '@logbun/app/utils/auth';
+import { denyAccess, getSession } from '@logbun/app/utils/auth';
 import React from 'react';
 import Nav from './nav';
 
@@ -7,13 +7,13 @@ interface Props {
 }
 
 export default async function Layout({ children }: Props) {
-  const user = await getCurrentUser();
+  const session = await getSession();
 
-  if (!user) return denyAccess();
+  if (!session || !session.user) return denyAccess();
 
   return (
     <>
-      <Nav email={user.email!} />
+      <Nav email={session.user.email!} />
       {children}
     </>
   );

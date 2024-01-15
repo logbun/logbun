@@ -5,12 +5,15 @@ import { LoginFormTypes, loginSchema } from '@logbun/app/utils/schema';
 import { Button, EmailInput, PasswordInput } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export default function LogInForm() {
   const router = useRouter();
+
+  const params = useSearchParams();
 
   const {
     handleSubmit,
@@ -19,6 +22,12 @@ export default function LogInForm() {
   } = useForm<LoginFormTypes>({
     resolver: zodResolver(loginSchema),
   });
+
+  useEffect(() => {
+    if (params.get('verified')) {
+      toast.success('Email verified', { duration: 5000, position: 'top-right' });
+    }
+  }, []);
 
   const onSubmit: SubmitHandler<LoginFormTypes> = async ({ email, password }) => {
     try {

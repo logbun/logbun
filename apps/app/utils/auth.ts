@@ -5,7 +5,7 @@ import { DefaultSession, getServerSession, type NextAuthOptions } from 'next-aut
 import { Adapter } from 'next-auth/adapters';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { redirect } from 'next/navigation';
-import { findUser } from '../actions/db';
+import { findUser } from '../actions';
 import { loginSchema } from './schema';
 
 declare module 'next-auth' {
@@ -39,6 +39,8 @@ export const authOptions: NextAuthOptions = {
         const user = await findUser(email);
 
         if (!user) throw new Error("User don't exists");
+
+        if (!user.emailVerified) throw new Error('User email not verified.');
 
         const verifyPassword = await compare(password, user.password);
 
