@@ -4,8 +4,6 @@ import { notFound } from 'next/navigation';
 import Details from './details';
 import Header from './header';
 
-export const relative = true;
-
 export const metadata = {
   title: 'Issues details',
 };

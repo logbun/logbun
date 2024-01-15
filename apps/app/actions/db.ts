@@ -1,6 +1,6 @@
 'use server';
 
-import { clickhouseClient } from '@logbun/clickhouse';
+import { createClient } from '@logbun/clickhouse';
 import { count, db, desc, eq, sql } from '@logbun/db';
 import { integrations, projects, users } from '@logbun/db/schema';
 import { errorMessage } from '@logbun/utils';
@@ -8,7 +8,7 @@ import crypto from 'crypto';
 import { EventResultResponse } from '../types';
 
 export const getEvents = async (apiKey: string) => {
-  const client = clickhouseClient();
+  const client = createClient();
 
   const query = `SELECT
     any(name) as name,

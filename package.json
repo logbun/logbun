@@ -4,12 +4,11 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev --filter=app --filter=db --filter=api",
-    "dev:sdk": "turbo dev --filter=core --filter=js --filter=node",
-    "build:sdk": "turbo build --filter=core --filter=js --filter=node",
-    "publish-packages": "turbo run build lint && changeset version && changeset publish",
+    "dev:packages": "turbo dev --filter=core --filter=js --filter=node",
+    "build:packages": "turbo build --filter=core --filter=js --filter=node",
+    "publish:packages": "turbo run build lint && changeset version && changeset publish",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "clickhouse:migrate": "turbo migrate --filter=clickhouse"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "packageManager": "pnpm@8.13.0",
   "dependencies": {

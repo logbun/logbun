@@ -3,17 +3,6 @@
 import { Disclosure } from '@headlessui/react';
 import { EventResultResponse } from '@logbun/app/types';
 import { Minus, Plus } from 'lucide-react';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { prism as lightTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
-
-const normalize = (linesStr?: string | null): string[] => {
-  const arr = (linesStr ?? '')?.split('\n');
-  const last = arr.pop();
-  if (last !== undefined && last !== '') {
-    arr.push(last);
-  }
-  return arr;
-};
 
 interface Props {
   event: EventResultResponse;
@@ -65,29 +54,5 @@ export default function Details({ event }: Props) {
         })}
       </dl>
     </>
-  );
-
-  return (
-    <>
-      <h4>Stacktrace</h4>
-      <ul>
-        {stacks.map((frame) => {
-          console.log(frame);
-
-          const title = `${frame.fileName} in ${frame.functionName} at line ${frame.lineNumber}`;
-          return (
-            <li>
-              <div>{title}</div>
-            </li>
-          );
-        })}
-      </ul>
-    </>
-  );
-
-  return (
-    <SyntaxHighlighter wrapLines showLineNumbers style={lightTheme} language="javascript">
-      {normalize(event.stack).join('\n')}
-    </SyntaxHighlighter>
   );
 }

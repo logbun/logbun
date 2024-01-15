@@ -1,6 +1,7 @@
 import '@logbun/tailwind-config/tailwind.css';
-import { cn, siteConfig } from '@logbun/utils';
+import { cn } from '@logbun/utils';
 import type { Metadata } from 'next';
+import siteConfig from '../../../app.json';
 import Root from './root';
 
 const title = `${siteConfig.name} | ${siteConfig.tagline}`;

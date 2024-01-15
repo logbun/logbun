@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm with-env tsx watch src/index.ts",
+    "dev": "pnpm with-env ts-node src/index.ts",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
@@ -18,6 +18,6 @@
     "@types/node": "^20.10.5",
     "@types/ua-parser-js": "^0.7.39",
     "dotenv-cli": "^7.3.0",
-    "tsx": "^3.12.2"
+    "ts-node": "^10.9.2"
   }
 }

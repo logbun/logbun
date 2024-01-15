@@ -1,6 +1,6 @@
 'use server';
 
-import { clickhouseClient } from '@logbun/clickhouse';
+import { createClient } from '@logbun/clickhouse';
 import { db, eq, integrations, projects } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
 import { EventResultResponse } from '../types';
@@ -51,7 +51,7 @@ export async function deleteProject({ id }: { id: string }) {
 }
 
 export const getEvents = async (apiKey: string) => {
-  const client = clickhouseClient();
+  const client = createClient();
 
   const query = `SELECT
     fingerprint,
@@ -79,7 +79,7 @@ export const getEvents = async (apiKey: string) => {
 };
 
 export const getEventDetails = async (fingerprint: string) => {
-  const client = clickhouseClient();
+  const client = createClient();
 
   const query = `SELECT
     any(id) as id,
