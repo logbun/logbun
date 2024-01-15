@@ -6,7 +6,8 @@
   "module": "dist/logbun.mjs",
   "typings": "dist/logbun.d.ts",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "test-upload": "node -e 'import(\"./dist/logbun.mjs\").then(m => m.uploadSourcemaps( [ { sourcemapFilename: 'logbun.js.map', sourcemapFilePath: 'dist/logbun.js.map' }, { jsFilename: 'logbun.js', jsFilePath: 'dist/logbun.js' }, ], { apiKey: '123' } ) )'"
   },
   "license": "ISC",
   "devDependencies": {

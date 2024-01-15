@@ -1,44 +1,46 @@
-import { ClickHouseClient } from '@clickhouse/client';
-import { clickhouseClient } from '.';
-
-export const setupClickhouseDb = async (client: ClickHouseClient) => {
-  await client.exec({
-    query: 'CREATE DATABASE IF NOT EXISTS logbun',
-  });
-
-  await client.exec({
-    query: 'DROP TABLE IF EXISTS logbun.event',
-  });
-
-  await client.exec({
-    query: `CREATE TABLE IF NOT EXISTS logbun.event (
-            id String,
-            name String,
-            message String,
-            timestamp UInt64,
-            level String,
-            handled Boolean,
-            metadata String,
-            stacktrace String,
-            stack String,
-            sdk String,
-            os String,
-            osVersion String,
-            browser String,
-            browserVersion String,
-            device String,
-            fingerprint String,
-            apiKey String,
-            sign Int8
-        ) ENGINE = CollapsingMergeTree(sign)
-        ORDER BY (id, fingerprint, timestamp)`,
-  });
-};
+import { createClient } from '.';
 
 async function main() {
-  const client = clickhouseClient();
+  try {
+    const client = createClient();
 
-  await setupClickhouseDb(client);
+    await client.exec({ query: 'CREATE DATABASE IF NOT EXISTS logbun' });
+
+    if (process.env.NODE_ENV === 'development') {
+      await client.exec({ query: 'DROP TABLE IF EXISTS logbun.event' });
+    }
+
+    await client.exec({
+      query: `CREATE TABLE IF NOT EXISTS logbun.event (
+              id String,
+              name String,
+              message String,
+              timestamp UInt64,
+              level String,
+              handled Boolean,
+              resolved Boolean,
+              metadata JSON,
+              stacktrace JSON,
+              stack String,
+              sdk JSON,
+              os String,
+              osVersion String,
+              browser String,
+              browserVersion String,
+              device String,
+              key String,
+              apiKey String,
+              sign Int8
+          ) ENGINE = CollapsingMergeTree(sign)
+            ORDER BY (id, key, timestamp)`,
+    });
+
+    console.log('✅ Table created successfully');
+  } catch (error) {
+    console.error('🚨 Error during setup:', error);
+  } finally {
+    process.exit();
+  }
 }
 
 main();

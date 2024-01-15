@@ -1,5 +1,5 @@
 import { serve } from '@hono/node-server';
-import { clickhouseClient } from '@logbun/clickhouse';
+import { createClient } from '@logbun/clickhouse';
 import { nanoid } from '@logbun/db';
 import crypto from 'crypto';
 import { Hono } from 'hono';
@@ -8,7 +8,7 @@ import { logger } from 'hono/logger';
 import { UAParser } from 'ua-parser-js';
 import { z } from 'zod';
 
-const client = clickhouseClient();
+const client = createClient();
 
 export const eventSchema = z.object({
   name: z.string(),
@@ -87,6 +87,12 @@ app.post('/event', async (c) => {
   } else {
     return c.json({ message: 'Invalid request body' }, 400);
   }
+});
+
+app.post('/sourcemaps', async (c) => {
+  const body = await c.req.parseBody();
+
+  console.log(body['file']);
 });
 
 const port = 8000;

@@ -8,6 +8,8 @@ import { Options, Sourcemap } from './types';
 const fetch = fetchRetry(nodeFetch as unknown as typeof fetch);
 
 export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) => {
+  console.log('Starting upload...');
+
   const { apiKey, endpoint = process.env.LOGBUN_API_ENDPOINT } = opts;
 
   assert(typeof apiKey === 'string' || apiKey === undefined, "'apiKey' must be a string or undefined");
@@ -48,3 +50,15 @@ export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) =
     }
   }
 };
+
+uploadSourcemaps(
+  [
+    {
+      sourcemapFilename: 'logbun.js.map',
+      sourcemapFilePath: 'dist/logbun.js.map',
+      jsFilename: 'logbun.js',
+      jsFilePath: 'dist/logbun.js',
+    },
+  ],
+  { apiKey: '123' }
+);

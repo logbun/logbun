@@ -1,11 +1,10 @@
 {
   "name": "@logbun/clickhouse",
   "version": "1.0.0",
-  "description": "",
   "main": "./index.ts",
   "private": "true",
   "scripts": {
-    "db:migrate": "pnpm with-env tsx setup.ts",
+    "db:migrate": "pnpm with-env ts-node setup.ts",
     "with-env": "dotenv -e ../../.env --"
   },
   "keywords": [],
@@ -13,10 +12,10 @@
   "license": "ISC",
   "devDependencies": {
     "dotenv-cli": "^7.3.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@clickhouse/client": "^0.2.7",
-    "tsx": "^4.7.0"
+    "@clickhouse/client": "^0.2.7"
   }
 }
