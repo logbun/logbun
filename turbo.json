@@ -1,5 +1,6 @@
 {
-  "globalEnv": ["DATABASE_URL", "NODE_ENV"],
+  "globalEnv": ["NODE_ENV"],
+  "globalDotEnv": [".env"],
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
