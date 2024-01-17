@@ -1,11 +1,11 @@
 'use server';
 
-import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { count, db, eq, users } from '@logbun/db';
 import { ONE_HOUR, errorMessage } from '@logbun/utils';
 import { genSalt, hash } from 'bcryptjs';
 import crypto from 'crypto';
-import { Adapter } from 'next-auth/adapters';
+import { AdapterUser } from 'next-auth/adapters';
+import { client } from '../utils/auth';
 import { isDisposableEmail, sendEmail } from '../utils/email';
 import { RegisterFormTypes, registerSchema } from '../utils/schema';
 
@@ -23,34 +23,33 @@ export const countUserByEmail = async (email: string) => {
   }
 };
 
-export const insertUser = async (name: string, email: string, password: string) => {
-  try {
-    const [user] = await db.insert(users).values({ id: crypto.randomUUID(), name, email, password }).returning();
+// export const insertUser = async (name: string, email: string, password: string) => {
+//   try {
+//     const [user] = await db.insert(users).values({ id: crypto.randomUUID(), name, email, password }).returning();
 
-    if (!user) throw new Error('Unable to create user');
+//     if (!user) throw new Error('Unable to create user');
 
-    return user.id;
-  } catch (error) {
-    throw new Error(`Error in inserting user: ${errorMessage(error)}`);
-  }
+//     return user.id;
+//   } catch (error) {
+//     throw new Error(`Error in inserting user: ${errorMessage(error)}`);
+//   }
+// };
+
+export const findUser = async (id: string) => {
+  return client.getUser(id);
 };
 
-export const findUser = async (email: string) => {
-  try {
-    const [user] = await db.select().from(users).where(eq(users.email, email));
+export const findUserByEmail = async (email: string) => {
+  return client.getUserByEmail(email);
+};
 
-    if (!user) throw new Error('Unable to find user');
-
-    return user;
-  } catch (error) {
-    throw new Error(`Error in finding user: ${errorMessage(error)}`);
-  }
+export const updateUser = async (data: Partial<AdapterUser> & Pick<AdapterUser, 'id'>) => {
+  return client.updateUser(data);
 };
 
 export async function verifyToken(email: string, token: string) {
   try {
-    const client = DrizzleAdapter(db) as Required<Adapter>;
-
+    // Return verification token from the database and delete it so it cannot be used again.
     const invite = await client.useVerificationToken({ identifier: email, token });
 
     const expired = invite ? invite.expires.valueOf() < Date.now() : undefined;
@@ -65,7 +64,7 @@ export async function verifyToken(email: string, token: string) {
       throw new Error('Verification expired. We just sent another one. Please check email');
     }
 
-    await client.updateUser({ id: user.id, emailVerified: new Date() });
+    await updateUser({ id: user.id, emailVerified: new Date() });
 
     return { success: true, message: 'Token verified' };
   } catch (error) {
@@ -74,8 +73,6 @@ export async function verifyToken(email: string, token: string) {
 }
 
 export async function createVerifyToken(email: string) {
-  const client = DrizzleAdapter(db) as Required<Adapter>;
-
   const token = crypto.randomBytes(20).toString('hex');
 
   const expires = new Date(Date.now() + ONE_HOUR);
@@ -111,13 +108,9 @@ export async function createUser(body: RegisterFormTypes) {
 
     const securePassword = await hash(password, salt);
 
-    const userId = await insertUser(name, email, securePassword);
+    const user = await client.createUser({ name, email, password: securePassword } as unknown as any);
 
-    const client = DrizzleAdapter(db);
-
-    if (!client.linkAccount) throw new Error('Invalid client');
-
-    await client.linkAccount({ userId, providerAccountId: userId, type: 'email', provider: 'credentials' });
+    await client.linkAccount({ userId: user.id, providerAccountId: user.id, type: 'email', provider: 'credentials' });
 
     await createVerifyToken(email);
 

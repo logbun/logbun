@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 
 const settings = [
   { name: 'Projects', href: '/projects' },
-  // { name: 'Settings', href: '/settings' },
+  { name: 'Profile', href: '/settings/profile' },
   // { name: 'Billing', href: '/billing' },
 ];
 

@@ -1,8 +1,9 @@
 'use server';
 
-import { createClient } from '@logbun/clickhouse';
+import { build, events, fetch, update } from '@logbun/clickhouse/queries';
 import { db, desc, eq, integrations, projects } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
+import { revalidatePath } from 'next/cache';
 import { EventResultResponse } from '../types';
 import { getCurrentUser } from '../utils/auth';
 import { ProjectFormTypes, projectSchema } from '../utils/schema';
@@ -75,74 +76,65 @@ export async function deleteProject({ id }: { id: string }) {
   }
 }
 
-export const getEvents = async (projectId: string) => {
-  const client = createClient();
+export const getEvents = async (projectId: string, { resolved }: { resolved: string | undefined }) => {
+  const select = [...events, 'resolved'];
 
-  const query = `SELECT
-    key,
-    any(name) as name,
-    any(message) as message,
-    any(level) as level,
-    any(handled) as handled,
-    any(id) as id,
-    count(key) AS count,
-    min(timestamp) AS createdAt,
-    max(timestamp) AS updatedAt
-  FROM
-    logbun.event
-  WHERE
-    projectId = '${projectId}'
-  GROUP BY
-    key
-  ORDER BY updatedAt DESC`;
+  const where = [`projectId = '${projectId}'`];
 
-  const response = await client.query({ query, format: 'JSONEachRow' });
+  if (resolved !== undefined) {
+    where.push(`resolved = ${resolved}`);
+  }
 
-  const data = await response.json();
+  try {
+    const query = build({
+      select,
+      where: where.join(' and '),
+      groupBy: 'key, resolved',
+      orderBy: 'updatedAt desc',
+    });
 
-  return data as EventResultResponse[];
+    const data = await fetch<EventResultResponse[]>(query);
+
+    return { success: true, message: 'Events fetched', data };
+  } catch (error) {
+    return { success: false, message: errorMessage(error), data: undefined };
+  }
 };
 
 export const getEventDetails = async (key: string) => {
-  const client = createClient();
+  try {
+    const select = [...events, 'any(projectId) as projectId', 'resolved'];
 
-  const query = `SELECT
-    any(id) as id,
-    name,
-    key,
-    message,
-    level,
-    handled,
-    browser,
-    browserVersion,
-    os,
-    osVersion,
-    device,
-    stacktrace,
-    count(key) AS count,
-    min(timestamp) AS createdAt,
-    max(timestamp) AS updatedAt
-  FROM logbun.event
-  WHERE
-    key = '${key}'
-  GROUP BY
-    key,
-    name,
-    message,
-    level,
-    handled,
-    browser,
-    browserVersion,
-    os,
-    osVersion,
-    device,
-    stacktrace`;
+    const query = build({ select, where: `key = '${key}'`, groupBy: 'key, resolved' });
 
-  const response = await client.query({ query, format: 'JSONEachRow' });
+    const [data] = await fetch<EventResultResponse[]>(query);
 
-  const data = await response.json();
-
-  const [event] = data as EventResultResponse[];
-
-  return event;
+    return { success: true, message: 'Event fetched', data };
+  } catch (error) {
+    return { success: false, message: errorMessage(error), data: undefined };
+  }
 };
+
+export const toggleEventResolved = async (key: string) => {
+  const { success, message, data } = await getEventDetails(key);
+
+  if (!success || !data) throw new Error(message);
+
+  console.log(`Database had resolve ${data.resolved} and now I am setting it to ${!data.resolved}`);
+
+  await update(data, { resolved: !data.resolved });
+
+  revalidatePath('/(account)/[id]/[key]', 'page');
+};
+
+// export const updateEventDetails = async (key: string, event: Partial<EventResponse>) => {
+//   const query = `SELECT * FROM logbun.event WHERE key = '${key}'`;
+
+//   const [data] = await getEvent<EventResultResponse[]>(query);
+
+//   if (!data) throw Error('No data found');
+
+//   console.log({ prev: data.resolved, cur: event.resolved });
+
+//   await updateEvent([data, event]);
+// };

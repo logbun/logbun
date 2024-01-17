@@ -2,20 +2,18 @@
 
 import { cn } from '@logbun/utils';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-export default function Header() {
+interface Props {
+  list: { name: string; href: string }[];
+}
+
+export default function SideBar({ list }: Props) {
   const path = usePathname();
-  const params = useParams();
-
-  const tabs = [
-    { name: 'General', href: `/${params.id}/settings/general` },
-    { name: 'Tracking', href: `/${params.id}/settings/tracking` },
-  ];
 
   return (
     <nav className="flex flex-col space-y-1">
-      {tabs.map((tab) => (
+      {list.map((tab) => (
         <Link
           key={tab.name}
           href={tab.href}

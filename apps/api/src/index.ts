@@ -1,38 +1,13 @@
 import { serve } from '@hono/node-server';
-import { createClient } from '@logbun/clickhouse';
-import { db, eq, projects } from '@logbun/db';
+import { create, update } from '@logbun/clickhouse/queries';
 import { shortid } from '@logbun/utils';
-import crypto from 'crypto';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { UAParser } from 'ua-parser-js';
-import { z } from 'zod';
-
-const client = createClient();
-
-export const eventSchema = z.object({
-  name: z.string(),
-  message: z.string(),
-  timestamp: z.number(),
-  sdk: z.object({
-    name: z.string(),
-    url: z.string(),
-    version: z.string(),
-  }),
-  stacktrace: z.array(
-    z.object({
-      fileName: z.string().optional(),
-      functionName: z.string().optional(),
-      lineNumber: z.number().optional(),
-      source: z.string().optional(),
-    })
-  ),
-  level: z.string().default('error'),
-  handled: z.boolean().default(false),
-  metadata: z.record(z.string(), z.any()).default({}),
-  screenWidth: z.number().default(0),
-});
+import { getEventByKey, getProjectByApiKey } from './queries';
+import { eventSchema } from './schema';
+import { generateKey } from './utils';
 
 const app = new Hono();
 
@@ -51,22 +26,17 @@ app.post('/event', async (c) => {
   const body = eventSchema.safeParse(rawBody);
 
   if (body.success) {
-    const { name, message, timestamp, level, handled, metadata, stacktrace, sdk } = body.data;
-
-    const { os, browser, device } = UAParser(userAgent);
-
-    const stack = stacktrace.reduce((acc, cur) => acc + cur.source, '');
-
-    const [project] = await db.select({ id: projects.id }).from(projects).where(eq(projects.apiKey, apiKey));
+    const project = await getProjectByApiKey(apiKey);
 
     if (!project) throw new Error('Project with API Key not found');
 
-    const hex = `${project.id}${name}${message}${stack}`;
+    const key = generateKey(body.data, project.id);
 
-    const key = crypto.createHash('md5').update(hex).digest('hex');
+    const { os, browser, device } = UAParser(userAgent);
 
-    const values = {
-      id: shortid(),
+    const { name, message, timestamp, level, handled, metadata, stacktrace, sdk } = body.data;
+
+    const current = {
       projectId: project.id,
       browser: browser.name,
       browserVersion: browser.version,
@@ -76,17 +46,32 @@ app.post('/event', async (c) => {
       key,
       name,
       message,
-      timestamp,
       level,
       handled,
       metadata,
       stacktrace,
       sdk,
-      sign: 1,
     };
 
-    await client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
+    const previous = await getEventByKey(key);
 
+    if (previous) {
+      console.log({ previous, current });
+
+      console.log(
+        `📝 Updating key ${current.key} from count ${previous.count} to ${previous.count + 1} (${
+          current.name
+        })`.toUpperCase()
+      );
+
+      await update(previous, { ...current, count: previous.count + 1, updatedAt: timestamp });
+    } else {
+      console.log({ current });
+
+      console.log(`✅ Creating new key ${current.key} with count 1 (${current.name})`.toUpperCase());
+
+      await create({ ...current, id: shortid()(), count: 1, createdAt: timestamp, updatedAt: timestamp });
+    }
     return c.json({ message: 'Successfully created event' }, 200);
   } else {
     return c.json({ message: 'Invalid request body' }, 400);

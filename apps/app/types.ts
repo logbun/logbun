@@ -15,18 +15,13 @@ export interface EventResponse {
   message: string;
   level: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
   handled: boolean;
+  resolved: boolean;
   metadata?: string;
   stacktrace: Array<{
-    isConstructor?: boolean;
-    isEval?: boolean;
-    isNative?: boolean;
-    isToplevel?: boolean;
     columnNumber?: number;
     lineNumber?: number;
     fileName?: string;
     functionName?: string;
-    source?: string;
-    args?: any[];
   }>;
   stack: string;
   sdk: string;

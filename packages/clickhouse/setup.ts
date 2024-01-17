@@ -1,4 +1,4 @@
-import { createClient } from './index';
+import { createClient } from './client';
 
 async function main() {
   try {
@@ -15,7 +15,8 @@ async function main() {
               id String,
               name String,
               message String,
-              timestamp UInt64,
+              createdAt UInt64,
+              updatedAt UInt64,
               level String,
               handled Boolean,
               resolved Boolean,
@@ -29,9 +30,10 @@ async function main() {
               device String,
               key String,
               projectId String,
+              count Int32,
               sign Int8
           ) ENGINE = CollapsingMergeTree(sign)
-            ORDER BY (id, key, timestamp)`,
+            ORDER BY (key)`,
     });
 
     console.log('✅ Table created successfully');

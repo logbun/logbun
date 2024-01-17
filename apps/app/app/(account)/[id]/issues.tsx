@@ -2,24 +2,14 @@
 
 import SearchIcon from '@logbun/app/assets/illustrations/search.svg';
 import { EventResultResponse, Project } from '@logbun/app/types';
-import Logbun from '@logbun/js';
-import { Button, buttonVariants } from '@logbun/ui';
+import { getLevelEmoji } from '@logbun/app/utils';
+import { buttonVariants } from '@logbun/ui';
 import { cn } from '@logbun/utils';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
-import { ChevronRightIcon } from 'lucide-react';
+import { ArrowRight, ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-
-const emojis = {
-  fatal: { icon: '💀', bg: 'bg-gray-100' },
-  error: { icon: '❌', bg: 'bg-red-100' },
-  warning: { icon: '⚠️', bg: 'bg-yellow-100' },
-  log: { icon: '📝', bg: 'bg-gray-100' },
-  info: { icon: 'ℹ️', bg: 'bg-blue-100' },
-  debug: { icon: '🔍', bg: 'bg-gray-100' },
-} as const;
+import { usePathname } from 'next/navigation';
 
 interface Props {
   project: Project;
@@ -28,26 +18,6 @@ interface Props {
 
 export default function Events({ project, issues }: Props) {
   const pathname = usePathname();
-
-  const router = useRouter();
-
-  const sendSampleEvent = () => {
-    const instance = Logbun.init({
-      apiKey: project.apiKey,
-      endpoint: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/event' : undefined,
-    });
-
-    // undefinedFunction();
-    // router.refresh();
-    // toast.success('Sample event sent');
-
-    instance.notify('This is a test event', {
-      afterNotify: () => {
-        router.refresh();
-        toast.success('Sample event sent');
-      },
-    });
-  };
 
   return (
     <>
@@ -62,11 +32,9 @@ export default function Events({ project, issues }: Props) {
             <span>Waiting for your first error event</span>
           </h5>
           <Link href={`${pathname}/settings/tracking`} className={buttonVariants({ className: 'my-2' })}>
-            📝 Installation instructions
+            View installation instructions
+            <ArrowRight size={18} />
           </Link>
-          <Button onClick={sendSampleEvent} variant="default">
-            🚨 Create sample event
-          </Button>
         </div>
       )}
 
@@ -81,7 +49,7 @@ export default function Events({ project, issues }: Props) {
 
           <ul role="list" className="space-y-6">
             {issues.map((event) => {
-              const option = event.level ? emojis[event.level] : emojis.info;
+              const option = getLevelEmoji(event.level);
 
               return (
                 <li key={event.key}>
@@ -94,7 +62,12 @@ export default function Events({ project, issues }: Props) {
                       <div
                         className={cn(
                           'flex flex-shrink-0 items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50',
-                          option.bg
+                          {
+                            ['bg-gray-100']: option.bg === 'bg-gray-100',
+                            ['bg-red-100']: option.bg === 'bg-red-100',
+                            ['bg-yellow-100']: option.bg === 'bg-yellow-100',
+                            ['bg-blue-100']: option.bg === 'bg-blue-100',
+                          }
                         )}
                       >
                         {option.icon}
@@ -106,7 +79,9 @@ export default function Events({ project, issues }: Props) {
                     </div>
 
                     {/* Occurrences */}
-                    <p className="flex-1 leading-6">{event.count}</p>
+                    <p className="flex-1 leading-6">
+                      {event.count} {event.sign}
+                    </p>
 
                     {/* Severity */}
                     <div className="flex-1">

@@ -16,15 +16,16 @@ export default async function Page({ params: { id, key } }: Props) {
 
   if (!project) notFound();
 
-  const event = await getEventDetails(key);
+  const { data, success, message } = await getEventDetails(key);
 
-  if (!event) notFound();
+  if (!data) notFound();
 
   return (
     <div className="container-lg">
-      <Header event={event} />
+      <Header event={data} />
       <div className="py-12">
-        <Details event={event} />
+        {success && data && <Details event={data} />}
+        {!success && <p className="text-sm text-center text-gray-500">{message}</p>}
       </div>
     </div>
   );

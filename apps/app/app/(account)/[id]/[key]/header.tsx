@@ -2,12 +2,12 @@
 
 import { EventResultResponse } from '@logbun/app/types';
 import { Button } from '@logbun/ui';
-import { cn } from '@logbun/utils';
+import { cn, errorMessage } from '@logbun/utils';
 import { format, fromUnixTime } from 'date-fns';
-import { CheckCircle2, ChevronLeft, Fingerprint, Monitor, Smartphone, Tablet } from 'lucide-react';
+import { CheckCircle2, ChevronLeft, Fingerprint, Monitor, Smartphone, Tablet, XCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import Brave from '@logbun/app/assets/browsers/brave.svg';
 import Chrome from '@logbun/app/assets/browsers/chrome.svg';
@@ -15,11 +15,14 @@ import Edge from '@logbun/app/assets/browsers/edge.svg';
 import Firefox from '@logbun/app/assets/browsers/firefox.svg';
 import Safari from '@logbun/app/assets/browsers/safari.svg';
 
+import { toggleEventResolved } from '@logbun/app/actions';
 import Android from '@logbun/app/assets/os/AND.png';
 import Linux from '@logbun/app/assets/os/LIN.png';
 import Mac from '@logbun/app/assets/os/MAC.png';
 import Ubuntu from '@logbun/app/assets/os/UBT.png';
 import Windows from '@logbun/app/assets/os/WIN.png';
+import { useTransition } from 'react';
+import { toast } from 'sonner';
 
 interface Props {
   event: EventResultResponse;
@@ -50,6 +53,10 @@ const devices = {
 export default function Header({ event }: Props) {
   const params = useParams();
 
+  const router = useRouter();
+
+  let [isPending, startTransition] = useTransition();
+
   const browser = event.browser as unknown as keyof typeof browsers;
 
   const os = event.os as unknown as keyof typeof oss;
@@ -62,13 +69,23 @@ export default function Header({ event }: Props) {
     device: devices[device],
   };
 
-  const onResolve = () => {};
+  const onResolve = async () => {
+    startTransition(async () => {
+      try {
+        await toggleEventResolved(event.key);
+        return;
+        router.refresh();
+      } catch (error) {
+        toast.error(errorMessage(error));
+      }
+    });
+  };
 
   const Unknown = () => <div className="w-8 h-8 bg-gray-300 rounded-full" />;
 
   return (
     <>
-      <div className="flex items-center justify-between pt-8">
+      <div className="flex items-center justify-between pt-8 pb-3">
         <Link className="inline-flex items-center text-gray-500 hover:text-gray-600" href={`/${params.id}`}>
           <ChevronLeft size={18} />
           <span>All errors</span>
@@ -84,8 +101,14 @@ export default function Header({ event }: Props) {
           <h3>{event.name}</h3>
           <p className="text-gray-500">{event.message}</p>
         </div>
-        <Button onClick={onResolve} size="small" icon={<CheckCircle2 size={18} />}>
-          Resolve
+        <Button
+          loading={isPending}
+          onClick={onResolve}
+          size="small"
+          variant={event.resolved ? 'secondary' : 'primary'}
+          icon={event.resolved ? <XCircle size={18} /> : <CheckCircle2 size={18} />}
+        >
+          {event.resolved ? 'Unresolve' : 'Resolve'}
         </Button>
       </div>
 
@@ -96,7 +119,7 @@ export default function Header({ event }: Props) {
             { title: 'First Seen', data: format(fromUnixTime(event.createdAt), 'MMM d, h:mm a') },
             { title: 'Count', data: event.count },
           ].map((item) => (
-            <div className="px-5">
+            <div key={item.title} className="px-5">
               <div className="text-xs text-gray-500 uppercase">{item.title}</div>
               <div className="text-sm">{item.data}</div>
             </div>

@@ -15,7 +15,7 @@ interface Props {
   project: Project;
 }
 
-export default function ProjectForm({ project }: Props) {
+export default function GeneralForm({ project }: Props) {
   let [isPending, startTransition] = useTransition();
 
   const router = useRouter();
