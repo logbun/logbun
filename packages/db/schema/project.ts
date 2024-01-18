@@ -4,7 +4,7 @@ import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { users } from '.';
 
 export const projects = pgTable('project', {
-  id: text('id').notNull().primaryKey().$defaultFn(shortid(18)),
+  id: text('id').notNull().primaryKey().$defaultFn(shortid()),
   apiKey: text('api_key').notNull().$defaultFn(shortid(32)),
   name: text('name').notNull(),
   platform: text('platform').notNull(),
@@ -19,7 +19,7 @@ export const projects = pgTable('project', {
 });
 
 export const integrations = pgTable('integration', {
-  id: text('id').notNull().primaryKey().$defaultFn(shortid(18)),
+  id: text('id').notNull().primaryKey().$defaultFn(shortid()),
   slackUrl: text('slack_url'),
   discordUrl: text('discord_url'),
   webhookUrl: text('webhook_url'),

@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 
 const settings = [
   { name: 'Projects', href: '/projects' },
-  // { name: 'Settings', href: '/settings' },
+  { name: 'Profile', href: '/settings/profile' },
   // { name: 'Billing', href: '/billing' },
 ];
 
@@ -25,10 +25,10 @@ export default function Nav({ email }: Props) {
 
   const handleSignOut = async () => {
     const id = toast.loading('Signing out...');
+
     try {
-      signOut();
+      await signOut({ redirect: false });
       router.refresh();
-      router.push('/');
       toast.dismiss(id);
     } catch (error) {
       toast.error(errorMessage(error));

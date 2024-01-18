@@ -1,13 +1,13 @@
 import { cn } from '@logbun/utils';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './card';
 
-interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export const Panel = ({ children, ...rest }: PanelProps) => {
+const BoxRoot = ({ children, ...rest }: BoxProps) => {
   return <Card {...rest}>{children}</Card>;
 };
 
-export const PanelHeader = ({ children, className, ...rest }: PanelProps) => {
+const BoxHeader = ({ children, className, ...rest }: BoxProps) => {
   return (
     <CardHeader>
       <CardTitle {...rest} className={cn('text-center', className)}>
@@ -17,7 +17,7 @@ export const PanelHeader = ({ children, className, ...rest }: PanelProps) => {
   );
 };
 
-export const PanelContent = ({ children, ...rest }: PanelProps) => {
+const BoxContent = ({ children, ...rest }: BoxProps) => {
   return (
     <CardContent {...rest}>
       <div className="flex flex-col flex-grow">{children}</div>
@@ -25,10 +25,16 @@ export const PanelContent = ({ children, ...rest }: PanelProps) => {
   );
 };
 
-export const PanelDescription = ({ children, className, ...rest }: PanelProps) => {
+const BoxDescription = ({ children, className, ...rest }: BoxProps) => {
   return (
     <CardDescription {...rest} className={cn('text-center', className)}>
       {children}
     </CardDescription>
   );
 };
+
+export const Box = Object.assign(BoxRoot, {
+  Header: BoxHeader,
+  Content: BoxContent,
+  Description: BoxDescription,
+});

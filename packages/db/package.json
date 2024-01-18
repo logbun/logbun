@@ -1,16 +1,18 @@
 {
   "name": "@logbun/db",
   "version": "1.0.0",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "private": "true",
   "scripts": {
-    "db:push": "pnpm with-env drizzle-kit push:pg -- --verbose",
-    "dev": "pnpm with-env drizzle-kit studio --verbose",
-    "db:generate": "pnpm with-env drizzle-kit generate:pg",
-    "db:drop": "pnpm with-env drizzle-kit drop",
-    "db:migrate": "pnpm with-env tsx migrate.ts",
-    "db:clear": "pnpm with-env tsx clear.ts",
+    "build": "tsup",
+    "dev": "tsup index.ts --watch",
+    "studio": "pnpm with-env drizzle-kit studio --verbose",
+    "push": "pnpm with-env drizzle-kit push:pg -- --verbose",
+    "generate": "pnpm with-env drizzle-kit generate:pg",
+    "drop": "pnpm with-env drizzle-kit drop",
+    "migrate": "pnpm with-env tsx migrate.ts",
+    "clear": "pnpm with-env tsx clear.ts",
     "clean": "rm -rf .turbo node_modules",
     "with-env": "dotenv -e ../../.env --"
   },
@@ -21,13 +23,13 @@
     "@auth/core": "^0.18.6",
     "@logbun/utils": "workspace:^",
     "drizzle-orm": "^0.29.1",
-    "nanoid": "^5.0.4",
     "pg": "^8.11.3",
     "postgres": "^3.4.3"
   },
   "devDependencies": {
     "dotenv-cli": "^7.3.0",
     "drizzle-kit": "^0.20.6",
+    "tsup": "^8.0.1",
     "tsx": "^4.6.2",
     "typescript": "^5.2.2"
   }

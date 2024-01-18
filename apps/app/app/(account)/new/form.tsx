@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createProject } from '@logbun/app/actions/project';
+import { createProject } from '@logbun/app/actions';
 import { platforms } from '@logbun/app/utils';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
 import { Button, Select, TextInput, buttonVariants } from '@logbun/ui';
@@ -26,7 +26,7 @@ export default function ProjectForm() {
     formState: { errors },
   } = useForm<ProjectFormTypes>({
     resolver: zodResolver(projectSchema),
-    defaultValues: { platform: 'react' },
+    defaultValues: { platform: platforms[0]?.key },
   });
 
   const onSubmit: SubmitHandler<ProjectFormTypes> = async ({ name, platform }) => {

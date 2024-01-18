@@ -5,7 +5,6 @@ import { createUser } from '@logbun/app/actions/auth';
 import { RegisterFormTypes, registerSchema } from '@logbun/app/utils/schema';
 import { Button, EmailInput, PasswordInput, TextInput } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
-import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -27,19 +26,15 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<RegisterFormTypes> = async ({ name, email, password }) => {
     startTransition(async () => {
       try {
-        const { success, message } = await createUser({ name, email, password });
+        const { success, message } = await createUser({
+          name,
+          email,
+          password,
+        });
 
         if (!success) throw new Error(message);
 
-        const response = await signIn('credentials', { email, password, redirect: false });
-
-        if (!response) throw new Error('Error logging in - No response');
-
-        if (response.error) throw new Error(`Error logging in - ${response.error}`);
-
-        toast.success('Registered!');
-
-        router.push('/');
+        router.push(`/confirm/?email=${email}`);
       } catch (error) {
         toast.error(errorMessage(error));
       }

@@ -9,8 +9,8 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   }, [error]);
 
   return (
-    <div>
-      <h5>Something went wrong!</h5>
+    <div className="flex flex-col items-center justify-center w-full h-full space-y-4">
+      <h4>Something went wrong!</h4>
       <Button onClick={() => reset()}>Try again</Button>
     </div>
   );

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { deleteProject, updateProject } from '@logbun/app/actions';
 import { Project } from '@logbun/app/types';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
-import { Button, Panel, PanelContent, PanelHeader, TextInput } from '@logbun/ui';
+import { Box, Button, TextInput } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
@@ -15,7 +15,7 @@ interface Props {
   project: Project;
 }
 
-export default function ProjectForm({ project }: Props) {
+export default function GeneralForm({ project }: Props) {
   let [isPending, startTransition] = useTransition();
 
   const router = useRouter();
@@ -67,9 +67,9 @@ export default function ProjectForm({ project }: Props) {
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-      <Panel className="shadow">
-        <PanelHeader className="text-left">Project Details</PanelHeader>
-        <PanelContent>
+      <Box className="shadow">
+        <Box.Header className="text-left">Project Details</Box.Header>
+        <Box.Content>
           <div className="max-w-md">
             <TextInput
               {...register('name', { required: true })}
@@ -84,18 +84,18 @@ export default function ProjectForm({ project }: Props) {
               Save
             </Button>
           </div>
-        </PanelContent>
-      </Panel>
-      <Panel className="shadow">
-        <PanelHeader className="text-left">Danger Zone</PanelHeader>
-        <PanelContent>
+        </Box.Content>
+      </Box>
+      <Box className="shadow">
+        <Box.Header className="text-left">Danger Zone</Box.Header>
+        <Box.Content>
           <div className="max-w-md">
             <Button variant="danger" onClick={onDelete}>
               Delete project
             </Button>
           </div>
-        </PanelContent>
-      </Panel>
+        </Box.Content>
+      </Box>
     </form>
   );
 }

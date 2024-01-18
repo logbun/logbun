@@ -2,56 +2,26 @@
 
 import SearchIcon from '@logbun/app/assets/illustrations/search.svg';
 import { EventResultResponse, Project } from '@logbun/app/types';
-import Logbun from '@logbun/js';
-import { Button, buttonVariants } from '@logbun/ui';
+import { getLevelEmoji } from '@logbun/app/utils';
+import { buttonVariants } from '@logbun/ui';
 import { cn } from '@logbun/utils';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
-import { ChevronRightIcon } from 'lucide-react';
+import { ArrowRight, ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { toast } from 'sonner';
-
-const emojis = {
-  fatal: { icon: '💀', bg: 'bg-gray-100' },
-  error: { icon: '❌', bg: 'bg-red-100' },
-  warning: { icon: '⚠️', bg: 'bg-yellow-100' },
-  log: { icon: '📝', bg: 'bg-gray-100' },
-  info: { icon: 'ℹ️', bg: 'bg-blue-100' },
-  debug: { icon: '🔍', bg: 'bg-gray-100' },
-} as const;
+import { usePathname } from 'next/navigation';
 
 interface Props {
   project: Project;
-  events: EventResultResponse[];
+  issues: EventResultResponse[];
 }
 
-export default function Events({ project, events }: Props) {
+export default function Events({ project, issues }: Props) {
   const pathname = usePathname();
-
-  const router = useRouter();
-
-  const sendSampleEvent = () => {
-    const instance = Logbun.init({
-      apiKey: project.apiKey,
-      endpoint: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/event' : undefined,
-    });
-
-    // undefinedFunction();
-    // router.refresh();
-    // toast.success('Sample event sent');
-
-    instance.notify('This is a test event', {
-      afterNotify: () => {
-        router.refresh();
-        toast.success('Sample event sent');
-      },
-    });
-  };
 
   return (
     <>
-      {events.length === 0 && (
+      {issues.length === 0 && (
         <div className="flex flex-col items-center justify-center">
           <Image src={SearchIcon} alt="files" className="w-32 h-32" />
           <h5 className="flex items-center py-3 space-x-2">
@@ -62,15 +32,13 @@ export default function Events({ project, events }: Props) {
             <span>Waiting for your first error event</span>
           </h5>
           <Link href={`${pathname}/settings/tracking`} className={buttonVariants({ className: 'my-2' })}>
-            📝 Installation instructions
+            View installation instructions
+            <ArrowRight size={18} />
           </Link>
-          <Button onClick={sendSampleEvent} variant="default">
-            🚨 Create sample event
-          </Button>
         </div>
       )}
 
-      {events.length > 0 && (
+      {issues.length > 0 && (
         <>
           <div className="flex justify-between pb-5 text-xs font-medium text-gray-500 uppercase">
             <div className="flex-1 sm:flex-2">Error</div>
@@ -80,13 +48,13 @@ export default function Events({ project, events }: Props) {
           </div>
 
           <ul role="list" className="space-y-6">
-            {events.map((event) => {
-              const option = event.level ? emojis[event.level] : emojis.info;
+            {issues.map((event) => {
+              const option = getLevelEmoji(event.level);
 
               return (
-                <li key={event.fingerprint}>
+                <li key={event.key}>
                   <Link
-                    href={`/${project.id}/${event.fingerprint}`}
+                    href={`/${project.id}/${event.key}`}
                     className="relative transition-all hover:bg-opacity-10 flex items-center justify-between flex-1 p-3.5 bg-white rounded-lg shadow-md shadow-gray-100 ring-1 ring-gray-200/50"
                   >
                     {/* Error */}
@@ -94,7 +62,12 @@ export default function Events({ project, events }: Props) {
                       <div
                         className={cn(
                           'flex flex-shrink-0 items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50',
-                          option.bg
+                          {
+                            ['bg-gray-100']: option.bg === 'bg-gray-100',
+                            ['bg-red-100']: option.bg === 'bg-red-100',
+                            ['bg-yellow-100']: option.bg === 'bg-yellow-100',
+                            ['bg-blue-100']: option.bg === 'bg-blue-100',
+                          }
                         )}
                       >
                         {option.icon}
@@ -106,7 +79,9 @@ export default function Events({ project, events }: Props) {
                     </div>
 
                     {/* Occurrences */}
-                    <p className="flex-1 leading-6">{event.count}</p>
+                    <p className="flex-1 leading-6">
+                      {event.count} {event.sign}
+                    </p>
 
                     {/* Severity */}
                     <div className="flex-1">

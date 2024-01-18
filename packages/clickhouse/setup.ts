@@ -1,4 +1,4 @@
-import { createClient } from '.';
+import { createClient } from './client';
 
 async function main() {
   try {
@@ -6,7 +6,7 @@ async function main() {
 
     await client.exec({ query: 'CREATE DATABASE IF NOT EXISTS logbun' });
 
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'production') {
       await client.exec({ query: 'DROP TABLE IF EXISTS logbun.event' });
     }
 
@@ -15,13 +15,14 @@ async function main() {
               id String,
               name String,
               message String,
-              timestamp UInt64,
+              createdAt UInt64,
+              updatedAt UInt64,
               level String,
               handled Boolean,
               resolved Boolean,
               metadata JSON,
-              stacktrace JSON,
-              stack String,
+              trend Array(JSON),
+              stacktrace Array(JSON),
               sdk JSON,
               os String,
               osVersion String,
@@ -29,10 +30,11 @@ async function main() {
               browserVersion String,
               device String,
               key String,
-              apiKey String,
+              projectId String,
+              count Int32,
               sign Int8
           ) ENGINE = CollapsingMergeTree(sign)
-            ORDER BY (id, key, timestamp)`,
+            ORDER BY (key)`,
     });
 
     console.log('✅ Table created successfully');

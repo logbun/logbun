@@ -1,37 +1,13 @@
 import { serve } from '@hono/node-server';
-import { createClient } from '@logbun/clickhouse';
-import { nanoid } from '@logbun/db';
-import crypto from 'crypto';
+import { create, update } from '@logbun/clickhouse/queries';
+import { shortid } from '@logbun/utils';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { UAParser } from 'ua-parser-js';
-import { z } from 'zod';
-
-const client = createClient();
-
-export const eventSchema = z.object({
-  name: z.string(),
-  message: z.string(),
-  timestamp: z.number(),
-  sdk: z.object({
-    name: z.string(),
-    url: z.string(),
-    version: z.string(),
-  }),
-  stacktrace: z.array(
-    z.object({
-      fileName: z.string().optional(),
-      functionName: z.string().optional(),
-      lineNumber: z.number().optional(),
-      source: z.string().optional(),
-    })
-  ),
-  level: z.string().default('error'),
-  handled: z.boolean().default(false),
-  metadata: z.record(z.string(), z.any()).default({}),
-  screenWidth: z.number().default(0),
-});
+import { getEventByKey, getEvents, getProjectByApiKey } from './queries';
+import { eventSchema } from './schema';
+import { generateKey } from './utils';
 
 const app = new Hono();
 
@@ -50,39 +26,59 @@ app.post('/event', async (c) => {
   const body = eventSchema.safeParse(rawBody);
 
   if (body.success) {
-    const { name, message, timestamp, level, handled, metadata, stacktrace, sdk } = body.data;
+    const project = await getProjectByApiKey(apiKey);
+
+    if (!project) throw new Error('Project with API Key not found');
+
+    const key = generateKey(body.data, project.id);
 
     const { os, browser, device } = UAParser(userAgent);
 
-    const stack = stacktrace.reduce((acc, cur) => acc + cur.source, '');
+    const { name, message, timestamp, level, handled, metadata, stacktrace, sdk } = body.data;
 
-    const key = `${name}${message}${stack}`;
-
-    const fingerprint = crypto.createHash('md5').update(key).digest('hex');
-
-    const values = {
-      id: nanoid(),
-      apiKey,
+    const current = {
+      projectId: project.id,
       browser: browser.name,
       browserVersion: browser.version,
       os: os.name,
       osVersion: os.version,
       device: device.type || 'desktop',
-      fingerprint,
+      key,
       name,
       message,
-      timestamp,
       level,
       handled,
-      metadata: JSON.stringify(metadata),
-      stacktrace: JSON.stringify(stacktrace),
-      stack,
-      sdk: JSON.stringify(sdk),
-      sign: 1,
+      metadata,
+      stacktrace,
+      sdk,
     };
 
-    await client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
+    const events = await getEvents(project.id);
 
+    // TODO: Remove this restriction later
+    if (events.length >= 5) {
+      throw new Error('Only 5 projects max during beta');
+    }
+
+    const previous = await getEventByKey(key);
+
+    if (previous) {
+      console.log({ previous, current });
+
+      console.log(
+        `📝 Updating key ${current.key} from count ${previous.count} to ${previous.count + 1} (${
+          current.name
+        })`.toUpperCase()
+      );
+
+      await update(previous, { ...current, count: previous.count + 1, updatedAt: timestamp });
+    } else {
+      console.log({ current });
+
+      console.log(`✅ Creating new key ${current.key} with count 1 (${current.name})`.toUpperCase());
+
+      await create({ ...current, id: shortid()(), count: 1, createdAt: timestamp, updatedAt: timestamp });
+    }
     return c.json({ message: 'Successfully created event' }, 200);
   } else {
     return c.json({ message: 'Invalid request body' }, 400);

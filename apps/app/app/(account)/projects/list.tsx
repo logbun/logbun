@@ -18,7 +18,7 @@ export default function List({ projects }: Props) {
       {projects.length === 0 && (
         <div className="flex flex-col items-center justify-center">
           <Image src={FilesIcon} alt="files" className="w-32 h-32" />
-          <h6 className="pt-4 pb-1 text-xl">No projects</h6>
+          <h4 className="pt-4 pb-1">No projects</h4>
           <p className="text-center text-gray-500">Create a project to start tracking bugs!</p>
         </div>
       )}
