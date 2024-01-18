@@ -13,6 +13,7 @@ export interface Plugin {
 export interface Config {
   apiKey?: string;
   debug?: boolean;
+  release?: string;
   endpoint?: string;
   environment?: string;
   logger?: Logger;

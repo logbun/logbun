@@ -1,24 +1,29 @@
 {
-  "name": "@logbun/core-plugins",
+  "name": "@logbun/upload-sourcemaps",
   "version": "1.0.0",
-  "description": "",
+  "description": "NPM module to upload your JS sourcemaps files to Logbun",
+  "bin": "dist/cli.js",
   "main": "dist/logbun.js",
   "module": "dist/logbun.mjs",
   "typings": "dist/logbun.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "test-upload": "node -e 'import(\"./dist/logbun.mjs\").then(m => m.uploadSourcemaps( [ { sourcemapFilename: 'logbun.js.map', sourcemapFilePath: 'dist/logbun.js.map' }, { jsFilename: 'logbun.js', jsFilePath: 'dist/logbun.js' }, ], { apiKey: '123' } ) )'"
+    "dev": "rollup -c --watch"
   },
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@types/argparse": "^2.0.14",
     "@types/node": "^20.11.0",
     "rollup": "^4.9.1",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.0"
   },
   "dependencies": {
-    "fetch-retry": "^5.0.6",
-    "form-data": "^4.0.0",
-    "node-fetch": "^3.3.2"
+    "@aws-sdk/client-s3": "^3.484.0",
+    "@logbun/utils": "workspace:^",
+    "argparse": "^2.0.1",
+    "fetch-retry": "^5.0.6"
   }
 }

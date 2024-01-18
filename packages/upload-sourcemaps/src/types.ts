@@ -1,5 +1,6 @@
 export type Options = {
   apiKey: string;
+  release?: string;
   endpoint?: string;
 };
 

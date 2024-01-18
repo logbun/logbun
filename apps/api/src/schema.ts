@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+export const eventHeaderSchema = z.object({
+  ['user-agent']: z.string().optional(),
+  ['x-api-key']: z.string(),
+});
+
 export const eventSchema = z.object({
   name: z.string(),
   message: z.string(),
@@ -19,10 +24,20 @@ export const eventSchema = z.object({
     })
   ),
   level: z.string().default('error'),
+  release: z.string().optional(),
   handled: z.boolean().default(false),
   metadata: z.record(z.string(), z.any()).default({}),
   screenWidth: z.number().default(0),
 });
+
+export const sourcemapSchema = z.object({
+  api_key: z.string(),
+  release: z.string().optional(),
+  minified_file: z.instanceof(File),
+  sourcemap_file: z.instanceof(File),
+});
+
+export type SourcemapType = z.infer<typeof sourcemapSchema>;
 
 export type EventType = z.infer<typeof eventSchema>;
 

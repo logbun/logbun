@@ -22,7 +22,7 @@ export default function Details({ event }: Props) {
           if (frame.fileName) {
             header.push(
               <span key={key} className="text-sm">
-                {getLevelEmoji(event.level).icon}
+                {getLevelEmoji(event.level).emoji}
                 {'  '}
               </span>
             );

@@ -61,16 +61,15 @@ export default function Events({ project, issues }: Props) {
                     <div className="flex flex-1 min-w-0 gap-x-4 sm:flex-2">
                       <div
                         className={cn(
-                          'flex flex-shrink-0 items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50',
+                          'flex flex-shrink-0 items-center justify-center w-11 h-11 text-lg rounded-full bg-opacity-50 bg-gray-100',
                           {
-                            ['bg-gray-100']: option.bg === 'bg-gray-100',
-                            ['bg-red-100']: option.bg === 'bg-red-100',
-                            ['bg-yellow-100']: option.bg === 'bg-yellow-100',
-                            ['bg-blue-100']: option.bg === 'bg-blue-100',
+                            ['bg-red-100']: ['fatal', 'error'].includes(option.level),
+                            ['bg-yellow-100']: option.level === 'warning',
+                            ['bg-blue-100']: option.level === 'info',
                           }
                         )}
                       >
-                        {option.icon}
+                        {option.emoji}
                       </div>
                       <div className="overflow-hidden">
                         <p className="font-medium truncate">{event.name}</p>

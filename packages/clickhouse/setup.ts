@@ -18,6 +18,7 @@ async function main() {
               createdAt UInt64,
               updatedAt UInt64,
               level String,
+              release Nullable(String),
               handled Boolean,
               resolved Boolean,
               metadata JSON,

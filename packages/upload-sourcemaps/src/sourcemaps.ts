@@ -1,18 +1,15 @@
+import { errorMessage } from '@logbun/utils';
 import assert from 'assert';
 import fetchRetry from 'fetch-retry';
-import FormData from 'form-data';
 import { promises as fs } from 'fs';
-import nodeFetch from 'node-fetch';
 import { Options, Sourcemap } from './types';
 
-const fetch = fetchRetry(nodeFetch as unknown as typeof fetch);
+const fetch = fetchRetry(global.fetch);
 
 export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) => {
-  console.log('Starting upload...');
+  const { apiKey, release, endpoint = process.env.LOGBUN_API_ENDPOINT } = opts;
 
-  const { apiKey, endpoint = process.env.LOGBUN_API_ENDPOINT } = opts;
-
-  assert(typeof apiKey === 'string' || apiKey === undefined, "'apiKey' must be a string or undefined");
+  assert(typeof apiKey === 'string', "'apiKey' must be a string or undefined");
 
   assert(typeof endpoint === 'string' || "'endpoint' must be a string");
 
@@ -25,40 +22,30 @@ export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) =
 
     form.append('api_key', apiKey);
 
-    form.append('minified_file', jsFile, {
-      filename: sourcemap.jsFilename,
-      contentType: 'application/javascript',
-    });
+    release && form.append('release', release);
 
-    form.append('source_map', sourceFile, {
-      filename: sourcemap.sourcemapFilePath,
-      contentType: 'application/octet-stream',
-    });
+    form.append('minified_file', new Blob([jsFile]), sourcemap.jsFilename);
+
+    form.append('sourcemap_file', new Blob([sourceFile]), sourcemap.sourcemapFilePath);
 
     try {
-      const res = await fetch(opts.endpoint || '', {
+      const res = await fetch(opts.endpoint!, {
         method: 'POST',
-        body: form as unknown as BodyInit,
+        body: form,
         redirect: 'follow',
         retries: 2,
         retryDelay: 1000,
       });
 
-      return res;
+      const body = await res.json();
+
+      if (!res.ok) {
+        throw new Error(body.message || `${res.status} ${res.statusText}`);
+      }
+
+      return body;
     } catch (error) {
-      throw new Error('Upload sourcemap failed');
+      throw new Error(errorMessage(error));
     }
   }
 };
-
-uploadSourcemaps(
-  [
-    {
-      sourcemapFilename: 'logbun.js.map',
-      sourcemapFilePath: 'dist/logbun.js.map',
-      jsFilename: 'logbun.js',
-      jsFilePath: 'dist/logbun.js',
-    },
-  ],
-  { apiKey: '123' }
-);
