@@ -5,7 +5,7 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
 import { UAParser } from 'ua-parser-js';
-import { getEventByKey, getProjectByApiKey } from './queries';
+import { getEventByKey, getEvents, getProjectByApiKey } from './queries';
 import { eventSchema } from './schema';
 import { generateKey } from './utils';
 
@@ -52,6 +52,13 @@ app.post('/event', async (c) => {
       stacktrace,
       sdk,
     };
+
+    const events = await getEvents(project.id);
+
+    // TODO: Remove this restriction later
+    if (events.length >= 5) {
+      throw new Error('Only 5 projects max during beta');
+    }
 
     const previous = await getEventByKey(key);
 

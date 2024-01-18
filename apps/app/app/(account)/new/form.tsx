@@ -26,7 +26,7 @@ export default function ProjectForm() {
     formState: { errors },
   } = useForm<ProjectFormTypes>({
     resolver: zodResolver(projectSchema),
-    defaultValues: { platform: 'react' },
+    defaultValues: { platform: platforms[0]?.key },
   });
 
   const onSubmit: SubmitHandler<ProjectFormTypes> = async ({ name, platform }) => {

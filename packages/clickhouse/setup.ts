@@ -21,6 +21,7 @@ async function main() {
               handled Boolean,
               resolved Boolean,
               metadata JSON,
+              trend Array(JSON),
               stacktrace Array(JSON),
               sdk JSON,
               os String,

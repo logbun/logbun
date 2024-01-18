@@ -41,6 +41,13 @@ export async function createProject(data: ProjectFormTypes) {
 
     const { name, platform } = await projectSchema.parseAsync(data);
 
+    const items = await findProjects(user.id);
+
+    // TODO: Remove this restriction later
+    if (items.length >= 2) {
+      throw new Error('Only 2 projects max during beta');
+    }
+
     const [integration] = await db.insert(integrations).values({}).returning({ id: integrations.id });
 
     if (!integration) throw new Error('Integration not found');

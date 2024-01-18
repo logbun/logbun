@@ -8,6 +8,14 @@ export const getProjectByApiKey = async (apiKey: string) => {
   return project;
 };
 
+export const getEvents = async (projectId: string) => {
+  const query = build({ select: ['projectId'], where: `projectId = '${projectId}'` });
+
+  const events = await fetch<EventTypeResult[]>(query);
+
+  return events;
+};
+
 export const getEventByKey = async (key: string) => {
   const select = [...events, 'any(projectId) as projectId'];
 
