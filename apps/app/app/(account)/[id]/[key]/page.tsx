@@ -1,7 +1,7 @@
 import { findProject, getEventDetails } from '@logbun/app/actions';
 import { notFound } from 'next/navigation';
-import Details from './details';
 import Header from './header';
+import Stacktrace from './stacktrace';
 
 export const metadata = {
   title: 'Issues details',
@@ -24,7 +24,8 @@ export default async function Page({ params: { id, key } }: Props) {
     <div className="container-lg">
       <Header event={data} />
       <div className="py-12">
-        {success && data && <Details event={data} />}
+        <h4 className="pb-3">Stacktrace</h4>
+        {success && data && <Stacktrace projectId={project.id} event={data} />}
         {!success && <p className="text-sm text-center text-gray-500">{message}</p>}
       </div>
     </div>

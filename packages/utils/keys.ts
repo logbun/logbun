@@ -16,5 +16,5 @@ export const generateMinifiedKey = (options: KeyResult) => {
 };
 
 export const generateSourceMapKey = (options: KeyResult) => {
-  return generateKey({ ...options, extension: '.map.js' });
+  return generateKey({ ...options, extension: '.js.map' });
 };

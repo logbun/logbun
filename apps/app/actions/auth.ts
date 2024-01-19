@@ -23,18 +23,6 @@ export const countUserByEmail = async (email: string) => {
   }
 };
 
-// export const insertUser = async (name: string, email: string, password: string) => {
-//   try {
-//     const [user] = await db.insert(users).values({ id: crypto.randomUUID(), name, email, password }).returning();
-
-//     if (!user) throw new Error('Unable to create user');
-
-//     return user.id;
-//   } catch (error) {
-//     throw new Error(`Error in inserting user: ${errorMessage(error)}`);
-//   }
-// };
-
 export const findUser = async (id: string) => {
   return client.getUser(id);
 };

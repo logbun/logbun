@@ -13,6 +13,7 @@
     "@logbun/db": "workspace:^",
     "@logbun/utils": "workspace:^",
     "hono": "^3.11.11",
+    "rate-limiter-flexible": "^4.0.0",
     "ua-parser-js": "^1.0.37",
     "zod": "^3.22.4"
   },

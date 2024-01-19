@@ -6,9 +6,12 @@ import { errorMessage, generateMinifiedKey, generateSourceMapKey, shortid } from
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { UAParser } from 'ua-parser-js';
 import { eventHeaderSchema, eventSchema, sourcemapSchema } from './schema';
-import { generateKey, getEventByKey, getEvents, getProjectByApiKey } from './utils';
+import { generateFingerprint, getEventByKey, getProjectByApiKey } from './utils';
+
+const rateLimit = new RateLimiterMemory({ points: 1, duration: 1 });
 
 const app = new Hono();
 
@@ -19,67 +22,76 @@ app.use('*', cors());
 app.get('/', async (c) => c.text('Hello Logbun'));
 
 app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHeaderSchema), async (c) => {
-  const data = c.req.valid('json');
+  try {
+    const data = c.req.valid('json');
 
-  const header = c.req.valid('header');
+    const header = c.req.valid('header');
 
-  const userAgent = header['user-agent'];
+    const userAgent = header['user-agent'];
 
-  const apiKey = header['x-api-key'];
+    const apiKey = header['x-api-key'];
 
-  const project = await getProjectByApiKey(apiKey);
+    try {
+      await rateLimit.consume(apiKey, 1);
+    } catch (error) {
+      throw new Error('Requests too fast');
+    }
 
-  if (!project) throw new Error('Project with API Key not found');
+    const project = await getProjectByApiKey(apiKey);
 
-  const key = generateKey(data, project.id);
+    if (!project) throw new Error('Project with API Key not found');
 
-  const { os, browser, device } = UAParser(userAgent);
+    const fingerprint = generateFingerprint(data);
 
-  const { name, message, timestamp, level, handled, metadata, stacktrace, sdk, release } = data;
+    const { os, browser, device } = UAParser(userAgent);
 
-  const current = {
-    projectId: project.id,
-    browser: browser.name,
-    browserVersion: browser.version,
-    os: os.name,
-    osVersion: os.version,
-    device: device.type || 'desktop',
-    key,
-    name,
-    message,
-    level,
-    handled,
-    metadata,
-    stacktrace,
-    sdk,
-    release,
-  };
+    const { name, message, timestamp, level, handled, metadata, stacktrace, sdk, release } = data;
 
-  const events = await getEvents(project.id);
-
-  // TODO: Remove this restriction later
-  if (events.length >= 50) {
-    throw new Error('Only 50 event max during beta');
-  }
-
-  const previous = await getEventByKey(key);
-
-  if (previous) {
-    await update(previous, {
-      ...current,
-      count: previous.count + 1,
+    const current = {
+      projectId: project.id,
+      browser: browser.name,
+      browserVersion: browser.version,
+      os: os.name,
+      osVersion: os.version,
+      device: device.type || 'desktop',
+      key: fingerprint,
+      name,
+      message,
+      level,
+      handled,
+      metadata,
+      stacktrace,
+      sdk,
+      release,
       updatedAt: timestamp,
-    });
-  } else {
-    await create({
-      ...current,
-      id: shortid()(),
-      count: 1,
-      createdAt: timestamp,
-      updatedAt: timestamp,
-    });
+    };
+
+    const previous = await getEventByKey(fingerprint);
+
+    if (previous) {
+      // TODO: Remove this restriction later
+      if (previous.count >= 10) {
+        throw new Error('Only 10 event max during beta');
+      }
+
+      await update(previous, {
+        ...current,
+        count: previous.count + 1,
+      });
+    } else {
+      await create({
+        ...current,
+        id: shortid()(),
+        count: 1,
+        createdAt: timestamp,
+      });
+    }
+    return c.json({ message: 'Successfully created event' }, 200);
+  } catch (error) {
+    console.error(error);
+
+    return c.json({ message: errorMessage(error) }, 400);
   }
-  return c.json({ message: 'Successfully created event' }, 200);
 });
 
 app.post('/sourcemaps', zValidator('form', sourcemapSchema), async (c) => {

@@ -13,6 +13,10 @@ export default function (win = Utils.getGlobal()) {
         column?: number,
         error?: Error
       ) {
+        client.logger.info('window.onerror triggered');
+
+        console.log('❌', { error });
+
         if (line === 0 && typeof message === 'string' && /Script error\.?/.test(message)) {
           return client.logger.warn('Ignoring cross-domain or eval script error.');
         }

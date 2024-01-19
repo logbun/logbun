@@ -45,4 +45,6 @@ export type EventTypeResult = EventType & {
   key: string;
   sign: number;
   count: number;
+  createdAt: number;
+  updatedAt: number;
 };

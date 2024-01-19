@@ -51,6 +51,9 @@ importers:
       hono:
         specifier: ^3.11.11
         version: 3.11.11
+      rate-limiter-flexible:
+        specifier: ^4.0.0
+        version: 4.0.0
       ua-parser-js:
         specifier: ^1.0.37
         version: 1.0.37
@@ -9032,6 +9035,10 @@ packages:
   /range-parser@1.2.0:
     resolution: {integrity: sha512-kA5WQoNVo4t9lNx2kQNFCxKeBl5IbbSNBl1M/tLkw9WCn+hxNBAW5Qh8gdhs63CJnhjJ2zQWFoqPJP2sK1AV5A==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /rate-limiter-flexible@4.0.0:
+    resolution: {integrity: sha512-SkA18LEPqJJKHixi6E7tzBKTXbj9gu5wPyfTykPVRZR5JGSw0dMCjtZsjlfuabVY940pu28Wu87NZN4FhztnyQ==}
     dev: false
 
   /rc@1.2.8:

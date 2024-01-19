@@ -8,7 +8,8 @@
   "typings": "dist/logbun.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c --watch"
+    "dev": "rollup -c --watch",
+    "test-cli": "node dist/cli.js -e=\"http://localhost:8000/sourcemaps\" --api-key=\"yjupgpuhio04fq5xf2phx4fde5740vtg\" -s=\"/Users/meekdekowski/Desktop/logbun/examples/react/dist/assets/index-rPI3GAN-.js.map\" -m=\"/Users/meekdekowski/Desktop/logbun/examples/react/dist/assets/index-rPI3GAN-.js\""
   },
   "license": "ISC",
   "devDependencies": {

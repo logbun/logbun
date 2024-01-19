@@ -19,6 +19,7 @@ export const events = [
   'any(message) as message',
   'any(level) as level',
   'any(handled) as handled',
+  'any(release) as release',
   'any(metadata) as metadata',
   'any(stacktrace) as stacktrace',
   'any(sdk) as sdk',

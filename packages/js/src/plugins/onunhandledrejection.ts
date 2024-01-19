@@ -6,6 +6,8 @@ export default function (win = Utils.getGlobal()) {
       const prevOnUnhandledRejection = win.onunhandledrejection;
 
       function onunhandledrejection(this: WindowEventHandlers, rejection: PromiseRejectionEvent) {
+        client.logger.info('window.onunhandledrejection triggered');
+
         let error = rejection.reason;
 
         // Accessing properties on evt.detail can throw errors

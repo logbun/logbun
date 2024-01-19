@@ -9,20 +9,22 @@ export interface Project {
   updatedAt: Date;
 }
 
+export type EventLevel = 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
+export interface EventStacktrace {
+  columnNumber?: number;
+  lineNumber?: number;
+  fileName?: string;
+  functionName?: string;
+}
 export interface EventResponse {
   id: string;
   name: string;
   message: string;
-  level: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
+  level: EventLevel;
   handled: boolean;
   resolved: boolean;
   metadata?: string;
-  stacktrace: Array<{
-    columnNumber?: number;
-    lineNumber?: number;
-    fileName?: string;
-    functionName?: string;
-  }>;
+  stacktrace: EventStacktrace[];
   stack: string;
   sdk: string;
   os: string;
@@ -30,6 +32,7 @@ export interface EventResponse {
   browser: string;
   browserVersion: string;
   device: string;
+  release?: string;
   key: string;
   timestamp: number;
   projectId: string;
@@ -41,3 +44,9 @@ export interface EventResultResponse extends EventResponse {
   createdAt: number;
   updatedAt: number;
 }
+
+export type Line = [number, string];
+
+export type EventStacktraceResult = EventStacktrace & {
+  preview?: Line[];
+};
