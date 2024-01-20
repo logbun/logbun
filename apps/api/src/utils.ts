@@ -1,11 +1,8 @@
 import { build, events, fetch } from '@logbun/clickhouse/queries';
 import { db, eq, projects } from '@logbun/db';
 import crypto from 'crypto';
-import { RateLimiterMemory } from 'rate-limiter-flexible';
 
 import { EventType, EventTypeResult } from './schema';
-
-const rateLimit = new RateLimiterMemory({ points: 1, duration: 2 });
 
 export const getProjectByApiKey = async (apiKey: string) => {
   const [project] = await db.select({ id: projects.id }).from(projects).where(eq(projects.apiKey, apiKey));
@@ -13,10 +10,10 @@ export const getProjectByApiKey = async (apiKey: string) => {
   return project;
 };
 
-export const getEventByKey = async (key: string) => {
+export const getEventByKey = async (fingerprint: string) => {
   const select = [...events, 'any(projectId) as projectId'];
 
-  const query = build({ select, where: `key = '${key}'` });
+  const query = build({ select, where: `fingerprint = '${fingerprint}'` });
 
   const [event] = await fetch<EventTypeResult[]>(query);
 

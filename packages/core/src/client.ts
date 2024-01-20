@@ -95,14 +95,16 @@ export abstract class Client {
   public notify = (error: unknown, config: Partial<Config> = {}) => {
     const event = createEvent(error);
 
-    this.beforeNotifications.forEach((fn) => fn(event));
-
-    console.log(event);
-
-    this.send({ ...event, level: 'info', handled: true }, config);
+    this.broadcast({ level: 'info', handled: true, ...event }, config);
   };
 
-  public send = (event: Event, config: Partial<Config> = {}) => {
+  public broadcast = (event: Event, config: Partial<Config> = {}) => {
+    this.beforeNotifications.forEach((fn) => fn(event));
+
+    this.send({ level: 'error', handled: false, ...event }, config);
+  };
+
+  private send = (event: Event, config: Partial<Config> = {}) => {
     const options = { ...this.config, ...config };
 
     if (!options.endpoint) {
@@ -121,8 +123,6 @@ export abstract class Client {
 
     const body: ErrorEvent = {
       timestamp: Math.floor(Date.now() / 1000),
-      level: 'error',
-      handled: false,
       metadata: { ...this.metadata, ...metadata },
       sdk: this.sdk,
       ...event,

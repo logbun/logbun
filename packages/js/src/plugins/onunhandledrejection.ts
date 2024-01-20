@@ -16,9 +16,11 @@ export default function (win = Utils.getGlobal()) {
           }
         } catch (e) {}
 
-        client.notify(error);
+        const event = Utils.createEvent(error);
 
-        // TODO: Remove any. I think this breaks
+        client.broadcast(event);
+
+        // TODO: Not sure why any doesn't work here
         if (typeof prevOnUnhandledRejection === 'function') {
           prevOnUnhandledRejection.apply(this as any, arguments as unknown as [PromiseRejectionEvent]);
         }

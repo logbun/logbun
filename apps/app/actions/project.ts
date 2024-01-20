@@ -96,7 +96,7 @@ export const getEvents = async (projectId: string, { resolved }: { resolved: str
     const query = build({
       select,
       where: where.join(' and '),
-      groupBy: 'key, resolved',
+      groupBy: 'fingerprint, resolved',
       orderBy: 'updatedAt desc',
     });
 
@@ -108,11 +108,11 @@ export const getEvents = async (projectId: string, { resolved }: { resolved: str
   }
 };
 
-export const getEventDetails = async (key: string) => {
+export const getEventDetails = async (fingerprint: string) => {
   try {
     const select = [...events, 'any(projectId) as projectId', 'resolved'];
 
-    const query = build({ select, where: `key = '${key}'`, groupBy: 'key, resolved' });
+    const query = build({ select, where: `fingerprint = '${fingerprint}'`, groupBy: 'fingerprint, resolved' });
 
     const [data] = await fetch<EventResultResponse[]>(query);
 
@@ -122,8 +122,8 @@ export const getEventDetails = async (key: string) => {
   }
 };
 
-export const toggleEventResolved = async (key: string) => {
-  const { success, message, data } = await getEventDetails(key);
+export const toggleEventResolved = async (fingerprint: string) => {
+  const { success, message, data } = await getEventDetails(fingerprint);
 
   if (!success || !data) throw new Error(message);
 
@@ -131,17 +131,5 @@ export const toggleEventResolved = async (key: string) => {
 
   await update(data, { resolved: !data.resolved });
 
-  revalidatePath('/(account)/[id]/[key]', 'page');
+  revalidatePath('/(account)/[id]/[fingerprint]', 'page');
 };
-
-// export const updateEventDetails = async (key: string, event: Partial<EventResponse>) => {
-//   const query = `SELECT * FROM logbun.event WHERE key = '${key}'`;
-
-//   const [data] = await getEvent<EventResultResponse[]>(query);
-
-//   if (!data) throw Error('No data found');
-
-//   console.log({ prev: data.resolved, cur: event.resolved });
-
-//   await updateEvent([data, event]);
-// };

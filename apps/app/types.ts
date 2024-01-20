@@ -33,7 +33,7 @@ export interface EventResponse {
   browserVersion: string;
   device: string;
   release?: string;
-  key: string;
+  fingerprint: string;
   timestamp: number;
   projectId: string;
   sign: number;

@@ -31,8 +31,10 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
 
     const apiKey = header['x-api-key'];
 
+    const fingerprint = generateFingerprint(data);
+
     try {
-      await rateLimit.consume(apiKey, 1);
+      await rateLimit.consume(fingerprint, 1);
     } catch (error) {
       throw new Error('Requests too fast');
     }
@@ -40,8 +42,6 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
     const project = await getProjectByApiKey(apiKey);
 
     if (!project) throw new Error('Project with API Key not found');
-
-    const fingerprint = generateFingerprint(data);
 
     const { os, browser, device } = UAParser(userAgent);
 
@@ -54,7 +54,7 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
       os: os.name,
       osVersion: os.version,
       device: device.type || 'desktop',
-      key: fingerprint,
+      fingerprint,
       name,
       message,
       level,

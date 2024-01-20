@@ -52,9 +52,9 @@ export default function Events({ project, issues }: Props) {
               const option = getLevelEmoji(event.level);
 
               return (
-                <li key={event.key}>
+                <li key={event.fingerprint}>
                   <Link
-                    href={`/${project.id}/${event.key}`}
+                    href={`/${project.id}/${event.fingerprint}`}
                     className="relative transition-all hover:bg-opacity-10 flex items-center justify-between flex-1 p-3.5 bg-white rounded-lg shadow-md shadow-gray-100 ring-1 ring-gray-200/50"
                   >
                     {/* Error */}

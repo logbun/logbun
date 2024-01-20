@@ -8,15 +8,15 @@ export const metadata = {
 };
 
 interface Props {
-  params: { id: string; key: string };
+  params: { id: string; fingerprint: string };
 }
 
-export default async function Page({ params: { id, key } }: Props) {
+export default async function Page({ params: { id, fingerprint } }: Props) {
   const project = await findProject(id);
 
   if (!project) notFound();
 
-  const { data, success, message } = await getEventDetails(key);
+  const { data, success, message } = await getEventDetails(fingerprint);
 
   if (!data) notFound();
 

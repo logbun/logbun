@@ -20,8 +20,8 @@ export default function Preview({ frame }: Props) {
 
   if (!preview?.length) {
     return (
-      <p className="pt-2 text-base leading-7 text-gray-600">
-        <span className="text-xl">🤷🏻‍♂️</span> No additional context
+      <p className="p-2 text-base leading-7 text-gray-600">
+        <span className="text-xl">🤷🏻‍♂️</span> No additional context. You may need to upload your sourcemaps.
       </p>
     );
   }

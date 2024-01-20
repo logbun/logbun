@@ -18,8 +18,8 @@ async function main() {
               createdAt UInt64,
               updatedAt UInt64,
               level String,
-              url Nullable(String),
-              release Nullable(String),
+              url String,
+              release String,
               handled Boolean,
               resolved Boolean,
               metadata JSON,
@@ -31,12 +31,12 @@ async function main() {
               browser String,
               browserVersion String,
               device String,
-              key String,
+              fingerprint String,
               projectId String,
               count Int32,
               sign Int8
           ) ENGINE = CollapsingMergeTree(sign)
-            ORDER BY (key)`,
+            ORDER BY (fingerprint)`,
     });
 
     console.log('✅ Table created successfully');

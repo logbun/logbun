@@ -13,7 +13,7 @@ type Command = {
 };
 
 export const events = [
-  'key',
+  'fingerprint',
   'any(id) as id',
   'any(name) as name',
   'any(message) as message',
@@ -34,7 +34,14 @@ export const events = [
 ];
 
 export const build = (commands: Command) => {
-  const { select = ['*'], from = 'logbun.event', where, groupBy = 'key', orderBy, having = 'sum(sign) > 0' } = commands;
+  const {
+    select = ['*'],
+    from = 'logbun.event',
+    where,
+    groupBy = 'fingerprint',
+    orderBy,
+    having = 'sum(sign) > 0',
+  } = commands;
 
   const command = [];
 
@@ -74,40 +81,3 @@ export const update = async (prev: InsertValues<any, unknown>, cur: InsertValues
     { ...prev, ...cur, sign: 1 },
   ]);
 };
-
-// export const queryEvent = (select: string[], where: string) => {
-//   const query = `
-//   SELECT ${[...events, ...select].join(', ')}
-//   FROM logbun.event
-//   WHERE ${where}
-//   GROUP BY key
-//   HAVING sum(sign) > 0`;
-//   return query;
-// };
-
-// export const queryEvent = (where: string) => `SELECT
-//     any(id) as id,
-//     any(name) as name,
-//     any(message) as message,
-//     any(level) as level,
-//     any(handled) as handled,
-//     any(resolved) as resolved,
-//     any(metadata) as metadata,
-//     any(stacktrace) as stacktrace,
-//     any(sdk) as sdk,
-//     any(os) as os,
-//     any(osVersion) as osVersion,
-//     any(browser) as browser,
-//     any(browserVersion) as browserVersion,
-//     any(device) as device,
-//     toInt32(sum(count * sign)) as count,
-//     toInt64(any(createdAt)) AS createdAt,
-//     toInt64(any(updatedAt)) AS updatedAt,
-//     any(projectId) as projectId,
-//     key,
-//   FROM logbun.event
-//   WHERE
-//     ${where}
-//   GROUP BY
-//     key
-//   HAVING sum(sign) > 0`;

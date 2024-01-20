@@ -42,7 +42,7 @@ export type SourcemapType = z.infer<typeof sourcemapSchema>;
 export type EventType = z.infer<typeof eventSchema>;
 
 export type EventTypeResult = EventType & {
-  key: string;
+  fingerprint: string;
   sign: number;
   count: number;
   createdAt: number;

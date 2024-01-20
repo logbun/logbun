@@ -17,18 +17,20 @@ export default function (win = Utils.getGlobal()) {
           return client.logger.warn('Ignoring cross-domain or eval script error.');
         }
 
-        let event: Error | undefined = error;
+        let notice: Error | undefined = error;
 
-        if (!event) {
+        if (!notice) {
           const exception = new Error();
           exception.name = 'Error';
           exception.message = typeof message === 'string' ? message : 'An HTML onerror="" handler failed to execute';
           exception.stack = `at ${url}:${line}${column ? `:${column}` : ''}`;
 
-          event = exception;
+          notice = exception;
         }
 
-        client.notify(event);
+        const event = Utils.createEvent(notice);
+
+        client.broadcast(event);
 
         if (typeof prevOnError === 'function') {
           prevOnError.apply(this, arguments as OnErrorEventHandlerNonNull['arguments']);

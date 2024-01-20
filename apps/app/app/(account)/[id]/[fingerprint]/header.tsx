@@ -72,7 +72,7 @@ export default function Header({ event }: Props) {
   const onResolve = async () => {
     startTransition(async () => {
       try {
-        await toggleEventResolved(event.key);
+        await toggleEventResolved(event.fingerprint);
         return;
         router.refresh();
       } catch (error) {
@@ -92,7 +92,7 @@ export default function Header({ event }: Props) {
         </Link>
         <div className="flex items-center text-gray-500 gap-x-1">
           <Fingerprint size={16} />
-          <span>{event.key}</span>
+          <span>{event.fingerprint}</span>
         </div>
       </div>
 
