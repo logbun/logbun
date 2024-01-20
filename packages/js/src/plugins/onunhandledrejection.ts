@@ -6,8 +6,6 @@ export default function (win = Utils.getGlobal()) {
       const prevOnUnhandledRejection = win.onunhandledrejection;
 
       function onunhandledrejection(this: WindowEventHandlers, rejection: PromiseRejectionEvent) {
-        client.logger.info('window.onunhandledrejection triggered');
-
         let error = rejection.reason;
 
         // Accessing properties on evt.detail can throw errors
@@ -18,9 +16,7 @@ export default function (win = Utils.getGlobal()) {
           }
         } catch (e) {}
 
-        const event = Utils.createEvent(error);
-
-        client.send(event);
+        client.notify(error);
 
         // TODO: Remove any. I think this breaks
         if (typeof prevOnUnhandledRejection === 'function') {

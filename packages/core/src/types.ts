@@ -21,8 +21,6 @@ export interface Config {
   metadata?: Record<string, unknown>;
   transport: Transport;
   plugins: Plugin[];
-  beforeNotify?: (event: Event) => void;
-  afterNotify?: (event: ErrorEvent) => void;
 }
 
 export interface Logger {
@@ -48,6 +46,7 @@ export interface Event {
   message: string;
   stacktrace: StackFrame[];
   environment?: string;
+  url?: string;
   handled?: boolean;
   level?: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
   metadata?: Record<string, unknown>;

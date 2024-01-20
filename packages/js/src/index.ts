@@ -18,6 +18,10 @@ const instance = new Logbun({
   plugins: [onError(), onUnhandledRejection()],
 });
 
+instance.beforeNotify((event) => {
+  event.url = window.location.href;
+});
+
 instance.setSDK({
   name: '@logbun/js',
   url: 'https://github.com/logbun/logbun/tree/master/packages/core/packages/js',

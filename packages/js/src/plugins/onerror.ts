@@ -1,4 +1,4 @@
-import { Client, Types, Utils } from '@logbun/core';
+import { Client, Utils } from '@logbun/core';
 
 export default function (win = Utils.getGlobal()) {
   return {
@@ -13,28 +13,22 @@ export default function (win = Utils.getGlobal()) {
         column?: number,
         error?: Error
       ) {
-        client.logger.info('window.onerror triggered');
-
-        console.log('❌', { error });
-
         if (line === 0 && typeof message === 'string' && /Script error\.?/.test(message)) {
           return client.logger.warn('Ignoring cross-domain or eval script error.');
         }
 
-        let event: Types.Event;
+        let event: Error | undefined = error;
 
-        if (!error) {
+        if (!event) {
           const exception = new Error();
           exception.name = 'Error';
           exception.message = typeof message === 'string' ? message : 'An HTML onerror="" handler failed to execute';
           exception.stack = `at ${url}:${line}${column ? `:${column}` : ''}`;
 
-          event = Utils.createEvent(exception);
-        } else {
-          event = Utils.createEvent(error);
+          event = exception;
         }
 
-        client.send(event);
+        client.notify(event);
 
         if (typeof prevOnError === 'function') {
           prevOnError.apply(this, arguments as OnErrorEventHandlerNonNull['arguments']);

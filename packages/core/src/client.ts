@@ -14,6 +14,10 @@ export abstract class Client {
 
   public readonly transport: Transport;
 
+  protected beforeNotifications: Array<(event: Event) => void> = [];
+
+  protected afterNotifications: Array<(event: ErrorEvent) => void> = [];
+
   constructor(config: Config) {
     this.config = {
       endpoint: 'https://logbun.com/api',
@@ -91,7 +95,9 @@ export abstract class Client {
   public notify = (error: unknown, config: Partial<Config> = {}) => {
     const event = createEvent(error);
 
-    this.config?.beforeNotify?.(event);
+    this.beforeNotifications.forEach((fn) => fn(event));
+
+    console.log(event);
 
     this.send({ ...event, level: 'info', handled: true }, config);
   };
@@ -131,7 +137,15 @@ export abstract class Client {
         body
       )
       .then(() => {
-        options.afterNotify?.(body);
+        this.afterNotifications.forEach((fn) => fn(body));
       });
+  };
+
+  public beforeNotify = (handler: (event: Event) => void) => {
+    this.beforeNotifications.push(handler);
+  };
+
+  public afterNotify = (handler: (event: ErrorEvent) => void) => {
+    this.afterNotifications.push(handler);
   };
 }
