@@ -6,10 +6,11 @@ import { errorMessage, generateMinifiedKey, generateSourceMapKey, shortid } from
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { isbot } from 'isbot';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { UAParser } from 'ua-parser-js';
 import { eventHeaderSchema, eventSchema, sourcemapSchema } from './schema';
-import { generateFingerprint, getEventByKey, getProjectByApiKey } from './utils';
+import { generateFingerprint, getEventByFingerprint, getProjectByApiKey } from './utils';
 
 const rateLimit = new RateLimiterMemory({ points: 1, duration: 1 });
 
@@ -32,6 +33,10 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
     const apiKey = header['x-api-key'];
 
     const fingerprint = generateFingerprint(data);
+
+    if (isbot(userAgent)) {
+      throw new Error('🤖 Bot');
+    }
 
     try {
       await rateLimit.consume(fingerprint, 1);
@@ -66,12 +71,12 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
       updatedAt: timestamp,
     };
 
-    const previous = await getEventByKey(fingerprint);
+    const previous = await getEventByFingerprint(fingerprint);
 
     if (previous) {
       // TODO: Remove this restriction later
-      if (previous.count >= 10) {
-        throw new Error('Only 10 event max during beta');
+      if (previous.count >= 20) {
+        throw new Error('Only 20 event max during beta');
       }
 
       await update(previous, {

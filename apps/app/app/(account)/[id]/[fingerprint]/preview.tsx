@@ -1,8 +1,7 @@
 'use client';
 
-import { EventStacktraceResult } from '@logbun/app/types';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { prism as lightTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { Line } from '@logbun/app/types';
+import { Code } from '@logbun/ui';
 
 const languages: Record<string, string> = {
   js: 'javascript',
@@ -12,41 +11,26 @@ const languages: Record<string, string> = {
 };
 
 interface Props {
-  frame: EventStacktraceResult;
+  lineNumber?: number;
+  fileName?: string;
+  preview: Line[];
 }
 
-export default function Preview({ frame }: Props) {
-  const { lineNumber, fileName, preview } = frame;
-
-  if (!preview?.length) {
-    return (
-      <p className="p-2 text-base leading-7 text-gray-600">
-        <span className="text-xl">🤷🏻‍♂️</span> No additional context. You may need to upload your sourcemaps.
-      </p>
-    );
-  }
-
+export default function PreviewCode({ fileName, lineNumber, preview }: Props) {
   const extension = fileName?.split('.').pop();
 
   const language = languages[extension || 'js'];
 
   return (
-    <SyntaxHighlighter
-      style={lightTheme}
-      wrapLines={true}
+    <Code
+      copyable={false}
       startingLineNumber={preview[0]?.[0]}
       showLineNumbers={true}
-      customStyle={{ background: 'none', fontSize: '0.8rem' }}
       language={language}
-      lineProps={(line) => ({
-        style: {
-          display: 'block',
-          backgroundColor: line === lineNumber ? '#e2e8f0' : undefined,
-        },
-      })}
+      highlight={lineNumber}
     >
       {/* eslint-disable-next-line no-unused-vars */}
-      {preview.map(([index, source]) => source).join('\n')}
-    </SyntaxHighlighter>
+      {preview.map(([_, source]) => source).join('\n')}
+    </Code>
   );
 }

@@ -24,17 +24,3 @@ export default [
     plugins: sharedPlugins,
   },
 ];
-// export default [
-//   {
-//     input: 'dist/index.js',
-//     output: [
-//       { file: pkg.main, format: 'cjs', sourcemap: true, exports: 'named' },
-//       { file: pkg.module, format: 'es', sourcemap: true, exports: 'named' },
-//     ],
-//     external: ['fs', 'path', 'next'],
-//     plugins: [
-//       replace({ preventAssignment: false, exclude: 'node_modules/**', values: { __VERSION__: pkg.version } }),
-//       commonjs(),
-//     ],
-//   },
-// ];

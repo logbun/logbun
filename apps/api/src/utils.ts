@@ -10,7 +10,7 @@ export const getProjectByApiKey = async (apiKey: string) => {
   return project;
 };
 
-export const getEventByKey = async (fingerprint: string) => {
+export const getEventByFingerprint = async (fingerprint: string) => {
   const select = [...events, 'any(projectId) as projectId'];
 
   const query = build({ select, where: `fingerprint = '${fingerprint}'` });

@@ -20,7 +20,7 @@ export abstract class Client {
 
   constructor(config: Config) {
     this.config = {
-      endpoint: 'https://logbun.com/api',
+      endpoint: 'https://api.logbun.com',
       debug: false,
       logger: console,
       ...config,

@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import siteConfig from '../../../app.json';
 import Root from './root';
 
-const title = `${siteConfig.name} | ${siteConfig.tagline}`;
+const title = `${siteConfig.name} | ${siteConfig.description}`;
 
 export const metadata: Metadata = {
   title: { default: title, template: `%s | ${siteConfig.name}` },

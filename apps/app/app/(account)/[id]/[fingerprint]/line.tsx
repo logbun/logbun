@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function Line({ frame, level }: Props) {
-  const key = '' + frame.fileName + frame.functionName + frame.lineNumber;
+  const key = `${frame.fileName}${frame.functionName}${frame.lineNumber}`;
 
   const header: JSX.Element[] = [];
 

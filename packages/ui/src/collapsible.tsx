@@ -2,7 +2,6 @@
 
 import { Disclosure } from '@headlessui/react';
 import { Minus, Plus } from 'lucide-react';
-import React from 'react';
 
 interface Props {
   title: React.ReactNode;
@@ -10,7 +9,7 @@ interface Props {
   defaultOpen?: boolean;
 }
 
-export default function Collapsible({ title, children, defaultOpen }: Props) {
+export const Collapsible = ({ title, children, defaultOpen }: Props) => {
   return (
     <Disclosure as="div" defaultOpen={defaultOpen} className="pt-3">
       {({ open }) => (
@@ -23,11 +22,11 @@ export default function Collapsible({ title, children, defaultOpen }: Props) {
               </span>
             </Disclosure.Button>
           </dt>
-          <Disclosure.Panel as="dd" className="pr-12 bg-gray-100 rounded">
+          <Disclosure.Panel as="dd" className="pr-12 rounded">
             {children}
           </Disclosure.Panel>
         </>
       )}
     </Disclosure>
   );
-}
+};

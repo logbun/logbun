@@ -1,6 +1,6 @@
 import { findProject } from '@logbun/app/actions';
 import { platforms } from '@logbun/app/utils';
-import { Card, CardDescription, CardHeader, CardTitle } from '@logbun/ui';
+import { Card } from '@logbun/ui';
 import { find } from '@logbun/utils';
 import { notFound } from 'next/navigation';
 import Code from './code';
@@ -28,10 +28,10 @@ export default async function Tracking({ params: { id } }: Props) {
 
   return (
     <Card className="shadow">
-      <CardHeader className="pb-0">
-        <CardTitle>Configure {platform?.name} SDK</CardTitle>
-        <CardDescription>Use these instructions to install Logbun on your {platform?.name} app.</CardDescription>
-      </CardHeader>
+      <Card.Header className="pb-0">
+        <Card.Title>Configure {platform?.name} SDK</Card.Title>
+        <Card.Description>Use these instructions to install Logbun on your {platform?.name} app.</Card.Description>
+      </Card.Header>
       <Code steps={steps} />
     </Card>
   );

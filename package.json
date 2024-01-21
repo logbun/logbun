@@ -1,14 +1,18 @@
 {
-  "name": "logbun",
+  "name": "@logbun/root",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev --filter=app --filter=db --filter=api",
-    "dev:packages": "turbo dev --filter=core --filter=js --filter=react --filter=node",
-    "build:packages": "turbo build --filter=core --filter=js --filter=react --filter=node",
-    "publish:packages": "turbo run build lint && changeset version && changeset publish",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "packages:build": "turbo --filter \"./packages/*\" build",
+    "packages:dev": "turbo --filter \"./packages/*\" dev",
+    "packages:publish": "turbo run build lint && changeset version && changeset publish",
+    "api:build": "turbo --filter api build",
+    "app:build": "turbo --filter app build",
+    "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
+    "db:studio": "pnpm --filter db studio"
   },
   "packageManager": "pnpm@8.13.0",
   "dependencies": {

@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsup",
     "dev": "pnpm with-env tsx watch src/index.ts",
     "with-env": "dotenv -e ../../.env --"
   },
@@ -13,6 +15,7 @@
     "@logbun/db": "workspace:^",
     "@logbun/utils": "workspace:^",
     "hono": "^3.11.11",
+    "isbot": "^4.4.0",
     "rate-limiter-flexible": "^4.0.0",
     "ua-parser-js": "^1.0.37",
     "zod": "^3.22.4"
@@ -21,6 +24,7 @@
     "@types/node": "^20.10.5",
     "@types/ua-parser-js": "^0.7.39",
     "dotenv-cli": "^7.3.0",
+    "tsup": "^8.0.1",
     "tsx": "^4.6.2"
   }
 }

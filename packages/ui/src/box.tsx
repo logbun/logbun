@@ -1,5 +1,5 @@
 import { cn } from '@logbun/utils';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './card';
+import { Card } from './card';
 
 interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -9,27 +9,27 @@ const BoxRoot = ({ children, ...rest }: BoxProps) => {
 
 const BoxHeader = ({ children, className, ...rest }: BoxProps) => {
   return (
-    <CardHeader>
-      <CardTitle {...rest} className={cn('text-center', className)}>
+    <Card.Header>
+      <Card.Title {...rest} className={cn('text-center', className)}>
         {children}
-      </CardTitle>
-    </CardHeader>
+      </Card.Title>
+    </Card.Header>
   );
 };
 
 const BoxContent = ({ children, ...rest }: BoxProps) => {
   return (
-    <CardContent {...rest}>
+    <Card.Content {...rest}>
       <div className="flex flex-col flex-grow">{children}</div>
-    </CardContent>
+    </Card.Content>
   );
 };
 
 const BoxDescription = ({ children, className, ...rest }: BoxProps) => {
   return (
-    <CardDescription {...rest} className={cn('text-center', className)}>
+    <Card.Description {...rest} className={cn('text-center', className)}>
       {children}
-    </CardDescription>
+    </Card.Description>
   );
 };
 

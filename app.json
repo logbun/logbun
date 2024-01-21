@@ -1,7 +1,5 @@
 {
   "name": "Logbun",
-  "tagline": "Simple, Open source, privacy-friendly javascript error tracking for SaaS founders who ship fast.",
-  "description": "Open source javascript error tracking platform for SaaS founders with a focus on privacy.",
-  "description2": "The fully open-source, privacy-friendly Sentry alternative for modern SaaS.",
+  "description": "Simple, Open Source, Privacy-Friendly javascript error tracking for SaaS founders who ship fast.",
   "url": "https://logbun.com"
 }

@@ -1,12 +1,8 @@
 'use client';
 
 import { Tab } from '@headlessui/react';
+import { Code } from '@logbun/ui';
 import { cn } from '@logbun/utils';
-import { Clipboard } from 'lucide-react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { prism as lightTheme } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { toast } from 'sonner';
 import { LibraryConfig, LibraryContent } from './libraries';
 
 interface Props {
@@ -14,33 +10,38 @@ interface Props {
 }
 
 export default function TrackingCode({ steps }: Props) {
-  const renderSnippet = ({ snippet }: LibraryContent) => (
-    <div>
-      {snippet && (
-        <div className="relative bg-gray-100 rounded">
-          <button className="absolute top-0 right-0 p-2 text-gray-500">
-            <CopyToClipboard
-              text={Array.isArray(snippet.children) ? snippet.children.join('') : snippet.children}
-              onCopy={() => toast.success('Copied')}
-            >
-              <Clipboard size={14} />
-            </CopyToClipboard>
-          </button>
-          <SyntaxHighlighter
-            style={lightTheme}
-            wrapLines={true}
-            wrapLongLines={true}
-            showLineNumbers={false}
-            showInlineLineNumbers={false}
-            customStyle={{ background: 'none', fontSize: '0.8rem' }}
-            {...snippet}
-          >
-            {snippet.children}
-          </SyntaxHighlighter>
-        </div>
-      )}
-    </div>
-  );
+  const renderSnippet = ({ snippet }: LibraryContent) => {
+    if (!snippet) return null;
+
+    return <Code {...snippet}>{snippet.children}</Code>;
+  };
+  // const renderSnippet = ({ snippet }: LibraryContent) => (
+  //   <div>
+  //     {snippet && (
+  //       <div className="relative bg-gray-100 rounded">
+  //         <button className="absolute top-0 right-0 p-2 text-gray-500">
+  //           <CopyToClipboard
+  //             text={Array.isArray(snippet.children) ? snippet.children.join('') : snippet.children}
+  //             onCopy={() => toast.success('Copied')}
+  //           >
+  //             <Clipboard size={14} />
+  //           </CopyToClipboard>
+  //         </button>
+  //         <SyntaxHighlighter
+  //           style={lightTheme}
+  //           wrapLines={true}
+  //           wrapLongLines={true}
+  //           showLineNumbers={false}
+  //           showInlineLineNumbers={false}
+  //           customStyle={{ background: 'none', fontSize: '0.8rem' }}
+  //           {...snippet}
+  //         >
+  //           {snippet.children}
+  //         </SyntaxHighlighter>
+  //       </div>
+  //     )}
+  //   </div>
+  // );
 
   const renderContent = (content: LibraryContent | LibraryContent[]) => {
     if (Array.isArray(content)) {
