@@ -1,0 +1,25 @@
+{
+  "name": "@logbun/www",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm with-env next dev --port 2001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings 0",
+    "with-env": "dotenv -e ../../.env --"
+  },
+  "dependencies": {
+    "next": "14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "dotenv-cli": "^7.3.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -5,12 +5,13 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "build": "turbo build",
-    "dev": "turbo dev",
+    "dev": "turbo --filter \"./apps/*\" dev",
     "packages:build": "turbo --filter \"./packages/*\" build",
     "packages:dev": "turbo --filter \"./packages/*\" dev",
     "packages:publish": "turbo run build lint && changeset version && changeset publish",
     "api:build": "turbo --filter api build",
     "app:build": "turbo --filter app build",
+    "www:build": "turbo --filter www build",
     "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
     "db:studio": "pnpm --filter db studio"
   },
@@ -19,12 +20,12 @@
     "@changesets/cli": "^2.27.1"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.484.0",
+    "@aws-sdk/client-s3": "^3.496.0",
     "@logbun/eslint-config": "workspace:*",
     "@logbun/typescript-config": "workspace:*",
-    "prettier": "^3.1.0",
+    "prettier": "^3.2.4",
     "semver": "^7.5.4",
-    "turbo": "^1.11.2"
+    "turbo": "^1.11.3"
   },
   "engines": {
     "node": ">=18"

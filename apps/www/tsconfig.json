@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@logbun/app/*": ["./*"],
+      "@logbun/www/*": ["./*"],
       "react": ["./node_modules/@types/react"]
     }
   },
