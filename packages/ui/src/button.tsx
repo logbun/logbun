@@ -2,6 +2,7 @@ import { cn } from '@logbun/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cloneElement, forwardRef, ReactElement } from 'react';
+import { SlotChild } from './slot-child';
 import { Spinner } from './spinner';
 
 export const buttonVariants = cva(
@@ -95,12 +96,22 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   };
 
   return (
-    <Component ref={ref} disabled={!!loading} type="button" {...rest}>
-      <div className={cn(buttonVariants({ variant, size, loading, className }))}>
-        {renderStart()}
-        {children}
-        {iconPosition === 'end' && icon && cloneElement(icon, { className: icon.props.className })}
-      </div>
+    <Component
+      className={cn(buttonVariants({ variant, size, loading, className }))}
+      ref={ref}
+      disabled={!!loading}
+      type="button"
+      {...rest}
+    >
+      <SlotChild asChild={asChild} child={children}>
+        {(child) => (
+          <>
+            {renderStart()}
+            {child}
+            {iconPosition === 'end' && icon && cloneElement(icon, { className: icon.props.className })}
+          </>
+        )}
+      </SlotChild>
     </Component>
   );
 });

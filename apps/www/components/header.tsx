@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Dialog, Logo } from '@logbun/ui';
-import { cn, siteConfig } from '@logbun/utils';
+import { cn, site } from '@logbun/utils';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -9,10 +9,10 @@ import { useMemo, useRef, useState } from 'react';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 
 const navigation = [
-  { name: 'How it works', href: '/how-it-works' },
-  { name: 'Pricing', href: '/pricing' },
-  { name: 'Docs', href: siteConfig.docs },
-  { name: 'Community', href: siteConfig.discord },
+  { name: 'How it works', href: '/' },
+  { name: 'Pricing', href: '/' },
+  { name: 'Docs', href: site.docs },
+  { name: 'Community', href: site.discord },
 ] as const;
 
 const actions = [
@@ -41,12 +41,19 @@ export default function Header() {
     <header
       ref={headerRef}
       className={cn(anchor ? 'border-b' : 'border-none', {
-        ['sticky top-0 z-50']: !mobileMenuOpen,
+        ['sticky bg-gray-50 top-0 z-50']: !mobileMenuOpen,
       })}
     >
-      <nav className="flex items-center justify-between py-6 mx-auto container-xl gap-x-6">
+      <nav
+        className={cn(
+          'flex transition-all duration-500 items-center justify-between py-6 mx-auto container-xl gap-x-6',
+          {
+            ['py-3']: anchor,
+          }
+        )}
+      >
         <Link href="/" className="flex lg:flex-1">
-          <Logo height={40} width={150} className="flex-shrink-0" />
+          <Logo height={40} width={160} className="flex-shrink-0" />
         </Link>
         <div className="hidden lg:flex lg:gap-x-8">
           {navigation.map((item) => (

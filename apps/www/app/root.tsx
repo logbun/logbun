@@ -1,8 +1,8 @@
 'use client';
 
 import { Viewport } from '@logbun/ui';
-import Footer from './footer';
-import Header from './header';
+import Footer from '../components/footer';
+import Header from '../components/header';
 
 export default function Root({ children }: { children: React.ReactNode }): JSX.Element {
   return (
