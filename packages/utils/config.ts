@@ -1,9 +1,12 @@
 export const siteConfig = {
   title: 'Logbun',
   url: 'https://logbun.com',
-  description: 'Simple, Open Source, Privacy-Friendly javascript error tracking for SaaS founders who ship fast.',
+  description: 'Simple, open-source, privacy-friendly JavaScript error tracking for SaaS founders who ship fast.',
+
   docs: 'https://www.notion.so/meekscreativelab/Logbun-Docs-a525cb5539c341abba551121edaec4c0?pvs=4',
   discord: 'https://discord.gg/nhVEnBbB',
+  twitter: 'https://twitter.com/logbunhq',
+  github: 'https://github.com/logbun/logbun',
 };
 
 export const defaultMetadata = {

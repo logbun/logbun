@@ -11,7 +11,7 @@ export const buttonVariants = cva(
     'inline-flex',
     'items-center',
     'justify-center',
-    'font-semibold',
+    'font-medium',
     'text-sm',
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
