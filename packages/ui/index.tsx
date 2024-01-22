@@ -6,3 +6,4 @@ export * from './src/collapsible';
 export * from './src/logo';
 export * from './src/select';
 export * from './src/text-input';
+export * from './src/viewport';
