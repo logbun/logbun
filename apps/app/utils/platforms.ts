@@ -1,7 +1,7 @@
-import Javascript from '@logbun/app/assets/platforms/javascript.svg';
-import React from '@logbun/app/assets/platforms/react.svg';
-// import Next from '@logbun/app/assets/platforms/next.svg';
-// import Node from '@logbun/app/assets/platforms/node.svg';
+import Javascript from '@logbun/ui/assets/platforms/javascript.svg';
+import React from '@logbun/ui/assets/platforms/react.svg';
+// import Next from '@logbun/ui/assets/platforms/next.svg';
+// import Node from '@logbun/ui/assets/platforms/node.svg';
 
 export const platforms = [
   { key: 'js', name: 'Browser Javascript', icon: Javascript },
