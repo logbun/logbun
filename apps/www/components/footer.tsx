@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 const navigation = {
   company: [
-    { name: 'About', href: '/' },
-    { name: 'How it works', href: '/' },
-    { name: 'Pricing', href: '/' },
+    // { name: 'About', href: '/' },
+    // { name: 'How it works', href: '/' },
+    // { name: 'Pricing', href: '/' },
   ],
   community: [
     { name: 'Docs', href: site.docs },
@@ -15,9 +15,9 @@ const navigation = {
     { name: 'Twitter', href: site.twitter },
   ],
   legal: [
-    { name: 'Privacy', href: '/' },
-    { name: 'Terms', href: '/' },
-    { name: 'Data Policy', href: '/' },
+    // { name: 'Privacy', href: '/' },
+    // { name: 'Terms', href: '/' },
+    // { name: 'Data Policy', href: '/' },
   ],
 };
 

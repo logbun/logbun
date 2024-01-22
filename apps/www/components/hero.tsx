@@ -59,16 +59,18 @@ export default function Hero() {
               <a href={site.github}>Star on Github</a>
             </Button>
           </div>
-          <div className="flex items-center justify-center hidden mt-8 gap-x-2">
-            {platforms.map((platform) => (
-              <Image
-                src={platform.icon}
-                alt={platform.name}
-                width={30}
-                height={30}
-                className="overflow-hidden rounded"
-              />
-            ))}
+          <div className="hidden">
+            <div className="flex items-center justify-center mt-8 gap-x-2">
+              {platforms.map((platform) => (
+                <Image
+                  src={platform.icon}
+                  alt={platform.name}
+                  width={30}
+                  height={30}
+                  className="overflow-hidden rounded"
+                />
+              ))}
+            </div>
           </div>
         </div>
         <div className="flow-root mt-8 sm:mt-12">

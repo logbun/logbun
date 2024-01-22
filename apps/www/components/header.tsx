@@ -9,8 +9,8 @@ import { useMemo, useRef, useState } from 'react';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 
 const navigation = [
-  { name: 'How it works', href: '/' },
-  { name: 'Pricing', href: '/' },
+  // { name: 'How it works', href: '/' },
+  // { name: 'Pricing', href: '/' },
   { name: 'Docs', href: site.docs },
   { name: 'Community', href: site.discord },
 ] as const;
