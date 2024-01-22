@@ -9,6 +9,7 @@ import NodeJs from '@logbun/ui/assets/platforms/node.svg';
 import ReactJs from '@logbun/ui/assets/platforms/react.svg';
 
 import dashboard from '@logbun/ui/assets/main/dashboard.png';
+import { ArrowRight } from 'lucide-react';
 
 export const platforms = [
   { name: 'Javascript', icon: Javascript },
@@ -30,8 +31,15 @@ export default function Hero() {
             tracking. Powered by European-owned cloud infrastructure.
           </p>
           <div className="flex items-center justify-center mt-10 gap-x-6">
-            <Button asChild variant="primary" className="text-base" size="large">
-              <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}>Get started free</Link>
+            <Button
+              asChild
+              variant="primary"
+              className="text-base"
+              size="large"
+              icon={<ArrowRight size={18} />}
+              iconPosition="end"
+            >
+              <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}>Early Access</Link>
             </Button>
             <Button
               icon={

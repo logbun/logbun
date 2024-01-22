@@ -2,7 +2,7 @@
 
 import { Button, Dialog, Logo } from '@logbun/ui';
 import { cn, site } from '@logbun/utils';
-import { Menu } from 'lucide-react';
+import { ArrowRight, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMemo, useRef, useState } from 'react';
@@ -17,7 +17,7 @@ const navigation = [
 
 const actions = [
   { name: 'Log in', href: `${process.env.NEXT_PUBLIC_APP_URL}/login` },
-  { name: 'Get started free', href: `${process.env.NEXT_PUBLIC_APP_URL}/register` },
+  { name: 'Early Access', href: `${process.env.NEXT_PUBLIC_APP_URL}/register` },
 ] as const;
 
 export default function Header() {
@@ -75,7 +75,7 @@ export default function Header() {
           <Button asChild variant="default" className="hidden text-base font-normal lg:block">
             <Link href={login.href}>{login.name}</Link>
           </Button>
-          <Button asChild variant="primary" className="text-base">
+          <Button asChild variant="primary" className="text-base" icon={<ArrowRight size={18} />} iconPosition="end">
             <Link href={register.href}>{register.name}</Link>
           </Button>
         </div>
