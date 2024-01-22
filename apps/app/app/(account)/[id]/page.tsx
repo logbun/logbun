@@ -1,5 +1,5 @@
 import { findProject, getEvents } from '@logbun/app/actions';
-import { buttonVariants } from '@logbun/ui';
+import { Button } from '@logbun/ui';
 import { cn } from '@logbun/utils';
 import { CheckCircle2, Settings, XCircle } from 'lucide-react';
 import Link from 'next/link';
@@ -58,13 +58,12 @@ export default async function Page({ params: { id }, searchParams: { resolved } 
               </Link>
             ))}
           </div>
-          <Link
-            href={`/${project.id}/settings/general`}
-            className={buttonVariants({ variant: 'secondary', size: 'small' })}
-          >
-            <Settings size={18} />
-            <span>Settings</span>
-          </Link>
+          <Button asChild variant="secondary" size="small">
+            <Link href={`/${project.id}/settings/general`}>
+              <Settings size={18} />
+              <span>Settings</span>
+            </Link>
+          </Button>
         </div>
       </div>
       <div className="py-16">

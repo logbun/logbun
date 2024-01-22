@@ -5,8 +5,8 @@ import Root from './root';
 
 export const metadata: Metadata = {
   ...defaultMetadata,
-  openGraph,
-  twitter,
+  openGraph: { ...openGraph },
+  twitter: { ...twitter },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {

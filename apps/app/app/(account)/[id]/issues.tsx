@@ -3,7 +3,7 @@
 import SearchIcon from '@logbun/app/assets/illustrations/search.svg';
 import { EventResultResponse, Project } from '@logbun/app/types';
 import { getLevelEmoji } from '@logbun/app/utils';
-import { buttonVariants } from '@logbun/ui';
+import { Button } from '@logbun/ui';
 import { cn } from '@logbun/utils';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import { ArrowRight, ChevronRightIcon } from 'lucide-react';
@@ -31,10 +31,12 @@ export default function Events({ project, issues }: Props) {
             </span>
             <span>Waiting for your first error event</span>
           </h5>
-          <Link href={`${pathname}/settings/tracking`} className={buttonVariants({ className: 'my-2' })}>
-            View installation instructions
-            <ArrowRight size={18} />
-          </Link>
+          <Button asChild className="my-2">
+            <Link href={`${pathname}/settings/tracking`}>
+              View installation instructions
+              <ArrowRight size={18} />
+            </Link>
+          </Button>
         </div>
       )}
 

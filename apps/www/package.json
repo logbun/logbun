@@ -13,6 +13,7 @@
     "@logbun/tailwind-config": "workspace:^",
     "@logbun/ui": "workspace:^",
     "@logbun/utils": "workspace:^",
+    "lucide-react": "^0.314.0",
     "next": "14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -23,6 +24,7 @@
     "@types/node": "^20.11.5",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.17",
     "dotenv-cli": "^7.3.0",
     "typescript": "^5.3.3"
   }

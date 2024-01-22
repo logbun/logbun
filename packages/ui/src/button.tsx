@@ -1,4 +1,5 @@
 import { cn } from '@logbun/utils';
+import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cloneElement, forwardRef, ReactElement } from 'react';
 import { Spinner } from './spinner';
@@ -68,11 +69,14 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   icon?: ReactElement;
+  asChild?: boolean;
   iconPosition?: 'start' | 'end';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { className, variant, size, loading, iconPosition = 'start', icon, children, ...rest } = props;
+  const { className, variant, size, asChild, loading, iconPosition = 'start', icon, children, ...rest } = props;
+
+  const Component = asChild ? Slot : 'button';
 
   const renderStart = () => {
     if (loading) {
@@ -91,17 +95,19 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   };
 
   return (
-    <button
+    <Component
       ref={ref}
       disabled={!!loading}
       className={cn(buttonVariants({ variant, size, loading, className }))}
       type="button"
       {...rest}
     >
-      {renderStart()}
-      {children}
-      {iconPosition === 'end' && icon && cloneElement(icon, { className: icon.props.className })}
-    </button>
+      <>
+        {renderStart()}
+        {children}
+        {iconPosition === 'end' && icon && cloneElement(icon, { className: icon.props.className })}
+      </>
+    </Component>
   );
 });
 
