@@ -4,8 +4,8 @@ import { Button } from '@logbun/ui';
 
 export default function Home() {
   return (
-    <h1>
+    <div>
       @logbun/www <Button>Hello</Button>
-    </h1>
+    </div>
   );
 }

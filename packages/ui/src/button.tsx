@@ -74,7 +74,7 @@ export interface ButtonProps
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { className, variant, size, asChild, loading, iconPosition = 'start', icon, children, ...rest } = props;
+  const { className, variant, size, asChild = false, loading, iconPosition = 'start', icon, children, ...rest } = props;
 
   const Component = asChild ? Slot : 'button';
 
@@ -95,18 +95,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   };
 
   return (
-    <Component
-      ref={ref}
-      disabled={!!loading}
-      className={cn(buttonVariants({ variant, size, loading, className }))}
-      type="button"
-      {...rest}
-    >
-      <>
+    <Component ref={ref} disabled={!!loading} type="button" {...rest}>
+      <div className={cn(buttonVariants({ variant, size, loading, className }))}>
         {renderStart()}
         {children}
         {iconPosition === 'end' && icon && cloneElement(icon, { className: icon.props.className })}
-      </>
+      </div>
     </Component>
   );
 });

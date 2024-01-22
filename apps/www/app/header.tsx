@@ -1,7 +1,7 @@
 'use client';
 
-import { Button, Logo } from '@logbun/ui';
-import { cn } from '@logbun/utils';
+import { Button, Dialog, Logo } from '@logbun/ui';
+import { cn, siteConfig } from '@logbun/utils';
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -11,7 +11,14 @@ import { useScrollPosition } from '../hooks/useScrollPosition';
 const navigation = [
   { name: 'How it works', href: '/how-it-works' },
   { name: 'Pricing', href: '/pricing' },
-];
+  { name: 'Docs', href: siteConfig.docs },
+  { name: 'Community', href: siteConfig.discord },
+] as const;
+
+const actions = [
+  { name: 'Log in', href: `${process.env.NEXT_PUBLIC_APP_URL}/login` },
+  { name: 'Get started free', href: `${process.env.NEXT_PUBLIC_APP_URL}/register` },
+] as const;
 
 export default function Header() {
   const scrollPosition = useScrollPosition();
@@ -22,6 +29,8 @@ export default function Header() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const [login, register] = actions;
+
   const anchor = useMemo(() => {
     const { current } = headerRef;
     const trigger = current ? current.clientHeight : 0;
@@ -31,33 +40,36 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className={cn('bg-white', anchor ? 'border-b' : 'border-none', {
+      className={cn(anchor ? 'border-b' : 'border-none', {
         ['sticky top-0 z-50']: !mobileMenuOpen,
       })}
     >
-      <nav className="flex items-center justify-between px-6 py-3 mx-auto max-w-7xl gap-x-6 lg:px-8">
+      <nav className="flex items-center justify-between py-6 mx-auto container-xl gap-x-6">
         <Link href="/" className="flex lg:flex-1">
-          <Logo height={40} width={130} className="flex-shrink-0" />
+          <Logo height={40} width={150} className="flex-shrink-0" />
         </Link>
         <div className="hidden lg:flex lg:gap-x-8">
           {navigation.map((item) => (
             <Button
               asChild
               key={item.name}
-              className={cn('text-base', {
+              variant="default"
+              className={cn('text-base font-normal -mx-3 py-1.5', {
                 ['bg-gray-50']: pathname === item.href,
               })}
             >
-              <Link href={item.href}>{item.name}</Link>
+              <Link target={item.href.includes('https') ? '_blank' : undefined} href={item.href}>
+                {item.name}
+              </Link>
             </Button>
           ))}
         </div>
         <div className="flex items-center justify-end flex-1 gap-x-4">
-          <Button asChild variant="default" className="hidden text-base lg:block">
-            <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/logins`}>Log in</Link>
+          <Button asChild variant="default" className="hidden text-base font-normal lg:block">
+            <Link href={login.href}>{login.name}</Link>
           </Button>
-          <Button asChild className="text-base">
-            <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}>Get started free</Link>
+          <Button asChild variant="primary" className="text-base">
+            <Link href={register.href}>{register.name}</Link>
           </Button>
         </div>
         <div className="flex lg:hidden">
@@ -71,6 +83,39 @@ export default function Header() {
           </button>
         </div>
       </nav>
+      <div className="lg:hidden">
+        <Dialog open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+          <Dialog.Content className="top-0 left-0 -translate-x-0 -translate-y-0">
+            <Link href="/">
+              <Logo height={40} width={140} />
+            </Link>
+            <div className="divide-y divide-gray-200">
+              <div className="py-3 space-y-1">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block px-3 py-2 -mx-3 text-gray-500 rounded hover:bg-gray-100"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              <div className="pt-3 space-y-1">
+                {actions.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="-mx-3 block rounded py-1.5 px-3 text-gray-500 hover:bg-gray-100"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </Dialog.Content>
+        </Dialog>
+      </div>
     </header>
   );
 }
