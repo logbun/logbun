@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm with-env next dev --port 2001",
-    "build": "next build -p $PORT",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
     "with-env": "dotenv -e ../../.env --"
