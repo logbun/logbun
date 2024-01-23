@@ -6,7 +6,7 @@
   "private": "true",
   "scripts": {
     "build": "tsup",
-    "dev": "tsup index.ts --watch",
+    "dev": "tsup --watch",
     "studio": "pnpm with-env drizzle-kit studio --verbose",
     "push": "pnpm with-env drizzle-kit push:pg -- --verbose",
     "generate": "pnpm with-env drizzle-kit generate:pg",
