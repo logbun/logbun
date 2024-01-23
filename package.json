@@ -4,9 +4,12 @@
   "scripts": {
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "build": "turbo build",
     "dev": "pnpm apps:dev",
+    "build": "pnpm www:build",
+    "all:build": "turbo build",
+    "all:dev": "turbo dev",
     "apps:dev": "turbo --filter \"./apps/*\" dev",
+    "apps:build": "turbo --filter \"./apps/*\" build",
     "packages:build": "turbo --filter \"./packages/*\" build",
     "packages:dev": "turbo --filter \"./packages/*\" dev",
     "packages:publish": "turbo run build lint && changeset version && changeset publish",
