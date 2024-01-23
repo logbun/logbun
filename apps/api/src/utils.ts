@@ -1,4 +1,4 @@
-import { build, events, fetch } from '@logbun/clickhouse/queries';
+import { build, events, fetch } from '@logbun/clickhouse/src/queries';
 import { db, eq, projects } from '@logbun/db';
 import crypto from 'crypto';
 

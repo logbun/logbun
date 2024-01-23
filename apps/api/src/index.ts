@@ -1,7 +1,7 @@
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { serve } from '@hono/node-server';
 import { zValidator } from '@hono/zod-validator';
-import { create, update } from '@logbun/clickhouse/queries';
+import { create, update } from '@logbun/clickhouse/src/queries';
 import { errorMessage, generateMinifiedKey, generateSourceMapKey, shortid } from '@logbun/utils';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';

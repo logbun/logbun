@@ -6,8 +6,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Issues from './issues';
 
-export const relative = true;
-
 export const metadata = {
   title: 'Issues',
 };
