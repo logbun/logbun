@@ -16,6 +16,7 @@
     "api:build": "turbo --filter api build",
     "app:build": "turbo --filter app build",
     "www:build": "turbo --filter www build",
+    "www:start": "turbo --filter www start",
     "www:deploy": "git push dokku feature/www",
     "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
     "db:studio": "pnpm --filter db studio"

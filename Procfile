@@ -1,1 +1,1 @@
-www: npm start
+www: npm run www:start
