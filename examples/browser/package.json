@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "serve . -p 4040 -n"
+    "dev": "serve . -p 4040 -n"
   },
   "keywords": [],
   "author": "",

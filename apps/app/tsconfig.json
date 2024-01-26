@@ -1,7 +1,6 @@
 {
   "extends": "@logbun/typescript-config/nextjs.json",
   "compilerOptions": {
-    "plugins": [{ "name": "next" }],
     "baseUrl": ".",
     "paths": {
       "@logbun/app/*": ["./*"],

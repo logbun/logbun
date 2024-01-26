@@ -1,0 +1,12 @@
+{
+  "extends": "@logbun/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@logbun/www/*": ["./*"],
+      "react": ["./node_modules/@types/react"]
+    }
+  },
+  "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

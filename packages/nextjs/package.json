@@ -12,10 +12,10 @@
     "clean": "rm -fr dist",
     "build:ts": "tsc --build tsconfig.json",
     "build:rollup": "rollup -c rollup.config.mjs",
-    "build:ts:watch": "tsc -p tsconfig.json --watch",
-    "build:rollup:watch": "rollup -c rollup.config.mjs --watch",
+    "watch:ts": "tsc -p tsconfig.json --watch",
+    "watch:rollup": "rollup -c rollup.config.mjs --watch",
     "build": "run-s clean build:ts build:rollup",
-    "dev": "run-p build:ts:watch build:rollup:watch"
+    "dev": "run-p watch:ts watch:rollup"
   },
   "license": "MIT",
   "repository": {

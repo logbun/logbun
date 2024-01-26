@@ -13,6 +13,7 @@ export interface Plugin {
 export interface Config {
   apiKey?: string;
   debug?: boolean;
+  release?: string;
   endpoint?: string;
   environment?: string;
   logger?: Logger;
@@ -44,8 +45,8 @@ export interface Event {
   name: string;
   message: string;
   stacktrace: StackFrame[];
-
   environment?: string;
+  url?: string;
   handled?: boolean;
   level?: 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug';
   metadata?: Record<string, unknown>;

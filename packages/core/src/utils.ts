@@ -2,6 +2,18 @@ import ErrorStackParser from 'error-stack-parser';
 import StackGenerator from 'stack-generator';
 import { Event } from './types';
 
+export function getGlobal() {
+  if (typeof globalThis !== 'undefined') {
+    return globalThis;
+  }
+
+  if (typeof self !== 'undefined') {
+    return self;
+  }
+
+  return window;
+}
+
 export function getErrorStacktrace(error: Error) {
   if (isStackError(error)) {
     return ErrorStackParser.parse(error);
@@ -70,29 +82,30 @@ export function createEvent(error: unknown): Event {
 
   const stacktrace = getErrorStacktrace(exception);
 
+  const backtrace = stacktrace.splice(0, calculateStackShift(stacktrace));
+
   return {
     name: exception.name,
     message: exception.message,
-    stacktrace,
+    stacktrace: backtrace,
   };
 }
 
-export function cleanStackFrames(stacks: ErrorStackParser.StackFrame[]) {
+export function calculateStackShift(stacks: ErrorStackParser.StackFrame[]) {
   const defaultShift = 3;
 
   let shift = 0;
 
-  const isLogBunFrame = (frame: ErrorStackParser.StackFrame) => {
-    if (!frame.fileName) return false;
-    return frame.fileName.indexOf('@logbun') > -1;
+  const isLogBunFrame = ({ fileName, functionName }: ErrorStackParser.StackFrame) => {
+    return fileName?.includes('logbun') || functionName?.includes('logbun');
   };
 
   stacks.forEach((frame, index, frames) => {
     if (isLogBunFrame(frame)) {
       shift += 1;
     } else if (!frame.fileName || frame.fileName === '<anonymous>') {
-      const nextFrame = frames[index + 1];
-      if (nextFrame && isLogBunFrame(nextFrame)) {
+      const next = frames[index + 1];
+      if (next && isLogBunFrame(next)) {
         shift += 1;
       } else {
         return; // Break when a non Logbun frame is encountered

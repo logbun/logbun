@@ -14,9 +14,13 @@ export abstract class Client {
 
   public readonly transport: Transport;
 
+  protected beforeNotifications: Array<(event: Event) => void> = [];
+
+  protected afterNotifications: Array<(event: ErrorEvent) => void> = [];
+
   constructor(config: Config) {
     this.config = {
-      endpoint: 'https://logbun.com/api',
+      endpoint: 'https://api.logbun.com',
       debug: false,
       logger: console,
       ...config,
@@ -88,14 +92,22 @@ export abstract class Client {
     this.metadata = { ...this.metadata, [key]: value };
   };
 
-  public notify = (error: unknown) => {
+  public notify = (error: unknown, config: Partial<Config> = {}) => {
     const event = createEvent(error);
 
-    this.send({ ...event, level: 'info', handled: true });
+    this.broadcast({ level: 'info', handled: true, ...event }, config);
   };
 
-  public send = (event: Event) => {
-    if (!this.config.endpoint) {
+  public broadcast = (event: Event, config: Partial<Config> = {}) => {
+    this.beforeNotifications.forEach((fn) => fn(event));
+
+    this.send({ level: 'error', handled: false, ...event }, config);
+  };
+
+  private send = (event: Event, config: Partial<Config> = {}) => {
+    const options = { ...this.config, ...config };
+
+    if (!options.endpoint) {
       return this.logger.error('No endpoint');
     }
 
@@ -103,7 +115,7 @@ export abstract class Client {
       return this.logger.warn('Transport disabled. Skipping');
     }
 
-    if (!this.config.apiKey) {
+    if (!options.apiKey) {
       return this.logger.warn('Api key not provided, client will not send events.');
     }
 
@@ -111,19 +123,29 @@ export abstract class Client {
 
     const body: ErrorEvent = {
       timestamp: Math.floor(Date.now() / 1000),
-      level: 'error',
-      handled: false,
       metadata: { ...this.metadata, ...metadata },
       sdk: this.sdk,
       ...event,
     };
 
-    this.transport.send(
-      {
-        endpoint: this.config.endpoint,
-        headers: { 'X-API-Key': this.config.apiKey },
-      },
-      body
-    );
+    this.transport
+      .send(
+        {
+          endpoint: options.endpoint,
+          headers: { 'X-API-Key': options.apiKey },
+        },
+        body
+      )
+      .then(() => {
+        this.afterNotifications.forEach((fn) => fn(body));
+      });
+  };
+
+  public beforeNotify = (handler: (event: Event) => void) => {
+    this.beforeNotifications.push(handler);
+  };
+
+  public afterNotify = (handler: (event: ErrorEvent) => void) => {
+    this.afterNotifications.push(handler);
   };
 }

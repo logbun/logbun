@@ -2,7 +2,7 @@ import { cn } from '@logbun/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { forwardRef, LabelHTMLAttributes } from 'react';
 
-export const labelVariants = cva('block text-sm text-slate-500 leading-6');
+export const labelVariants = cva('block text-sm font-medium text-gray-500 leading-6');
 
 interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement>, VariantProps<typeof labelVariants> {}
 

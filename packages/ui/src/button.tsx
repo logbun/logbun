@@ -1,52 +1,58 @@
+'use client';
+
 import { cn } from '@logbun/utils';
+import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cloneElement, forwardRef, ReactElement } from 'react';
+import { SlotChild } from './slot-child';
 import { Spinner } from './spinner';
 
 export const buttonVariants = cva(
   [
     'relative',
-    'rounded-lg',
+    'rounded-md',
     'inline-flex',
     'items-center',
     'justify-center',
-    'gap-x-2',
-    'shadow-sm',
+    'font-medium',
     'text-sm',
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
     'whitespace-nowrap',
+    'transition-all',
   ],
   {
     variants: {
       variant: {
         primary: [
           'relative',
-          'bg-slate-800',
+          'bg-gray-800',
           'text-white',
-          'hover:bg-opacity-95',
+          'hover:bg-gray-700',
           'focus-visible:outline',
           'focus-visible:outline-2',
           'focus-visible:outline-offset-2',
-          'focus-visible:outline-slate-500',
-          'disabled:hover:bg-slate-500',
+          'focus-visible:outline-gray-500',
+          'disabled:hover:bg-gray-500',
+          'shadow-sm',
         ],
         secondary: [
           'bg-white',
-          'text-slate-900',
+          'text-gray-900',
+          'hover:bg-gray-50',
+          'shadow-sm',
           'ring-1',
           'ring-inset',
-          'ring-slate-300',
-          'hover:bg-slate-50',
-          'shadow-slate-100',
+          'ring-gray-300',
         ],
-        default: ['text-slate-900', 'hover:bg-slate-50', 'shadow-none'],
+        danger: ['bg-red-100', 'text-red-500', 'hover:bg-red-200'],
+        default: ['text-gray-900', 'hover:bg-gray-100'],
       },
       size: {
-        small: ['py-1.5', 'px-2.5'],
-        medium: ['py-2', 'px-3'],
-        large: ['py-2.5', 'px-3.5'],
-        xlarge: ['py-3', 'px-4'],
+        small: ['py-1.5', 'px-2.5', 'gap-x-1'],
+        medium: ['py-2', 'px-3', 'gap-x-1.5'],
+        large: ['py-2.5', 'px-3.5', 'gap-x-2'],
+        xlarge: ['py-3', 'px-4', 'gap-x-2'],
       },
       loading: {
         true: 'cursor-wait',
@@ -66,11 +72,14 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   icon?: ReactElement;
+  asChild?: boolean;
   iconPosition?: 'start' | 'end';
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { className, variant, size, loading, iconPosition = 'start', icon, children, ...rest } = props;
+  const { className, variant, size, asChild = false, loading, iconPosition = 'start', icon, children, ...rest } = props;
+
+  const Component = asChild ? Slot : 'button';
 
   const renderStart = () => {
     if (loading) {
@@ -89,17 +98,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) =>
   };
 
   return (
-    <button
+    <Component
+      className={cn(buttonVariants({ variant, size, loading, className }))}
       ref={ref}
       disabled={!!loading}
-      className={cn(buttonVariants({ variant, size, loading, className }))}
       type="button"
       {...rest}
     >
-      {renderStart()}
-      {children}
-      {iconPosition === 'end' && icon && cloneElement(icon, { className: icon.props.className })}
-    </button>
+      <SlotChild asChild={asChild} child={children}>
+        {(child) => (
+          <>
+            {renderStart()}
+            {child}
+            {iconPosition === 'end' && icon && cloneElement(icon, { className: icon.props.className })}
+          </>
+        )}
+      </SlotChild>
+    </Component>
   );
 });
 

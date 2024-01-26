@@ -10,16 +10,28 @@ const packageJson = require(packageDir + '/package.json');
 const packageVersion = packageJson.version;
 const files = process.argv.slice(2);
 
-const bucketName = process.env.AWS_BUCKET;
-const endpointUrl = process.env.AWS_ENDPOINT;
+const endpoint = process.env.S3_ENDPOINT;
 
-const bunnyUrl = process.env.BUNNY_URL;
-const bunnyAccessKey = process.env.BUNNY_ACCESS_KEY;
+const bucket = process.env.S3_CDN_BUCKET;
+
+const accessKeyId = process.env.S3_ACCESS_KEY_ID;
+
+const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
+
+const region = process.env.S3_REGION;
+
+const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL;
+
+const cdnAccessKey = process.env.CDN_ACCESS_KEY;
+
+if (!accessKeyId || !secretAccessKey) throw new Error('Environment unavailable');
 
 const s3Client = new S3({
-  endpoint: endpointUrl,
+  region,
+  endpoint,
   tls: false,
   forcePathStyle: true,
+  credentials: { accessKeyId, secretAccessKey },
 });
 
 const upload = async (localPath, remotePath) => {
@@ -30,7 +42,7 @@ const upload = async (localPath, remotePath) => {
   const fileStream = await fs.createReadStream(localPath);
 
   const response = await s3Client.putObject({
-    Bucket: bucketName,
+    Bucket: bucket,
     Key: remotePath,
     Body: fileStream,
     CacheControl: 'public, max-age=315360000',
@@ -42,12 +54,12 @@ const upload = async (localPath, remotePath) => {
 };
 
 const invalidate = async () => {
-  console.log(`Purging cache on: ${bunnyUrl}`);
+  console.log(`Purging cache on: ${cdnUrl}`);
 
   try {
-    await fetch(`https://api.bunny.net/purge?url=${bunnyUrl}&async=false`, {
+    await fetch(`https://api.bunny.net/purge?url=${cdnUrl}&async=false`, {
       method: 'POST',
-      headers: { AccessKey: bunnyAccessKey },
+      headers: { AccessKey: cdnAccessKey },
     });
   } catch (error) {
     console.error(error);
@@ -83,7 +95,16 @@ const run = async () => {
     }
   }
 
-  await invalidate();
+  // Update latest
+  const latest = 'latest';
+
+  for (const file of files) {
+    const localPath = `${packageDir}/${file}`;
+    const uploadPath = `${latest}/${path.basename(file)}`;
+    await upload(localPath, uploadPath);
+  }
+
+  if (cdnAccessKey) await invalidate();
 };
 
 run();

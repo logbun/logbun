@@ -1,6 +1,6 @@
 import { Client, Utils } from '@logbun/core';
 
-export default function (win = window) {
+export default function (win = Utils.getGlobal()) {
   return {
     load(client: Client) {
       const prevOnUnhandledRejection = win.onunhandledrejection;
@@ -18,9 +18,9 @@ export default function (win = window) {
 
         const event = Utils.createEvent(error);
 
-        client.send(event);
+        client.broadcast(event);
 
-        // TODO: Remove any. I think this breaks
+        // TODO: Not sure why any doesn't work here
         if (typeof prevOnUnhandledRejection === 'function') {
           prevOnUnhandledRejection.apply(this as any, arguments as unknown as [PromiseRejectionEvent]);
         }

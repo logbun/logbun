@@ -1,13 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { createProject } from '@logbun/app/actions/project';
-import Javascript from '@logbun/app/assets/platforms/javascript.svg';
-import Next from '@logbun/app/assets/platforms/next.svg';
-import Node from '@logbun/app/assets/platforms/node.svg';
-import React from '@logbun/app/assets/platforms/react.svg';
+import { createProject } from '@logbun/app/actions';
+import { platforms } from '@logbun/app/utils';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
-import { Button, Select, TextInput, buttonVariants } from '@logbun/ui';
+import { Button, Select, TextInput } from '@logbun/ui';
 import { cn, errorMessage, find } from '@logbun/utils';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
@@ -16,17 +13,6 @@ import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-
-const platforms = [
-  { key: 'javascript', name: 'Browser Javascript', icon: Javascript },
-  // { key: 'angular', name: 'Angular', icon: Angular },
-  { key: 'next', name: 'Next.JS', icon: Next },
-  { key: 'react', name: 'React', icon: React },
-  // { key: 'svelte', name: 'Svelte', icon: Svelte },
-  // { key: 'vue', name: 'Vue', icon: Vue },
-  { key: 'node', name: 'Node.JS', icon: Node },
-  // { key: 'express', name: 'Express', icon: Express },
-];
 
 export default function ProjectForm() {
   let [isPending, startTransition] = useTransition();
@@ -40,7 +26,7 @@ export default function ProjectForm() {
     formState: { errors },
   } = useForm<ProjectFormTypes>({
     resolver: zodResolver(projectSchema),
-    defaultValues: { platform: 'react' },
+    defaultValues: { platform: platforms[0]?.key },
   });
 
   const onSubmit: SubmitHandler<ProjectFormTypes> = async ({ name, platform }) => {
@@ -78,9 +64,9 @@ export default function ProjectForm() {
             <Select
               label={<Select.Label>Platform</Select.Label>}
               button={
-                <Select.Button>
+                <Select.Button className="py-1.5 px-1.5">
                   <span className="flex items-center">
-                    <Image src={selected?.icon} alt="icon" className="flex-shrink-0 w-6 h-6 rounded-md" />
+                    <Image src={selected?.icon} alt="icon" height={26} width={26} className="flex-shrink-0 rounded" />
                     <span className="block ml-2 truncate">{selected?.name}</span>
                   </span>
                 </Select.Button>
@@ -100,7 +86,7 @@ export default function ProjectForm() {
                           </span>
                         </div>
                         {selected ? (
-                          <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-800">
+                          <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-800">
                             <Check className="w-4 h-4" />
                           </span>
                         ) : null}
@@ -113,10 +99,10 @@ export default function ProjectForm() {
           );
         }}
       />
-      <div className="flex items-center justify-end pt-2 space-x-3">
-        <Link href="/" className={buttonVariants({ variant: 'secondary' })}>
-          Back
-        </Link>
+      <div className="flex items-center justify-start pt-4 space-x-4">
+        <Button asChild variant="secondary">
+          <Link href="/">Back</Link>
+        </Button>
         <Button loading={isPending} type="submit">
           Create Project
         </Button>

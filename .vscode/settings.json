@@ -1,15 +1,21 @@
 {
   "cSpell.words": [
+    "argparse",
+    "clickhouse",
     "deduping",
-    "Dekowski",
     "Hono",
+    "iife",
+    "isbot",
     "logbun",
     "lucide",
     "microbundle",
     "nextjs",
     "sonner",
     "sourceloc",
-    "unfetch"
+    "subparsers",
+    "tsup",
+    "unfetch",
+    "xlarge"
   ],
   "npm.packageManager": "pnpm",
   "files.trimTrailingWhitespace": true,

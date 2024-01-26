@@ -1,25 +1,30 @@
 {
-  "name": "logbun",
+  "name": "@logbun/root",
   "private": true,
   "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "dev:sdk": "turbo dev --filter=core --filter=js --filter=node",
-    "publish-packages": "turbo run build lint && changeset version && changeset publish",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "apps:dev": "turbo dev --filter='./apps/*'",
+    "apps:build": "turbo build --filter='./apps/*'",
+    "packages:dev": "turbo dev --filter='./packages/*'",
+    "packages:build": "turbo build --filter='./packages/*'",
+    "packages:publish": "turbo run build lint && changeset version && changeset publish",
+    "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
+    "db:studio": "pnpm --filter db studio"
   },
   "packageManager": "pnpm@8.13.0",
   "dependencies": {
     "@changesets/cli": "^2.27.1"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.484.0",
+    "@aws-sdk/client-s3": "^3.496.0",
     "@logbun/eslint-config": "workspace:*",
     "@logbun/typescript-config": "workspace:*",
-    "prettier": "^3.1.0",
+    "prettier": "^3.2.4",
     "semver": "^7.5.4",
-    "turbo": "^1.11.2"
+    "turbo": "^1.11.3"
   },
   "engines": {
     "node": ">=18"

@@ -1,4 +1,4 @@
-import * as Logbun from '@logbun/nextjs';
+import Logbun from '@logbun/nextjs';
 
 Logbun.init({
   apiKey: 'YOUR_API_KEY',

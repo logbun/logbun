@@ -1,0 +1,30 @@
+{
+  "name": "@logbun/upload-sourcemaps",
+  "version": "1.0.0",
+  "description": "NPM module to upload your JS sourcemaps files to Logbun",
+  "bin": "dist/cli.js",
+  "main": "dist/logbun.js",
+  "module": "dist/logbun.mjs",
+  "typings": "dist/logbun.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c --watch",
+    "test-cli": "node dist/cli.js -e=\"http://localhost:8000/sourcemaps\" --api-key=\"yjupgpuhio04fq5xf2phx4fde5740vtg\" -s=\"/Users/meekdekowski/Desktop/logbun/examples/react/dist/assets/index-rPI3GAN-.js.map\" -m=\"/Users/meekdekowski/Desktop/logbun/examples/react/dist/assets/index-rPI3GAN-.js\""
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@types/argparse": "^2.0.14",
+    "@types/node": "^20.11.0",
+    "rollup": "^4.9.1",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.484.0",
+    "@logbun/utils": "workspace:^",
+    "argparse": "^2.0.1",
+    "fetch-retry": "^5.0.6"
+  }
+}

@@ -4,7 +4,8 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "strict": false,
-    "lib": ["esnext"]
+    "strict": true,
+    "lib": ["esnext"],
+    "strictNullChecks": true
   }
 }

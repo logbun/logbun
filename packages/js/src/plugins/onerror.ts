@@ -1,6 +1,6 @@
-import { Client, Types, Utils } from '@logbun/core';
+import { Client, Utils } from '@logbun/core';
 
-export default function (win = window) {
+export default function (win = Utils.getGlobal()) {
   return {
     load(client: Client) {
       const prevOnError = win.onerror;
@@ -17,20 +17,20 @@ export default function (win = window) {
           return client.logger.warn('Ignoring cross-domain or eval script error.');
         }
 
-        let event: Types.Event;
+        let notice: Error | undefined = error;
 
-        if (!error) {
+        if (!notice) {
           const exception = new Error();
           exception.name = 'Error';
           exception.message = typeof message === 'string' ? message : 'An HTML onerror="" handler failed to execute';
           exception.stack = `at ${url}:${line}${column ? `:${column}` : ''}`;
 
-          event = Utils.createEvent(exception);
-        } else {
-          event = Utils.createEvent(error);
+          notice = exception;
         }
 
-        client.send(event);
+        const event = Utils.createEvent(notice);
+
+        client.broadcast(event);
 
         if (typeof prevOnError === 'function') {
           prevOnError.apply(this, arguments as OnErrorEventHandlerNonNull['arguments']);

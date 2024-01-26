@@ -8,7 +8,7 @@ export default function () {
       handler = (error) => {
         const event = Utils.createEvent(error);
 
-        client.send(event);
+        client.broadcast(event);
       };
 
       process.on('unhandledRejection', handler);
