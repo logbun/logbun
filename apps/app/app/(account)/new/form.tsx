@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createProject } from '@logbun/app/actions';
 import { platforms } from '@logbun/app/utils';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
-import { Button, Select, TextInput, buttonVariants } from '@logbun/ui';
+import { Button, Select, TextInput } from '@logbun/ui';
 import { cn, errorMessage, find } from '@logbun/utils';
 import { Check } from 'lucide-react';
 import Image from 'next/image';
@@ -100,9 +100,9 @@ export default function ProjectForm() {
         }}
       />
       <div className="flex items-center justify-start pt-4 space-x-4">
-        <Link href="/" className={buttonVariants({ variant: 'secondary' })}>
-          Back
-        </Link>
+        <Button asChild variant="secondary">
+          <Link href="/">Back</Link>
+        </Button>
         <Button loading={isPending} type="submit">
           Create Project
         </Button>

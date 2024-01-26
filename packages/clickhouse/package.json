@@ -6,7 +6,7 @@
   "private": "true",
   "scripts": {
     "migrate": "pnpm with-env tsx setup.ts",
-    "build": "tsup index.ts",
+    "build": "tsup",
     "with-env": "dotenv -e ../../.env --"
   },
   "keywords": [],

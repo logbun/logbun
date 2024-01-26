@@ -3,6 +3,8 @@ export * from './src/button';
 export * from './src/card';
 export * from './src/code';
 export * from './src/collapsible';
+export * from './src/dialog';
 export * from './src/logo';
 export * from './src/select';
 export * from './src/text-input';
+export * from './src/viewport';

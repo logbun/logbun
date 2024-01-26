@@ -25,9 +25,12 @@
   "dependencies": {
     "@headlessui/react": "1.7.17",
     "@logbun/utils": "workspace:^",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "lucide-react": "^0.298.0",
     "react-copy-to-clipboard": "^5.1.0",
+    "react-div-100vh": "^0.7.0",
     "react-syntax-highlighter": "^15.5.0"
   }
 }

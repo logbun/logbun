@@ -1,6 +1,6 @@
 'use server';
 
-import { build, events, fetch, update } from '@logbun/clickhouse/queries';
+import { build, events, fetch, update } from '@logbun/clickhouse/src/queries';
 import { db, desc, eq, integrations, projects } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
 import { revalidatePath } from 'next/cache';

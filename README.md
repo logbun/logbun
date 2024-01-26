@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://logbun.com/">
-    <img src="./assets/logo.png" width="300px" alt="Logbun" />
+    <img src="./packages/ui/assets/main/logo.png" width="300px" alt="Logbun" />
   </a>
 </p>
 <p align="center" style="margin-top: 20px">
@@ -28,7 +28,7 @@ We want you to ship fast, fail fast, and catch errors fast without compromising 
 
 No need for cookie banners. Managed and hosted in the EU 🇪🇺
 
-![Logbun](./assets/dashboard.png)
+![Logbun](./packages/ui/assets/main/dashboard.png)
 
 ## Why Choose Logbun Over Alternatives?
 

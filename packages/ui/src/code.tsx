@@ -1,3 +1,5 @@
+'use client';
+
 import { ClipboardCheck, ClipboardIcon } from 'lucide-react';
 import { useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';

@@ -1,5 +1,3 @@
-import { SyntaxHighlighterProps } from 'react-syntax-highlighter';
-
 type Options = {
   apiKey?: string;
   cdnUrl?: string;
@@ -7,7 +5,10 @@ type Options = {
 
 export type LibraryContent = {
   title?: string;
-  snippet?: SyntaxHighlighterProps;
+  snippet?: {
+    children: string | string[];
+    language: string;
+  };
 };
 
 export type LibraryConfig = {

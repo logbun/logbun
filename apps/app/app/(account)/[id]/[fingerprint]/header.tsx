@@ -7,7 +7,7 @@ import { format, fromUnixTime } from 'date-fns';
 import { CheckCircle2, ChevronLeft, Fingerprint, Monitor, Smartphone, Tablet, XCircle } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import Brave from '@logbun/app/assets/browsers/brave.svg';
 import Chrome from '@logbun/app/assets/browsers/chrome.svg';
@@ -53,8 +53,6 @@ const devices = {
 export default function Header({ event }: Props) {
   const params = useParams();
 
-  const router = useRouter();
-
   let [isPending, startTransition] = useTransition();
 
   const browser = event.browser as unknown as keyof typeof browsers;
@@ -73,8 +71,6 @@ export default function Header({ event }: Props) {
     startTransition(async () => {
       try {
         await toggleEventResolved(event.fingerprint);
-        return;
-        router.refresh();
       } catch (error) {
         toast.error(errorMessage(error));
       }

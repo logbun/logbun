@@ -3,7 +3,7 @@ import { platforms } from '@logbun/app/utils';
 import { Card } from '@logbun/ui';
 import { find } from '@logbun/utils';
 import { notFound } from 'next/navigation';
-import Code from './code';
+import TrackingCode from './code';
 import { generateLibraries } from './libraries';
 
 interface Props {
@@ -32,7 +32,7 @@ export default async function Tracking({ params: { id } }: Props) {
         <Card.Title>Configure {platform?.name} SDK</Card.Title>
         <Card.Description>Use these instructions to install Logbun on your {platform?.name} app.</Card.Description>
       </Card.Header>
-      <Code steps={steps} />
+      <TrackingCode steps={steps} />
     </Card>
   );
 }
