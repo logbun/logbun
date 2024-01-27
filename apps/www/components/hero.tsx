@@ -1,5 +1,6 @@
 import { Button } from '@logbun/ui';
 import { site } from '@logbun/utils';
+import { Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,7 +10,6 @@ import NodeJs from '@logbun/ui/assets/platforms/node.svg';
 import ReactJs from '@logbun/ui/assets/platforms/react.svg';
 
 import dashboard from '@logbun/ui/assets/main/dashboard.png';
-import { Sparkles } from 'lucide-react';
 
 export const platforms = [
   { name: 'Javascript', icon: Javascript },
