@@ -9,7 +9,7 @@ import NodeJs from '@logbun/ui/assets/platforms/node.svg';
 import ReactJs from '@logbun/ui/assets/platforms/react.svg';
 
 import dashboard from '@logbun/ui/assets/main/dashboard.png';
-import { ArrowRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 export const platforms = [
   { name: 'Javascript', icon: Javascript },
@@ -22,21 +22,26 @@ export default function Hero() {
   return (
     <div className="py-12 sm:py-16 lg:pb-20">
       <div className="px-6 mx-auto max-w-7xl lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-6xl">
-            Simple, open-source, privacy-first error tracking.
+        <div className="mx-auto text-center" style={{ maxWidth: '50rem' }}>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            Simple, open-source, privacy-first <span style={{ color: '#e3af0e' }}>Sentry.io alternative</span>
           </h1>
+
           <p className="mt-6 text-xl leading-8 text-gray-500">
-            GDPR compliant lightweight open-source error tracking for SaaS founders who ship fast. No cookies or IP
-            tracking. Powered by European-owned cloud infrastructure.
+            <span className="inline lg:block">
+              GDPR & CCPA compliant lightweight error tracking for{' '}
+              <span className="font-semibold text-gray-900">SaaS founders</span>.
+            </span>
+            <span className="inline lg:block"> No cookies or IP tracking. Hosted in the 🇪🇺 European Union</span>
           </p>
+
           <div className="flex items-center justify-center mt-10 gap-x-6">
             <Button
               asChild
               variant="primary"
               className="text-base"
               size="large"
-              icon={<ArrowRight size={18} />}
+              icon={<Sparkles size={18} />}
               iconPosition="end"
             >
               <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}>Early Access</Link>
@@ -56,7 +61,9 @@ export default function Hero() {
               className="text-base"
               size="large"
             >
-              <a href={site.github}>Star on Github</a>
+              <a target="_blank" href={site.github}>
+                Star on Github
+              </a>
             </Button>
           </div>
           <div className="hidden">
