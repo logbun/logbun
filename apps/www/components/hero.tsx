@@ -35,7 +35,7 @@ export default function Hero() {
             <span className="inline lg:block">
               {' '}
               No cookies or IP tracking. Hosted in the{' '}
-              <span className="relative inline-block text-2xl top-0.5">🇪🇺</span> European Union
+              <span className="relative inline-block text-2xl top-0.5">🇪🇺</span> European Union.
             </span>
           </p>
 
