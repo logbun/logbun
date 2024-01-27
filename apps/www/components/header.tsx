@@ -29,7 +29,7 @@ export default function Header() {
 
   const [login, register] = actions;
 
-  const [minHeight, maxHeight] = [64, 88];
+  const [minHeight, maxHeight] = [64, 90];
 
   const currentHeight = Math.max(maxHeight - Math.max(scrollPosition - minHeight, 0), minHeight);
 
@@ -40,7 +40,7 @@ export default function Header() {
       })}
     >
       <nav
-        style={{ height: currentHeight, transition: 'height 0.3s ease' }}
+        style={{ height: currentHeight, transition: 'height 0.1s ease' }}
         className="flex items-center justify-between mx-auto container-xl gap-x-6"
       >
         <Link href="/" className="flex lg:flex-1">

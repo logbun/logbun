@@ -29,10 +29,14 @@ export default function Hero() {
 
           <p className="mt-6 text-xl leading-8 text-gray-500">
             <span className="inline lg:block">
-              GDPR & CCPA compliant lightweight error tracking for{' '}
+              GDPR & CCPA compliant lightweight error tracking built for{' '}
               <span className="font-semibold text-gray-900">SaaS founders</span>.
             </span>
-            <span className="inline lg:block"> No cookies or IP tracking. Hosted in the 🇪🇺 European Union</span>
+            <span className="inline lg:block">
+              {' '}
+              No cookies or IP tracking. Hosted in the{' '}
+              <span className="relative inline-block text-2xl top-0.5">🇪🇺</span> European Union
+            </span>
           </p>
 
           <div className="flex items-center justify-center mt-10 gap-x-6">
@@ -72,8 +76,8 @@ export default function Hero() {
                 <Image
                   src={platform.icon}
                   alt={platform.name}
-                  width={32}
-                  height={32}
+                  width={30}
+                  height={30}
                   className="overflow-hidden rounded"
                 />
               ))}
