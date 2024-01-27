@@ -2,10 +2,10 @@
 
 import { Button, Dialog, Logo } from '@logbun/ui';
 import { cn, site } from '@logbun/utils';
-import { ArrowRight, Menu } from 'lucide-react';
+import { Menu, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 
 const navigation = [
@@ -25,32 +25,23 @@ export default function Header() {
 
   const pathname = usePathname();
 
-  const headerRef = useRef<HTMLElement | null>(null);
-
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [login, register] = actions;
 
-  const anchor = useMemo(() => {
-    const { current } = headerRef;
-    const trigger = current ? current.clientHeight : 0;
-    return scrollPosition > trigger;
-  }, [scrollPosition]);
+  const [minHeight, maxHeight] = [64, 88];
+
+  const currentHeight = Math.max(maxHeight - Math.max(scrollPosition - minHeight, 0), minHeight);
 
   return (
     <header
-      ref={headerRef}
-      className={cn(anchor ? 'border-b' : 'border-none', {
+      className={cn(currentHeight === maxHeight ? 'border-none' : 'border-b', {
         ['sticky bg-gray-50 top-0 z-50']: !mobileMenuOpen,
       })}
     >
       <nav
-        className={cn(
-          'flex transition-all duration-500 items-center justify-between py-6 mx-auto container-xl gap-x-6',
-          {
-            ['py-3']: anchor,
-          }
-        )}
+        style={{ height: currentHeight, transition: 'height 0.3s ease' }}
+        className="flex items-center justify-between mx-auto container-xl gap-x-6"
       >
         <Link href="/" className="flex lg:flex-1">
           <Logo height={40} width={160} className="flex-shrink-0" />
@@ -75,7 +66,7 @@ export default function Header() {
           <Button asChild variant="default" className="hidden text-base font-normal lg:block">
             <Link href={login.href}>{login.name}</Link>
           </Button>
-          <Button asChild variant="primary" className="text-base" icon={<ArrowRight size={18} />} iconPosition="end">
+          <Button asChild variant="primary" className="text-base" icon={<Sparkles size={18} />} iconPosition="end">
             <Link href={register.href}>{register.name}</Link>
           </Button>
         </div>
