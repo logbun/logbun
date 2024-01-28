@@ -10,6 +10,8 @@ type EmailOptions = {
 export const sendEmail = async (options: EmailOptions) => {
   const transport = createTransport(process.env.EMAIL_SERVER);
 
+  console.log(process.env.EMAIL_SERVER, process.env.EMAIL_FROM);
+
   const result = await transport.sendMail({
     from: `Logbun <${process.env.EMAIL_FROM}>`,
     ...options,
