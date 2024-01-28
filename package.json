@@ -8,8 +8,13 @@
     "build": "turbo build",
     "apps:dev": "turbo dev --filter='./apps/*'",
     "apps:build": "turbo build --filter='./apps/*'",
+    "apps:build:www": "turbo build --filter=root --filter=www",
+    "apps:build:app": "turbo build --filter=root --filter=app",
+    "apps:build:api": "turbo build --filter=root --filter=api",
+    "apps:build:packages": "turbo build --filter=clickhouse --filter=db --filter=eslint-config --filter=tailwind-config --filter=ui --filter=utils",
     "packages:dev": "turbo dev --filter='./packages/*'",
     "packages:build": "turbo build --filter='./packages/*'",
+    "packages:build:sdk": "turbo build --filter=core --filter=js --filter=nextjs --filter=react --filter=upload-sourcemaps",
     "packages:publish": "turbo run build lint && changeset version && changeset publish",
     "clickhouse:migrate": "dotenv -- turbo --filter clickhouse migrate",
     "db:studio": "pnpm --filter db studio"
