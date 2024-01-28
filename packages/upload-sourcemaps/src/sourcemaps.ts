@@ -7,7 +7,7 @@ import { Options, Sourcemap } from './types';
 const fetch = fetchRetry(global.fetch);
 
 export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) => {
-  const { apiKey, release, endpoint = process.env.LOGBUN_API_ENDPOINT } = opts;
+  const { apiKey, release, endpoint = process.env.LOGBUN_API_URL } = opts;
 
   assert(typeof apiKey === 'string', "'apiKey' must be a string or undefined");
 
