@@ -9,9 +9,9 @@ const fetch = fetchRetry(global.fetch);
 export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) => {
   const { apiKey, release, endpoint = process.env.LOGBUN_API_URL } = opts;
 
-  assert(typeof apiKey === 'string', "'apiKey' must be a string or undefined");
+  assert(typeof apiKey === 'string', "'apiKey' must be a string or undefined.");
 
-  assert(typeof endpoint === 'string' || "'endpoint' must be a string");
+  assert(typeof endpoint === 'string' || "'endpoint' must be a string.");
 
   for (const sourcemap of sourcemaps) {
     const jsFile = await fs.readFile(sourcemap.jsFilePath);
