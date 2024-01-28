@@ -1,7 +1,7 @@
 {
   "name": "@logbun/upload-sourcemaps",
   "version": "1.0.0",
-  "description": "NPM module to upload your JS sourcemaps files to Logbun",
+  "description": "NPM module to upload your JS sourcemaps files to Logbun.",
   "bin": "dist/cli.js",
   "main": "dist/logbun.js",
   "module": "dist/logbun.mjs",
