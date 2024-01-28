@@ -29,7 +29,7 @@ export default function Header() {
 
   const [login, register] = actions;
 
-  const [minHeight, maxHeight] = [64, 90];
+  const [minHeight, maxHeight] = [64, 88];
 
   const currentHeight = Math.max(maxHeight - Math.max(scrollPosition - minHeight, 0), minHeight);
 

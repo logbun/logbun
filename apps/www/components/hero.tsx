@@ -76,6 +76,7 @@ export default function Hero() {
                 <Image
                   src={platform.icon}
                   alt={platform.name}
+                  key={platform.name}
                   width={30}
                   height={30}
                   className="overflow-hidden rounded"
