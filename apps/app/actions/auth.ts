@@ -101,7 +101,7 @@ export async function createUser(body: RegisterFormTypes) {
 
     const disposable = await isDisposableEmail(email);
 
-    if (disposable) throw new Error('Disposable emails are not allowed.');
+    if (disposable) throw new Error('Disposable emails are not allowed!');
 
     const count = await countUserByEmail(email);
 
