@@ -7,12 +7,9 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "studio": "pnpm with-env drizzle-kit studio --verbose",
-    "push": "pnpm with-env drizzle-kit push:pg -- --verbose",
     "generate": "pnpm with-env drizzle-kit generate:pg",
-    "drop": "pnpm with-env drizzle-kit drop",
-    "migrate": "pnpm with-env tsx migrate.ts",
-    "clear": "pnpm with-env tsx clear.ts",
+    "migrate": "pnpm with-env tsx src/migrate.ts",
+    "clear": "pnpm with-env tsx src/clear.ts",
     "clean": "rm -rf .turbo node_modules",
     "with-env": "dotenv -e ../../.env --"
   },
