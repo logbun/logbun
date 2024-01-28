@@ -19,12 +19,27 @@ export const countUserByEmail = async (email: string) => {
 
     return user ? user.value : 0;
   } catch (error) {
-    throw new Error(`Error in counting users: ${errorMessage(error)}`);
+    throw new Error(errorMessage(error));
   }
 };
 
-export const findUser = async (id: string) => {
-  return client.getUser(id);
+export const findUser = async (email: string) => {
+  try {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user;
+  } catch (error) {
+    throw new Error(errorMessage(error));
+  }
+};
+
+export const insertUser = async (name: string, email: string, password: string) => {
+  const id = crypto.randomUUID();
+  try {
+    await db.insert(users).values({ id, name, email, password });
+    return id;
+  } catch (error) {
+    throw new Error(errorMessage(error));
+  }
 };
 
 export const findUserByEmail = async (email: string) => {
@@ -96,14 +111,14 @@ export async function createUser(body: RegisterFormTypes) {
 
     const securePassword = await hash(password, salt);
 
-    const user = await client.createUser({ name, email, password: securePassword } as unknown as any);
+    const id = await insertUser(name, email, securePassword);
 
-    await client.linkAccount({ userId: user.id, providerAccountId: user.id, type: 'email', provider: 'credentials' });
+    await client.linkAccount({ userId: id, providerAccountId: id, type: 'email', provider: 'credentials' });
 
     await createVerifyToken(email);
 
     return { success: true, message: 'User created' };
   } catch (error) {
-    return { success: false, message: `Error in creating user: ${errorMessage(error)}` };
+    return { success: false, message: errorMessage(error) };
   }
 }

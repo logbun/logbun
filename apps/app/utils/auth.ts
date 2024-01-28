@@ -1,11 +1,11 @@
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
-import { db, eq, users } from '@logbun/db';
+import { db } from '@logbun/db';
 import { compare } from 'bcryptjs';
 import { DefaultSession, User, getServerSession, type NextAuthOptions } from 'next-auth';
 import { Adapter } from 'next-auth/adapters';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { redirect } from 'next/navigation';
-import { findUserByEmail } from '../actions';
+import { findUser, findUserByEmail } from '../actions';
 import { loginSchema } from './schema';
 
 declare module 'next-auth' {
@@ -43,8 +43,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         const { email, password } = await loginSchema.parseAsync(credentials);
 
-        // Not using findUserByEmail because it omits password
-        const [user] = await db.select().from(users).where(eq(users.email, email));
+        const user = await findUser(email);
 
         if (!user) throw new Error("User don't exists");
 
