@@ -5,7 +5,7 @@
   "types": "./dist/index.d.ts",
   "private": "true",
   "scripts": {
-    "migrate": "pnpm with-env tsx setup.ts",
+    "migrate": "pnpm with-env tsx src/migrate.ts",
     "build": "tsup",
     "with-env": "dotenv -e ../../.env --"
   },
