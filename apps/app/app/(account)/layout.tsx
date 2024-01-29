@@ -13,7 +13,7 @@ export default async function Layout({ children }: Props) {
 
   return (
     <>
-      <Nav email={user.email!} />
+      <Nav name={user.name!} email={user.email!} />
       {children}
     </>
   );

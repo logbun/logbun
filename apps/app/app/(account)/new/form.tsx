@@ -5,8 +5,8 @@ import { createProject } from '@logbun/app/actions';
 import { platforms } from '@logbun/app/utils';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
 import { Button, Select, TextInput } from '@logbun/ui';
-import { cn, errorMessage, find } from '@logbun/utils';
-import { Check } from 'lucide-react';
+import { Label } from '@logbun/ui/src/label';
+import { errorMessage } from '@logbun/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -58,44 +58,25 @@ export default function ProjectForm() {
         control={control}
         name="platform"
         render={({ field: { onChange, value } }) => {
-          const selected = find(platforms, ['key', value]);
-
           return (
-            <Select
-              label={<Select.Label>Platform</Select.Label>}
-              button={
-                <Select.Button className="py-1.5 px-1.5">
-                  <span className="flex items-center">
-                    <Image src={selected?.icon} alt="icon" height={26} width={26} className="flex-shrink-0 rounded" />
-                    <span className="block ml-2 truncate">{selected?.name}</span>
-                  </span>
-                </Select.Button>
-              }
-              value={value}
-              onChange={onChange}
-            >
-              <Select.Options>
-                {platforms.map((option) => (
-                  <Select.Option value={option.key} key={option.key}>
-                    {({ selected }: { selected: boolean }) => (
-                      <>
-                        <div className="flex items-center">
-                          <Image src={option.icon} alt="logo" className="flex-shrink-0 w-6 h-6 rounded-md" />
-                          <span className={cn(selected ? 'font-semibold' : 'font-medium', 'ml-3 block truncate')}>
-                            {option.name}
-                          </span>
-                        </div>
-                        {selected ? (
-                          <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-800">
-                            <Check className="w-4 h-4" />
-                          </span>
-                        ) : null}
-                      </>
-                    )}
-                  </Select.Option>
-                ))}
-              </Select.Options>
-            </Select>
+            <div>
+              <Label>Platform</Label>
+              <Select value={value} onValueChange={onChange}>
+                <Select.Trigger className="w-full">
+                  <Select.Value placeholder="Select Platform" />
+                </Select.Trigger>
+                <Select.Content>
+                  {platforms.map((option) => (
+                    <Select.Item value={option.key} key={option.key}>
+                      <div className="flex items-center">
+                        <Image src={option.icon} alt="logo" width={22} height={22} className="rounded" />
+                        <span className="block ml-2 truncate">{option.name}</span>
+                      </div>
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select>
+            </div>
           );
         }}
       />

@@ -12,7 +12,6 @@
   "dependencies": {
     "@auth/drizzle-adapter": "^0.3.16",
     "@aws-sdk/client-s3": "^3.496.0",
-    "@headlessui/react": "1.7.18",
     "@hookform/resolvers": "^3.3.4",
     "@logbun/clickhouse": "workspace:^",
     "@logbun/db": "workspace:^",

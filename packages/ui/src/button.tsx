@@ -44,8 +44,9 @@ export const buttonVariants = cva(
           'ring-1',
           'ring-inset',
           'ring-gray-300',
+          'focus:outline-none',
         ],
-        danger: ['bg-red-100', 'text-red-500', 'hover:bg-red-200'],
+        danger: ['bg-red-100', 'text-red-500', 'hover:bg-red-200', 'focus:outline-none'],
         default: ['text-gray-900', 'hover:bg-gray-100'],
       },
       size: {
