@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createUser } from '@logbun/app/actions/auth';
 import { RegisterFormTypes, registerSchema } from '@logbun/app/utils/schema';
-import { Button, EmailInput, PasswordInput, TextInput } from '@logbun/ui';
+import { Button, Form, Input } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
@@ -15,11 +15,7 @@ export default function RegisterForm() {
 
   const router = useRouter();
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<RegisterFormTypes>({
+  const form = useForm<RegisterFormTypes>({
     resolver: zodResolver(registerSchema),
   });
 
@@ -42,33 +38,23 @@ export default function RegisterForm() {
   };
 
   return (
-    <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
-      <TextInput
-        {...register('name', { required: true })}
-        label="Full name"
-        placeholder="Enter full name"
-        error={!!errors.name?.message}
-        helperText={errors.name?.message}
-      />
-      <EmailInput
-        {...register('email', { required: true })}
-        label="Email"
-        placeholder="Enter email address"
-        error={!!errors.email?.message}
-        helperText={errors.email?.message}
-      />
-      <PasswordInput
-        {...register('password', { required: true, minLength: 8 })}
-        label="Password"
-        placeholder="Enter password"
-        error={!!errors.password?.message}
-        helperText={errors.password?.message}
-      />
-      <div className="pt-2">
-        <Button loading={isPending} type="submit" className="w-full">
-          Sign Up
-        </Button>
-      </div>
-    </form>
+    <Form {...form}>
+      <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+        <Form.Field name="name" control={form.control}>
+          <Input label="Full name" placeholder="Enter full name" />
+        </Form.Field>
+        <Form.Field name="email" control={form.control}>
+          <Input.Email label="Email" placeholder="Enter email address" />
+        </Form.Field>
+        <Form.Field name="password" control={form.control}>
+          <Input.Password label="Password" placeholder="Enter password" />
+        </Form.Field>
+        <div className="pt-2">
+          <Button loading={isPending} type="submit" className="w-full">
+            Sign Up
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }

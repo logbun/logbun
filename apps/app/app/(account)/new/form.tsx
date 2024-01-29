@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createProject } from '@logbun/app/actions';
 import { platforms } from '@logbun/app/utils';
 import { ProjectFormTypes, projectSchema } from '@logbun/app/utils/schema';
-import { Button, Select, TextInput } from '@logbun/ui';
+import { Button, Form, Input, Select } from '@logbun/ui';
 import { Label } from '@logbun/ui/src/label';
 import { errorMessage } from '@logbun/utils';
 import Image from 'next/image';
@@ -19,12 +19,7 @@ export default function ProjectForm() {
 
   const router = useRouter();
 
-  const {
-    handleSubmit,
-    register,
-    control,
-    formState: { errors },
-  } = useForm<ProjectFormTypes>({
+  const form = useForm<ProjectFormTypes>({
     resolver: zodResolver(projectSchema),
     defaultValues: { platform: platforms[0]?.key },
   });
@@ -46,48 +41,46 @@ export default function ProjectForm() {
   };
 
   return (
-    <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
-      <TextInput
-        {...register('name', { required: true })}
-        label="Name"
-        placeholder="Project name"
-        error={!!errors.name?.message}
-        helperText={errors.name?.message}
-      />
-      <Controller
-        control={control}
-        name="platform"
-        render={({ field: { onChange, value } }) => {
-          return (
-            <div>
-              <Label>Platform</Label>
-              <Select value={value} onValueChange={onChange}>
-                <Select.Trigger className="w-full">
-                  <Select.Value placeholder="Select Platform" />
-                </Select.Trigger>
-                <Select.Content>
-                  {platforms.map((option) => (
-                    <Select.Item value={option.key} key={option.key}>
-                      <div className="flex items-center">
-                        <Image src={option.icon} alt="logo" width={22} height={22} className="rounded" />
-                        <span className="block ml-2 truncate">{option.name}</span>
-                      </div>
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select>
-            </div>
-          );
-        }}
-      />
-      <div className="flex items-center justify-start pt-4 space-x-4">
-        <Button asChild variant="secondary">
-          <Link href="/">Back</Link>
-        </Button>
-        <Button loading={isPending} type="submit">
-          Create Project
-        </Button>
-      </div>
-    </form>
+    <Form {...form}>
+      <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+        <Form.Field name="name" control={form.control}>
+          <Input label="Name" placeholder="Project name" />
+        </Form.Field>
+        <Controller
+          control={form.control}
+          name="platform"
+          render={({ field: { onChange, value } }) => {
+            return (
+              <div>
+                <Label>Platform</Label>
+                <Select value={value} onValueChange={onChange}>
+                  <Select.Trigger className="w-full">
+                    <Select.Value placeholder="Select Platform" />
+                  </Select.Trigger>
+                  <Select.Content>
+                    {platforms.map((option) => (
+                      <Select.Item value={option.key} key={option.key}>
+                        <div className="flex items-center">
+                          <Image src={option.icon} alt="logo" width={22} height={22} className="rounded" />
+                          <span className="block ml-2 truncate">{option.name}</span>
+                        </div>
+                      </Select.Item>
+                    ))}
+                  </Select.Content>
+                </Select>
+              </div>
+            );
+          }}
+        />
+        <div className="flex items-center justify-start pt-4 space-x-4">
+          <Button asChild variant="secondary">
+            <Link href="/">Back</Link>
+          </Button>
+          <Button loading={isPending} type="submit">
+            Create Project
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }

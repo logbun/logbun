@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginFormTypes, loginSchema } from '@logbun/app/utils/schema';
-import { Button, EmailInput, PasswordInput } from '@logbun/ui';
+import { Button, Form, Input } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -15,11 +15,7 @@ export default function LogInForm() {
 
   const params = useSearchParams();
 
-  const {
-    handleSubmit,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginFormTypes>({
+  const form = useForm<LoginFormTypes>({
     resolver: zodResolver(loginSchema),
   });
 
@@ -46,26 +42,20 @@ export default function LogInForm() {
   };
 
   return (
-    <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
-      <EmailInput
-        {...register('email', { required: true })}
-        label="Email"
-        placeholder="Enter email address"
-        error={!!errors.email?.message}
-        helperText={errors.email?.message}
-      />
-      <PasswordInput
-        {...register('password', { required: true, minLength: 8 })}
-        label="Password"
-        placeholder="Enter password"
-        error={!!errors.password?.message}
-        helperText={errors.password?.message}
-      />
-      <div className="pt-2">
-        <Button loading={isSubmitting} type="submit" className="w-full">
-          Sign In
-        </Button>
-      </div>
-    </form>
+    <Form {...form}>
+      <form className="space-y-3" onSubmit={form.handleSubmit(onSubmit)}>
+        <Form.Field name="email" control={form.control}>
+          <Input.Email label="Email" placeholder="Enter email address" />
+        </Form.Field>
+        <Form.Field name="password" control={form.control}>
+          <Input.Password label="Password" placeholder="Enter password" />
+        </Form.Field>
+        <div className="pt-2">
+          <Button loading={form.formState.isSubmitting} type="submit" className="w-full">
+            Sign In
+          </Button>
+        </div>
+      </form>
+    </Form>
   );
 }
