@@ -9,7 +9,7 @@ interface Props {
 export default async function Layout({ children }: Props) {
   const user = await getCurrentUser();
 
-  if (user) redirect('/');
+  if (user) redirect('/projects');
 
   return (
     <div className="flex flex-col justify-center w-full h-full bg-gray-100">
