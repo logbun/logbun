@@ -4,6 +4,12 @@ import path from 'path';
 
 export type LogbunNextJsConfig = {
   silent?: boolean;
+  disableSourceMapUpload?: boolean;
+  webpackPluginOptions?: {
+    apiKey: string;
+    release?: string;
+    endpoint?: string;
+  };
 };
 
 // This function finds a logbun config file and adds it to webpack.entry array
@@ -23,64 +29,76 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
         result = defaultConfig.webpack(result, context);
       }
 
-      return {
-        ...result,
-        async entry() {
-          // See if config file exists, if it does store it
-          const configs = [`logbun.${configType}.config.ts`, `logbun.${configType}.config.js`];
+      result.entry = async () => {
+        // See if config file exists, if it does store it
+        const configs = [`logbun.${configType}.config.ts`, `logbun.${configType}.config.js`];
 
-          let logbunConfigFile = '';
+        let logbunConfigFile = '';
 
-          for (const filename of configs) {
-            if (fs.existsSync(path.resolve(projectDir, filename))) {
-              logbunConfigFile = filename;
-            }
+        for (const filename of configs) {
+          if (fs.existsSync(path.resolve(projectDir, filename))) {
+            logbunConfigFile = filename;
           }
+        }
 
-          if (!logbunConfigFile) {
-            console.debug(`Logbun ${configType} config file not found. Using current nextjs config file`);
-            return originalEntry;
-          }
+        if (!logbunConfigFile) {
+          console.debug(`Logbun ${configType} config file not found. Using current nextjs config file`);
+          return originalEntry;
+        }
 
-          // We want to append the logbun config file path to keys that start with pages/ on server and main-app or pages/_app on browser
-          const currentEntries: { [key: string]: string | object } =
-            typeof originalEntry === 'function' ? await originalEntry() : { ...originalEntry };
+        // We want to append the logbun config file path to keys that start with pages/ on server and main-app or pages/_app on browser
+        const currentEntries: { [key: string]: string | object } =
+          typeof originalEntry === 'function' ? await originalEntry() : { ...originalEntry };
 
-          if (!Object.keys(currentEntries).length) {
-            console.debug(`No entry points for configType[${configType}]`);
-          }
+        if (!Object.keys(currentEntries).length) {
+          console.debug(`No entry points for configType[${configType}]`);
+        }
 
-          Object.entries(currentEntries).forEach(([key, value]) => {
-            const addServer = configType === 'server' && key.startsWith('pages/');
+        Object.entries(currentEntries).forEach(([key, value]) => {
+          const addServer = configType === 'server' && key.startsWith('pages/');
 
-            const addBrowser = configType === 'browser' && ['pages/_app', 'main-app'].includes(key);
+          const addBrowser = configType === 'browser' && ['pages/_app', 'main-app'].includes(key);
 
-            if (addServer || addBrowser) {
-              if (typeof value === 'string') {
-                currentEntries[key] = [value, `./${logbunConfigFile}`];
-              } else if (Array.isArray(value)) {
-                currentEntries[key] = [...value, `./${logbunConfigFile}`];
-              } else if (value && typeof value === 'object' && 'import' in value) {
-                const origImport = value.import as string | string[];
+          if (addServer || addBrowser) {
+            if (typeof value === 'string') {
+              currentEntries[key] = [value, `./${logbunConfigFile}`];
+            } else if (Array.isArray(value)) {
+              currentEntries[key] = [...value, `./${logbunConfigFile}`];
+            } else if (value && typeof value === 'object' && 'import' in value) {
+              const origImport = value.import as string | string[];
 
-                let newImport = [`./${logbunConfigFile}`];
+              let newImport = [`./${logbunConfigFile}`];
 
-                if (typeof origImport === 'string') {
-                  newImport = [...newImport, origImport];
-                } else {
-                  newImport = [...newImport, ...origImport];
-                }
-
-                currentEntries[key] = { ...value, import: newImport };
+              if (typeof origImport === 'string') {
+                newImport = [...newImport, origImport];
               } else {
-                console.error('Could not inject file');
+                newImport = [...newImport, ...origImport];
               }
-            }
-          });
 
-          return currentEntries;
-        },
+              currentEntries[key] = { ...value, import: newImport };
+            } else {
+              console.error('Could not inject file');
+            }
+          }
+        });
+
+        return currentEntries;
       };
+
+      result.devtool = 'hidden-source-map';
+
+      if (!result.plugins) {
+        result.plugins = [];
+      }
+
+      if (
+        !logbunConfig.disableSourceMapUpload &&
+        logbunConfig.webpackPluginOptions?.apiKey &&
+        process.env.NODE_ENV !== 'production'
+      ) {
+      }
+
+      return result;
     },
   };
 }

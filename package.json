@@ -9,7 +9,7 @@
     "start:www": "turbo start --filter=www",
     "start:api": "turbo start --filter=api",
     "build:deps": "pnpm turbo build --filter=root --filter=clickhouse --filter=db --filter=eslint-config --filter=tailwind-config --filter=ui --filter=utils",
-    "build:sdk": "turbo build --filter=core --filter=js --filter=nextjs --filter=react --filter=upload-sourcemaps",
+    "build:sdk": "turbo build --filter=core --filter=js --filter=nextjs --filter=react --filter=webpack --filter=upload-sourcemaps",
     "apps:dev": "turbo dev --filter='./apps/*'",
     "apps:build:www": "pnpm run build:deps --filter=www",
     "apps:build:app": "pnpm run build:deps --filter=app",

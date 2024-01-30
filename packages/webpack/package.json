@@ -1,0 +1,27 @@
+{
+  "name": "@logbun/webpack",
+  "version": "1.0.0",
+  "homepage": "https://www.logbun.com",
+  "description": "Webpack integration for Logbun",
+  "main": "./dist/LogbunSourceMapPlugin.js",
+  "scripts": {
+    "clean": "rm -fr dist",
+    "build": "babel src -d dist"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:logbun/logbun.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9"
+  },
+  "dependencies": {
+    "@logbun/upload-sourcemaps": "workspace:^"
+  }
+}
