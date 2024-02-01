@@ -94,8 +94,8 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
 
       if (
         !logbunConfig.disableSourceMapUpload &&
-        logbunConfig.webpackPluginOptions?.apiKey
-        // process.env.NODE_ENV === 'production'
+        logbunConfig.webpackPluginOptions?.apiKey &&
+        process.env.NODE_ENV === 'production'
       ) {
         result.plugins.push(new LogbunSourceMapPlugin(logbunConfig.webpackPluginOptions));
       }
