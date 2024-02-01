@@ -1,7 +1,7 @@
 import { ArgumentParser } from 'argparse';
 import path from 'path';
 import { description, version } from '../package.json';
-import { uploadSourcemaps } from './sourcemaps';
+import { uploadSourceMaps } from './sourcemaps';
 
 const parser = new ArgumentParser({ description });
 
@@ -33,7 +33,7 @@ parser.add_argument('-m', '--minified-file-path', {
 
 const { api_key, release, endpoint, sourcemap_file_path, minified_file_path } = parser.parse_args();
 
-uploadSourcemaps(
+uploadSourceMaps(
   [
     {
       sourcemapFilePath: sourcemap_file_path,

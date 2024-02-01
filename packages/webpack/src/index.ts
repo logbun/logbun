@@ -1,14 +1,24 @@
-import { uploadSourcemaps } from '@logbun/upload-sourcemaps';
+import { uploadSourceMaps } from '@logbun/upload-sourcemaps';
+import { join } from 'path';
+import VError from 'verror';
 
 const PLUGIN_NAME = 'LogbunSourceMapPlugin';
 
-class LogbunSourceMapPlugin {
-  constructor(options) {
-    this.uploadSourcemaps = uploadSourcemaps;
+export default class LogbunSourceMapPlugin {
+  private uploadSourceMaps: typeof uploadSourceMaps;
+  private options: any;
+
+  constructor(options: any) {
+    this.uploadSourceMaps = uploadSourceMaps;
     this.options = options;
   }
 
-  async afterEmit(compilation) {
+  handleError(err: any = [], prefix = 'LogbunSourceMapPlugin') {
+    const errors = Array.isArray(err) ? err : [err];
+    return errors.map((err) => new VError(err, prefix));
+  }
+
+  async afterEmit(compilation: any) {
     if (this.isDevServerRunning()) {
       if (!this.options.silent) {
         console.info(`${PLUGIN_NAME} will not upload source maps because webpack-dev-server is running.`);
@@ -21,14 +31,14 @@ class LogbunSourceMapPlugin {
       await this.uploadSourceMaps(assets, this.options);
     } catch (err) {
       if (!this.options.ignoreErrors) {
-        compilation.errors.push(...handleError(err));
+        compilation.errors.push(...this.handleError(err));
       } else if (!this.options.silent) {
-        compilation.warnings.push(...handleError(err));
+        compilation.warnings.push(...this.handleError(err));
       }
     }
   }
 
-  apply(compiler) {
+  apply(compiler: any) {
     compiler.hooks.afterEmit.tapPromise(PLUGIN_NAME, this.afterEmit.bind(this));
   }
 
@@ -36,25 +46,23 @@ class LogbunSourceMapPlugin {
     return process.env.WEBPACK_DEV_SERVER === 'true';
   }
 
-  getAssetPath(compilation, name) {
+  getAssetPath(compilation: any, name: any) {
     if (!name) {
       return '';
     }
     return join(compilation.getPath(compilation.compiler.outputPath), name.split('?')[0]);
   }
 
-  getAssets(compilation) {
+  getAssets(compilation: any) {
     const { chunks } = compilation.getStats().toJson();
     return chunks
-      .map(({ files, auxiliaryFiles }) => {
-        const jsFilename = files.find((file) => /\.js$/.test(file));
+      .map(({ files, auxiliaryFiles }: any) => {
+        const jsFilename = files.find((file: any) => /\.js$/.test(file));
         const jsFilePath = this.getAssetPath(compilation, jsFilename);
-        const sourcemapFilename = (auxiliaryFiles || files).find((file) => /\.js\.map$/.test(file));
+        const sourcemapFilename = (auxiliaryFiles || files).find((file: any) => /\.js\.map$/.test(file));
         const sourcemapFilePath = this.getAssetPath(compilation, sourcemapFilename);
         return { sourcemapFilename, sourcemapFilePath, jsFilename, jsFilePath };
       })
-      .filter(({ sourcemapFilename, jsFilename }) => sourcemapFilename && jsFilename);
+      .filter(({ sourcemapFilename, jsFilename }: any) => sourcemapFilename && jsFilename);
   }
 }
-
-module.exports = LogbunSourceMapPlugin;

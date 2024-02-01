@@ -1,4 +1,4 @@
-import { errorMessage } from '@logbun/utils';
+// import { errorMessage } from '@logbun/utils/helpers';
 import assert from 'assert';
 import fetchRetry from 'fetch-retry';
 import { promises as fs } from 'fs';
@@ -6,7 +6,7 @@ import { Options, Sourcemap } from './types';
 
 const fetch = fetchRetry(global.fetch);
 
-export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) => {
+export const uploadSourceMaps = async (sourcemaps: Sourcemap[], opts: Options) => {
   const { apiKey, release, endpoint = process.env.LOGBUN_API_URL } = opts;
 
   assert(typeof apiKey === 'string', "'apiKey' must be a string or undefined.");
@@ -45,7 +45,7 @@ export const uploadSourcemaps = async (sourcemaps: Sourcemap[], opts: Options) =
 
       return body;
     } catch (error) {
-      throw new Error(errorMessage(error));
+      // throw new Error(errorMessage(error));
     }
   }
 };

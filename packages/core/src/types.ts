@@ -1,5 +1,10 @@
 import { Client } from './client';
 
+// helpers
+type PickMatching<T, V> = { [K in keyof T as T[K] extends V ? K : never]: T[K] };
+
+export type ExtractMethodsAndProperties<T> = PickMatching<T, Function | any>;
+
 export type SDK = {
   name: string;
   url: string;

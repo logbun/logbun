@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "NPM module to upload your JS sourcemaps files to Logbun.",
   "bin": "dist/cli.js",
-  "main": "dist/logbun.js",
-  "module": "dist/logbun.mjs",
-  "typings": "dist/logbun.d.ts",
+  "main": "dist/logbun-upload-sourcemaps.cjs.js",
+  "module": "dist/logbun-upload-sourcemaps.esm.js",
+  "typings": "dist/logbun-upload-sourcemaps.d.ts",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --watch",

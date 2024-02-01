@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "homepage": "https://www.logbun.com",
   "main": "dist/logbun-react.cjs.js",
-  "types": "dist/index.d.ts",
   "module": "dist/logbun-react.esm.js",
   "unpkg": "dist/logbun-react.js",
+  "types": "dist/index.d.ts",
   "author": "Logbun",
   "description": "React.js integration for Logbun",
   "scripts": {

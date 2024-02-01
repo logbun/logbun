@@ -1,3 +1,4 @@
+import LogbunSourceMapPlugin from '@logbun/webpack';
 import fs from 'fs';
 import { NextConfig } from 'next';
 import path from 'path';
@@ -19,7 +20,7 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
     webpack: (webpackConfig, context) => {
       const { isServer, dir: projectDir, nextRuntime } = context;
 
-      const configType = isServer ? (nextRuntime === 'edge' ? 'edge' : 'server') : 'browser';
+      const configType = isServer ? (nextRuntime === 'edge' ? 'edge' : 'server') : 'client';
 
       let result = { ...webpackConfig };
 
@@ -57,9 +58,9 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
         Object.entries(currentEntries).forEach(([key, value]) => {
           const addServer = configType === 'server' && key.startsWith('pages/');
 
-          const addBrowser = configType === 'browser' && ['pages/_app', 'main-app'].includes(key);
+          const addClient = configType === 'client' && ['pages/_app', 'main-app'].includes(key);
 
-          if (addServer || addBrowser) {
+          if (addServer || addClient) {
             if (typeof value === 'string') {
               currentEntries[key] = [value, `./${logbunConfigFile}`];
             } else if (Array.isArray(value)) {
@@ -93,9 +94,10 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
 
       if (
         !logbunConfig.disableSourceMapUpload &&
-        logbunConfig.webpackPluginOptions?.apiKey &&
-        process.env.NODE_ENV !== 'production'
+        logbunConfig.webpackPluginOptions?.apiKey
+        // process.env.NODE_ENV === 'production'
       ) {
+        result.plugins.push(new LogbunSourceMapPlugin(logbunConfig.webpackPluginOptions));
       }
 
       return result;

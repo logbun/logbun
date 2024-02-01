@@ -9,12 +9,12 @@
   "description": "Node.js integration for Logbun",
   "scripts": {
     "clean": "rm -fr dist",
+    "dev": "run-p watch:ts watch:rollup",
+    "build": "run-s clean build:ts build:rollup",
     "build:ts": "tsc --build tsconfig.json",
     "build:rollup": "rollup -c rollup.config.mjs",
     "watch:ts": "tsc -p tsconfig.json --watch",
-    "watch:rollup": "rollup -c rollup.config.mjs --watch",
-    "build": "run-s clean build:ts build:rollup",
-    "dev": "run-p watch:ts watch:rollup"
+    "watch:rollup": "rollup -c rollup.config.mjs --watch"
   },
   "license": "MIT",
   "repository": {

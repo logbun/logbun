@@ -1,6 +1,6 @@
 import { Logbun } from '@logbun/nextjs';
 
-console.log('Server ->', Logbun);
+console.log('Client ->', Logbun);
 
 Logbun.init({
   apiKey: process.env.NEXT_PUBLIC_LOGBUN_API_KEY,
