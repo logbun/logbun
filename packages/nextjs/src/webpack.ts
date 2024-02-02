@@ -106,7 +106,12 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
         logbunConfig.webpackPluginOptions?.apiKey &&
         process.env.NODE_ENV === 'production'
       ) {
-        result.plugins.push(new LogbunSourceMapPlugin(logbunConfig.webpackPluginOptions));
+        result.plugins.push(
+          new LogbunSourceMapPlugin({
+            ...logbunConfig.webpackPluginOptions,
+            endpoint: logbunConfig.webpackPluginOptions.endpoint || process.env.NEXT_PUBLIC_LOGBUN_SOURCEMAPS_URL || '',
+          })
+        );
       }
 
       return result;

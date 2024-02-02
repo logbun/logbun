@@ -1,5 +1,4 @@
 // import { errorMessage } from '@logbun/utils/helpers';
-import assert from 'assert';
 import fetchRetry from 'fetch-retry';
 import { promises as fs } from 'fs';
 import { Options, Sourcemap } from './types';
@@ -7,16 +6,20 @@ import { Options, Sourcemap } from './types';
 const fetch = fetchRetry(global.fetch);
 
 export const uploadSourceMaps = async (sourcemaps: Sourcemap[], opts: Options) => {
-  const { apiKey, release, endpoint = process.env.LOGBUN_API_URL } = opts;
+  const { apiKey, release, endpoint } = opts;
 
-  assert(typeof apiKey === 'string', "'apiKey' must be a string or undefined.");
+  if (!apiKey) throw new Error("'apiKey' must be a string.");
 
-  assert(typeof endpoint === 'string' || "'endpoint' must be a string.");
+  if (!endpoint) throw new Error("'endpoint' must be a string.");
+
+  if (release && typeof release !== 'string') throw new Error("'release' must be a string.");
 
   for (const sourcemap of sourcemaps) {
     const jsFile = await fs.readFile(sourcemap.jsFilePath);
 
     const sourceFile = await fs.readFile(sourcemap.sourcemapFilePath);
+
+    console.log({ apiKey, release, endpoint });
 
     const form = new FormData();
 
@@ -29,7 +32,7 @@ export const uploadSourceMaps = async (sourcemaps: Sourcemap[], opts: Options) =
     form.append('sourcemap_file', new Blob([sourceFile]), sourcemap.sourcemapFilePath);
 
     try {
-      const res = await fetch(opts.endpoint!, {
+      const res = await fetch(endpoint, {
         method: 'POST',
         body: form,
         redirect: 'follow',
@@ -45,7 +48,7 @@ export const uploadSourceMaps = async (sourcemaps: Sourcemap[], opts: Options) =
 
       return body;
     } catch (error) {
-      // throw new Error(errorMessage(error));
+      throw new Error((error as any).message);
     }
   }
 };

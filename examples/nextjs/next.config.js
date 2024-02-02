@@ -9,6 +9,8 @@ const logbunConfig = {
   disableSourceMapUpload: false,
   webpackPluginOptions: {
     apiKey: process.env.NEXT_PUBLIC_LOGBUN_API_KEY,
+    endpoint: process.env.NEXT_PUBLIC_LOGBUN_SOURCEMAPS_URL,
+    release: process.env.NEXT_PUBLIC_LOGBUN_RELEASE,
   },
 };
 

@@ -1,20 +1,32 @@
-import { uploadSourceMaps } from '@logbun/upload-sourcemaps';
+import { Options as SourcemapOptions, uploadSourceMaps } from '@logbun/upload-sourcemaps';
 import { join } from 'path';
 import VError from 'verror';
 import { Compiler } from 'webpack';
 
 const PLUGIN_NAME = 'LogbunSourceMapPlugin';
 
+type Options = SourcemapOptions & {
+  silent?: boolean;
+  ignoreErrors?: boolean;
+  endpoint?: string;
+};
+
 export default class LogbunSourceMapPlugin {
   private uploadSourceMaps: typeof uploadSourceMaps;
-  private options: any;
+  private options: Options;
 
-  constructor(options: any) {
+  constructor(options: Options) {
+    if (!options.apiKey) throw new Error('apiKey required');
+
+    if (!options.endpoint) {
+      options.endpoint = 'https://api.logbun.com';
+    }
+
     this.uploadSourceMaps = uploadSourceMaps;
     this.options = options;
   }
 
-  handleError(err: any = [], prefix = 'LogbunSourceMapPlugin') {
+  handleError(err: any = [], prefix = PLUGIN_NAME) {
     const errors = Array.isArray(err) ? err : [err];
     return errors.map((err) => new VError(err, prefix));
   }
@@ -29,6 +41,7 @@ export default class LogbunSourceMapPlugin {
 
     try {
       const assets = this.getAssets(compilation);
+
       await this.uploadSourceMaps(assets, this.options);
     } catch (err) {
       if (!this.options.ignoreErrors) {
@@ -48,9 +61,8 @@ export default class LogbunSourceMapPlugin {
   }
 
   getAssetPath(compilation: any, name: any) {
-    if (!name) {
-      return '';
-    }
+    if (!name) return '';
+
     return join(compilation.getPath(compilation.compiler.outputPath), name.split('?')[0]);
   }
 

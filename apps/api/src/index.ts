@@ -102,6 +102,7 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
 app.post('/sourcemaps', zValidator('form', sourcemapSchema), async (c) => {
   try {
     const { api_key, release, minified_file: minifiedFile, sourcemap_file: sourcemapFile } = c.req.valid('form');
+    console.log(c.req.valid('form'));
 
     const project = await getProjectByApiKey(api_key);
 
