@@ -14,6 +14,71 @@ export type LogbunNextJsConfig = {
 };
 
 // This function finds a logbun config file and adds it to webpack.entry array
+const addLogbunConfigToEntry = async (configType: string, originalEntry: any, projectDir: string) => {
+  // See if config file exists, if it does store it
+  const configs = [`logbun.${configType}.config.ts`, `logbun.${configType}.config.js`];
+
+  let logbunConfigFile = '';
+
+  for (const filename of configs) {
+    if (fs.existsSync(path.resolve(projectDir, filename))) {
+      logbunConfigFile = filename;
+    }
+  }
+
+  if (!logbunConfigFile) {
+    return originalEntry;
+  }
+
+  // We want to append the logbun config file path to keys that start with pages/ on server and main-app or pages/_app on browser
+  const currentEntries: { [key: string]: string | object } =
+    typeof originalEntry === 'function' ? await originalEntry() : { ...originalEntry };
+
+  if (!Object.keys(currentEntries).length) {
+    console.debug(`No entry points for configType[${configType}]`);
+  }
+
+  Object.entries(currentEntries).forEach(([key, value]) => {
+    const addServer = configType === 'server' && key.startsWith('pages/');
+
+    const addClient = configType === 'client' && ['pages/_app', 'main-app'].includes(key);
+
+    const addEdge = configType === 'edge';
+
+    const configFile = `./${logbunConfigFile}`;
+
+    const entryPoint = value;
+
+    let newEntryPoint = entryPoint;
+
+    if (addServer || addClient || addEdge) {
+      if (typeof entryPoint === 'string') {
+        newEntryPoint = [configFile, entryPoint];
+      } else if (Array.isArray(entryPoint)) {
+        newEntryPoint = [configFile, ...entryPoint];
+      } else if (entryPoint && typeof entryPoint === 'object' && 'import' in entryPoint) {
+        const origImport = entryPoint.import as string | string[];
+
+        let newImport = [configFile];
+
+        if (typeof origImport === 'string') {
+          newImport.push(origImport);
+        } else {
+          newImport.push(...origImport);
+        }
+
+        newEntryPoint = { ...entryPoint, import: newImport };
+      } else {
+        console.error('Could not inject file');
+      }
+
+      currentEntries[key] = newEntryPoint;
+    }
+  });
+
+  return currentEntries;
+};
+
 export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: LogbunNextJsConfig): NextConfig {
   return {
     ...defaultConfig,
@@ -30,67 +95,11 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
         result = defaultConfig.webpack(result, context);
       }
 
-      result.entry = async () => {
-        // See if config file exists, if it does store it
-        const configs = [`logbun.${configType}.config.ts`, `logbun.${configType}.config.js`];
-
-        let logbunConfigFile = '';
-
-        for (const filename of configs) {
-          if (fs.existsSync(path.resolve(projectDir, filename))) {
-            logbunConfigFile = filename;
-          }
-        }
-
-        if (!logbunConfigFile) {
-          console.debug(`Logbun ${configType} config file not found. Using current nextjs config file`);
-          return originalEntry;
-        }
-
-        // We want to append the logbun config file path to keys that start with pages/ on server and main-app or pages/_app on browser
-        const currentEntries: { [key: string]: string | object } =
-          typeof originalEntry === 'function' ? await originalEntry() : { ...originalEntry };
-
-        if (!Object.keys(currentEntries).length) {
-          console.debug(`No entry points for configType[${configType}]`);
-        }
-
-        Object.entries(currentEntries).forEach(([key, value]) => {
-          const addServer = configType === 'server' && key.startsWith('pages/');
-
-          const addClient = configType === 'client' && ['pages/_app', 'main-app'].includes(key);
-
-          if (addServer || addClient) {
-            if (typeof value === 'string') {
-              currentEntries[key] = [value, `./${logbunConfigFile}`];
-            } else if (Array.isArray(value)) {
-              currentEntries[key] = [...value, `./${logbunConfigFile}`];
-            } else if (value && typeof value === 'object' && 'import' in value) {
-              const origImport = value.import as string | string[];
-
-              let newImport = [`./${logbunConfigFile}`];
-
-              if (typeof origImport === 'string') {
-                newImport = [...newImport, origImport];
-              } else {
-                newImport = [...newImport, ...origImport];
-              }
-
-              currentEntries[key] = { ...value, import: newImport };
-            } else {
-              console.error('Could not inject file');
-            }
-          }
-        });
-
-        return currentEntries;
-      };
+      result.entry = async () => addLogbunConfigToEntry(configType, originalEntry, projectDir);
 
       result.devtool = 'hidden-source-map';
 
-      if (!result.plugins) {
-        result.plugins = [];
-      }
+      result.plugins = result.plugins || [];
 
       if (
         !logbunConfig.disableSourceMapUpload &&

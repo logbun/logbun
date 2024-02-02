@@ -1,6 +1,7 @@
 import { uploadSourceMaps } from '@logbun/upload-sourcemaps';
 import { join } from 'path';
 import VError from 'verror';
+import { Compiler } from 'webpack';
 
 const PLUGIN_NAME = 'LogbunSourceMapPlugin';
 
@@ -38,7 +39,7 @@ export default class LogbunSourceMapPlugin {
     }
   }
 
-  apply(compiler: any) {
+  apply(compiler: Compiler) {
     compiler.hooks.afterEmit.tapPromise(PLUGIN_NAME, this.afterEmit.bind(this));
   }
 

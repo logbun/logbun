@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+const { withLogbunConfig } = require('@logbun/nextjs');
+
 const moduleExports = {};
 
 const logbunConfig = {
@@ -8,7 +11,5 @@ const logbunConfig = {
     apiKey: process.env.NEXT_PUBLIC_LOGBUN_API_KEY,
   },
 };
-
-const { withLogbunConfig } = require('@logbun/nextjs');
 
 module.exports = withLogbunConfig(moduleExports, logbunConfig);
