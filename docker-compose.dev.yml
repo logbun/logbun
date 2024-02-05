@@ -44,7 +44,7 @@ services:
   mailhog:
     image: mailhog/mailhog
     logging:
-      driver: 'none' # disable saving logs
+      driver: 'none'
     ports:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
@@ -52,8 +52,8 @@ services:
   minio:
     image: minio/minio
     ports:
-      - 9000:9000
-      - 9001:9001
+      - 9000:9000 # server
+      - 9001:9001 # web ui
     volumes:
       - minio_storage:/data
     environment:
@@ -64,4 +64,4 @@ services:
 volumes:
   postgres_data:
   clickhouse_data:
-  minio_storage: {}
+  minio_storage:
