@@ -1,4 +1,4 @@
-import LogbunSourceMapPlugin from '@logbun/webpack';
+import LogbunSourceMapPlugin, { Options as WebpackPluginOptions } from '@logbun/webpack';
 import fs from 'fs';
 import { NextConfig } from 'next';
 import path from 'path';
@@ -6,11 +6,7 @@ import path from 'path';
 export type LogbunNextJsConfig = {
   silent?: boolean;
   disableSourceMapUpload?: boolean;
-  webpackPluginOptions?: {
-    apiKey: string;
-    release?: string;
-    endpoint?: string;
-  };
+  webpackPluginOptions?: WebpackPluginOptions;
 };
 
 // This function finds a logbun config file and adds it to webpack.entry array
@@ -101,15 +97,14 @@ export function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: Logbun
 
       result.plugins = result.plugins || [];
 
-      if (
-        !logbunConfig.disableSourceMapUpload &&
-        logbunConfig.webpackPluginOptions?.apiKey &&
-        process.env.NODE_ENV === 'production'
-      ) {
+      const { disableSourceMapUpload, webpackPluginOptions: opts } = logbunConfig;
+
+      if (!disableSourceMapUpload && opts?.apiKey && process.env.NODE_ENV === 'production') {
         result.plugins.push(
           new LogbunSourceMapPlugin({
-            ...logbunConfig.webpackPluginOptions,
-            endpoint: logbunConfig.webpackPluginOptions.endpoint || process.env.NEXT_PUBLIC_LOGBUN_SOURCEMAPS_URL || '',
+            ...opts,
+            endpoint: opts.endpoint || process.env.NEXT_PUBLIC_LOGBUN_SOURCEMAPS_ENDPOINT!,
+            release: opts.release || process.env.NEXT_PUBLIC_LOGBUN_RELEASE,
           })
         );
       }

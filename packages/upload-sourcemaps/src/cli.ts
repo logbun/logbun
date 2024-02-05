@@ -17,7 +17,7 @@ parser.add_argument('-r', '--release', {
   required: false,
 });
 
-parser.add_argument('-e', '--endpoint', {
+parser.add_argument('-e', '--sourcemap-endpoint', {
   help: 'API server URL for upload',
 });
 
@@ -42,7 +42,7 @@ uploadSourceMaps(
       jsFilename: path.basename(minified_file_path),
     },
   ],
-  { apiKey: api_key, release, endpoint }
+  { apiKey: api_key, release, endpoint, assetUrl: 'TODO' }
 )
   .then(() => {
     console.log('Sourcemaps uploaded successfully');

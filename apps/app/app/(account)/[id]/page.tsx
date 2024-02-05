@@ -1,6 +1,6 @@
 import { findProject, getEvents } from '@logbun/app/actions';
 import { Button } from '@logbun/ui';
-import { cn } from '@logbun/utils';
+import { cn } from '@logbun/utils/client';
 import { CheckCircle2, Settings, XCircle } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';

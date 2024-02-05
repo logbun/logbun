@@ -12,7 +12,7 @@
     "build:app": "pnpm run build:deps --filter=app",
     "build:api": "pnpm run build:deps --filter=api",
     "dev:apps": "turbo dev --filter='./apps/*'",
-    "dev:sdk": "turbo dev --filter=core --filter=js --filter=nextjs --filter=react --filter=webpack --filter=upload-sourcemaps",
+    "dev:sdk": "turbo dev --filter=core --filter=js --filter=node --filter=nextjs --filter=react --filter=webpack --filter=upload-sourcemaps",
     "build:deps": "pnpm turbo build --filter=root --filter=clickhouse --filter=db --filter=eslint-config --filter=tailwind-config --filter=ui --filter=utils",
     "build:sdk": "turbo build --filter=core --filter=js --filter=nextjs --filter=react --filter=webpack --filter=upload-sourcemaps",
     "packages:publish": "turbo run build lint && changeset version && changeset publish",
@@ -26,7 +26,6 @@
     "@changesets/cli": "^2.27.1"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.496.0",
     "@logbun/eslint-config": "workspace:*",
     "@logbun/typescript-config": "workspace:*",
     "prettier": "^3.2.4",

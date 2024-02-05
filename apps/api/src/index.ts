@@ -1,8 +1,8 @@
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { serve } from '@hono/node-server';
 import { zValidator } from '@hono/zod-validator';
 import { create, update } from '@logbun/clickhouse/src/queries';
-import { errorMessage, generateMinifiedKey, generateSourceMapKey, shortid } from '@logbun/utils';
+import { errorMessage, isValidHttpUrl, shortid } from '@logbun/utils';
+import { generateBucketKey, uploadFile } from '@logbun/utils/server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
@@ -101,46 +101,30 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
 
 app.post('/sourcemaps', zValidator('form', sourcemapSchema), async (c) => {
   try {
-    const { api_key, release, minified_file: minifiedFile, sourcemap_file: sourcemapFile } = c.req.valid('form');
-    console.log(c.req.valid('form'));
+    const { api_key, release, minified_url, sourcemap } = c.req.valid('form');
+
+    // TODO: use zod
+    if (!process.env.S3_ACCESS_KEY_ID || !process.env.S3_SECRET_ACCESS_KEY) throw new Error('Environment unavailable');
+
+    if (!process.env.S3_SOURCEMAPS_BUCKET) {
+      throw new Error('Environment missing sourcemap bucket name');
+    }
+
+    if (!isValidHttpUrl(minified_url)) {
+      throw new Error('"minified_url" is not a valid url');
+    }
 
     const project = await getProjectByApiKey(api_key);
 
-    if (!project) throw new Error('Invalid API Key');
+    if (!project) {
+      throw new Error('Invalid API Key');
+    }
 
-    const endpoint = process.env.S3_ENDPOINT;
+    const key = generateBucketKey({ projectId: project.id, release, url: minified_url });
 
-    const bucket = process.env.S3_SOURCEMAPS_BUCKET;
+    const body = Buffer.from(await sourcemap.arrayBuffer());
 
-    const accessKeyId = process.env.S3_ACCESS_KEY_ID;
-
-    const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
-
-    const region = process.env.S3_REGION;
-
-    if (!accessKeyId || !secretAccessKey) throw new Error('Environment unavailable');
-
-    const client = new S3Client({
-      region,
-      endpoint,
-      tls: false,
-      forcePathStyle: true,
-      credentials: { accessKeyId, secretAccessKey },
-    });
-
-    const putMinifiedFile = new PutObjectCommand({
-      Bucket: bucket,
-      Key: generateMinifiedKey({ id: project.id, release }),
-      Body: Buffer.from(await minifiedFile.arrayBuffer()),
-    });
-
-    const putSourcemapFile = new PutObjectCommand({
-      Bucket: bucket,
-      Key: generateSourceMapKey({ id: project.id, release }),
-      Body: Buffer.from(await sourcemapFile.arrayBuffer()),
-    });
-
-    await Promise.all([await client.send(putMinifiedFile), await client.send(putSourcemapFile)]);
+    await uploadFile(key, body, process.env.S3_SOURCEMAPS_BUCKET);
 
     return c.json({ message: 'Sourcemap uploaded' }, 200);
   } catch (error) {

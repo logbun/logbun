@@ -60,4 +60,5 @@ export interface Event {
 export interface ErrorEvent extends Event {
   timestamp: number;
   sdk: SDK;
+  release?: string;
 }

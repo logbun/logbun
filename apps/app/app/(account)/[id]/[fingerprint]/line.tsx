@@ -6,6 +6,18 @@ interface Props {
   level: EventLevel;
 }
 
+const truncateFileName = (fileName: string, numberOfLevelsToGoUp = 5) => {
+  const tokens = fileName.split('/');
+
+  const useRelativePath = tokens.length > 1 + numberOfLevelsToGoUp;
+
+  if (!useRelativePath) return fileName;
+
+  return `.../${tokens.splice(tokens.length - numberOfLevelsToGoUp).join('/')}`;
+};
+
+const removeWebpack = (fileName: string) => fileName.replace(/^webpack:\/\/?_N_E\/(?:\.\/)?/, '');
+
 export default function Line({ frame, level }: Props) {
   const key = `${frame.fileName}${frame.functionName}${frame.lineNumber}`;
 
@@ -18,7 +30,7 @@ export default function Line({ frame, level }: Props) {
         {'  '}
       </span>
     );
-    header.push(<span key={key}> {frame.fileName}</span>);
+    header.push(<span key={key}> {truncateFileName(removeWebpack(frame.fileName))}</span>); // TODO: User should specify this
   }
 
   if (frame.functionName) {
@@ -50,5 +62,5 @@ export default function Line({ frame, level }: Props) {
     header.push(<span key={key}>{frame.columnNumber}</span>);
   }
 
-  return header;
+  return <span>{header}</span>;
 }

@@ -20,7 +20,7 @@ export abstract class Client {
 
   constructor(config: Config) {
     this.config = {
-      endpoint: 'https://api.logbun.com',
+      endpoint: 'https://api.logbun.com/events',
       debug: false,
       logger: console,
       ...config,
@@ -99,6 +99,8 @@ export abstract class Client {
   };
 
   public broadcast = (event: Event, config: Partial<Config> = {}) => {
+    console.log('Broadcast');
+
     this.beforeNotifications.forEach((fn) => fn(event));
 
     this.send({ level: 'error', handled: false, ...event }, config);
@@ -124,6 +126,7 @@ export abstract class Client {
     const body: ErrorEvent = {
       timestamp: Math.floor(Date.now() / 1000),
       metadata: { ...this.metadata, ...metadata },
+      release: this.config.release,
       sdk: this.sdk,
       ...event,
     };

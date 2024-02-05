@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@logbun/utils';
+import { cn } from '@logbun/utils/client';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cloneElement, forwardRef, ReactElement } from 'react';

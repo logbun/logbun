@@ -82,8 +82,6 @@ export async function createVerifyToken(email: string) {
 
   const url = `${process.env.NEXT_PUBLIC_APP_URL}/verify/${token}?email=${email}`;
 
-  console.log(url);
-
   await sendEmail({
     to: email,
     subject: 'Confirm your Logbun account',

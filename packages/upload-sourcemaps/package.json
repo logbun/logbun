@@ -5,13 +5,20 @@
   "bin": "dist/cli.js",
   "main": "dist/logbun-upload-sourcemaps.cjs.js",
   "module": "dist/logbun-upload-sourcemaps.esm.js",
-  "typings": "dist/logbun-upload-sourcemaps.d.ts",
+  "types": "dist/logbun-upload-sourcemaps.d.ts",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --watch",
-    "test-cli": "node dist/cli.js -e=\"http://localhost:8000/sourcemaps\" --api-key=\"yjupgpuhio04fq5xf2phx4fde5740vtg\" -s=\"/Users/meekdekowski/Desktop/logbun/examples/react/dist/assets/index-rPI3GAN-.js.map\" -m=\"/Users/meekdekowski/Desktop/logbun/examples/react/dist/assets/index-rPI3GAN-.js\""
+    "test-cli": "node dist/cli.js -e=\"http://localhost:8000/sourcemaps\" --api-key=\"yjupgpuhio04fq5xf2phx4fde5740vtg\" -s=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js.map\" -m=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js\""
   },
   "license": "ISC",
+  "dependencies": {
+    "@logbun/utils": "workspace:^",
+    "argparse": "^2.0.1",
+    "fetch-retry": "^5.0.6",
+    "zod": "^3.22.4",
+    "zod-validation-error": "^3.0.0"
+  },
   "devDependencies": {
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -20,11 +27,5 @@
     "rollup": "^4.9.1",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.0"
-  },
-  "dependencies": {
-    "@aws-sdk/client-s3": "^3.484.0",
-    "@logbun/utils": "workspace:^",
-    "argparse": "^2.0.1",
-    "fetch-retry": "^5.0.6"
   }
 }

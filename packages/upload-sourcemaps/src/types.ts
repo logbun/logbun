@@ -1,7 +1,9 @@
 export type Options = {
   apiKey: string;
-  release?: string;
   endpoint: string;
+  assetUrl: string;
+  release?: string;
+  silent?: boolean;
 };
 
 export type Sourcemap = {

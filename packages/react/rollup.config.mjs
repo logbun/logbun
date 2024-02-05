@@ -14,10 +14,10 @@ export default [
         sourcemap: true,
         exports: 'named',
         name: 'LogbunReact',
-        globals: { react: 'React' },
+        globals: { react: 'React', '@logbun/js': 'Logbun' },
       },
     ],
-    external: ['react'],
+    external: ['react', '@logbun/js'],
     plugins: [
       replace({ preventAssignment: false, exclude: 'node_modules/**', values: { __VERSION__: pkg.version } }),
       commonjs(),

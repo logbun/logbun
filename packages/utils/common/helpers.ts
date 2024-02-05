@@ -13,3 +13,12 @@ export const find = <T, P>(items: T[], method: [keyof T, P]) => {
 export const shortid = (number = 18) => {
   return customAlphabet('0123456789abcdefghijklmnopqrstuvwxyz', number);
 };
+
+export const isValidHttpUrl = (url: string) => {
+  try {
+    const newUrl = new URL(url);
+    return newUrl.protocol === 'http:' || newUrl.protocol === 'https:';
+  } catch (err) {
+    return false;
+  }
+};

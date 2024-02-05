@@ -1,3 +1,4 @@
+export * from './src/accordion';
 export * from './src/box';
 export * from './src/button';
 export * from './src/card';

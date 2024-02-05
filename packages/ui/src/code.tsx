@@ -51,7 +51,8 @@ export const Code = (props: Props) => {
         })}
         {...rest}
       >
-        {code.replace(/^\n/, '').replace(/\n$/, '')}
+        {code}
+        {/* {code.replace(/^\n/, '').replace(/\n$/, '')} */}
       </SyntaxHighlighter>
     </div>
   );

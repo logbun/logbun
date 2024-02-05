@@ -16,8 +16,8 @@ interface Props {
   preview: Line[];
 }
 
-export default function PreviewCode({ fileName, lineNumber, preview }: Props) {
-  const extension = fileName?.split('.').pop();
+export default function PreviewCode({ fileName = '', lineNumber, preview }: Props) {
+  const extension = fileName.split('.').pop();
 
   const language = languages[extension || 'js'];
 
@@ -28,6 +28,7 @@ export default function PreviewCode({ fileName, lineNumber, preview }: Props) {
       showLineNumbers={true}
       language={language}
       highlight={lineNumber}
+      wrapLongLines={false}
     >
       {/* eslint-disable-next-line no-unused-vars */}
       {preview.map(([_, source]) => source).join('\n')}

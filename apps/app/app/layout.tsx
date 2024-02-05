@@ -1,5 +1,6 @@
 import '@logbun/tailwind-config/tailwind.css';
-import { cn, defaultMetadata, openGraph, twitter } from '@logbun/utils';
+import { defaultMetadata, openGraph, twitter } from '@logbun/utils';
+import { cn } from '@logbun/utils/client';
 import type { Metadata } from 'next';
 import Root from './root';
 

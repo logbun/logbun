@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@logbun/utils';
+import { cn } from '@logbun/utils/client';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { ArrowDownToLine, CheckIcon, ChevronRightIcon } from 'lucide-react';
 import { forwardRef } from 'react';

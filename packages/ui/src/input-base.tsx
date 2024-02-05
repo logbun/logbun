@@ -1,4 +1,4 @@
-import { cn } from '@logbun/utils';
+import { cn } from '@logbun/utils/client';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cloneElement, forwardRef, InputHTMLAttributes, ReactElement } from 'react';
 

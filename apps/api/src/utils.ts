@@ -5,9 +5,10 @@ import crypto from 'crypto';
 import { EventType, EventTypeResult } from './schema';
 
 export const getProjectByApiKey = async (apiKey: string) => {
-  const [project] = await db.select({ id: projects.id }).from(projects).where(eq(projects.apiKey, apiKey));
-
-  return project;
+  return db.query.projects.findFirst({
+    where: eq(projects.apiKey, apiKey),
+    columns: { id: true },
+  });
 };
 
 export const getEventByFingerprint = async (fingerprint: string) => {

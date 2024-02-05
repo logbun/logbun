@@ -33,8 +33,8 @@ export const eventSchema = z.object({
 export const sourcemapSchema = z.object({
   api_key: z.string(),
   release: z.string().optional(),
-  minified_file: z.instanceof(File),
-  sourcemap_file: z.instanceof(File),
+  minified_url: z.string(),
+  sourcemap: z.instanceof(File),
 });
 
 export type SourcemapType = z.infer<typeof sourcemapSchema>;
