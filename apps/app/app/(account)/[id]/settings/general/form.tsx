@@ -67,10 +67,11 @@ export default function GeneralForm({ project }: Props) {
         <Box className="shadow">
           <Box.Header className="text-left">Project Details</Box.Header>
           <Box.Content>
-            <div className="max-w-md">
+            <div className="max-w-md space-y-3">
               <Form.Field name="name" control={form.control}>
                 <Input label="Name" placeholder="Project name" />
               </Form.Field>
+              <Input label="Api Key" disabled value={project.apiKey} />
             </div>
             <div className="pt-4">
               <Button loading={isPending} type="submit">

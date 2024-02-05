@@ -19,7 +19,7 @@ export const buttonVariants = cva(
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
     'whitespace-nowrap',
-    'transition-all',
+    'transition-colors',
   ],
   {
     variants: {
