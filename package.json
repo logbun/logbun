@@ -29,7 +29,6 @@
     "@logbun/eslint-config": "workspace:*",
     "@logbun/typescript-config": "workspace:*",
     "prettier": "^3.2.4",
-    "semver": "^7.5.4",
     "turbo": "^1.11.3"
   },
   "engines": {

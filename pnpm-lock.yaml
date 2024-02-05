@@ -21,9 +21,6 @@ importers:
       prettier:
         specifier: ^3.2.4
         version: 3.2.4
-      semver:
-        specifier: ^7.5.4
-        version: 7.5.4
       turbo:
         specifier: ^1.11.3
         version: 1.11.3
@@ -625,6 +622,9 @@ importers:
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.16
+      semver:
+        specifier: ^7.5.4
+        version: 7.5.4
 
   packages/webpack:
     dependencies:
