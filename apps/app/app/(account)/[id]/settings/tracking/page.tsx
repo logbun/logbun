@@ -1,4 +1,5 @@
 import { findProject } from '@logbun/app/actions';
+import { env } from '@logbun/app/env.mjs';
 import { platforms } from '@logbun/app/utils';
 import { Card } from '@logbun/ui';
 import { find } from '@logbun/utils';
@@ -17,7 +18,7 @@ export default async function Tracking({ params: { id } }: Props) {
 
   const libraries = generateLibraries({
     apiKey: project.apiKey,
-    cdnUrl: process.env.NEXT_PUBLIC_CDN_URL,
+    cdnUrl: env.NEXT_PUBLIC_CDN_URL,
   });
 
   const key = project.platform as keyof typeof libraries;

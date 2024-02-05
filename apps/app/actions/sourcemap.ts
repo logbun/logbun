@@ -2,6 +2,7 @@
 
 import { fetchFile, generateBucketKey } from '@logbun/utils/server';
 import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
+import { env } from '../env.mjs';
 import { EventStacktraceResult, Line } from '../types';
 
 type SourcemapGetter = {
@@ -56,10 +57,6 @@ export const getSourcemaps = async (options: SourcemapGetter) => {
 
   const { projectId, release, stacktrace, maxLines = 5 } = options;
 
-  if (!process.env.S3_ACCESS_KEY_ID || !process.env.S3_SECRET_ACCESS_KEY) throw new Error('Environment unavailable');
-
-  if (!process.env.S3_SOURCEMAPS_BUCKET) throw new Error('Sourcemaps not set.');
-
   try {
     for (const stack of stacktrace) {
       let preview: Line[] = [];
@@ -68,7 +65,7 @@ export const getSourcemaps = async (options: SourcemapGetter) => {
 
       const sourcemapKey = generateBucketKey({ projectId, release, url: stack.fileName });
 
-      const sourcemap = await fetchFile(sourcemapKey, process.env.S3_SOURCEMAPS_BUCKET);
+      const sourcemap = await fetchFile(sourcemapKey, env.S3_SOURCEMAPS_BUCKET);
 
       if (!sourcemap) throw new Error('No sourcemap');
 

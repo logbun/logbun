@@ -14,6 +14,7 @@
     "@logbun/clickhouse": "workspace:^",
     "@logbun/db": "workspace:^",
     "@logbun/utils": "workspace:^",
+    "@t3-oss/env-core": "^0.8.0",
     "hono": "^3.11.11",
     "isbot": "^4.4.0",
     "rate-limiter-flexible": "^4.0.0",

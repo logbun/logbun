@@ -1,4 +1,5 @@
 import { createTransport } from 'nodemailer';
+import { env } from '../env.mjs';
 
 type EmailOptions = {
   to: string;
@@ -8,10 +9,10 @@ type EmailOptions = {
 };
 
 export const sendEmail = async (options: EmailOptions) => {
-  const transport = createTransport(process.env.EMAIL_SERVER);
+  const transport = createTransport(env.EMAIL_SERVER);
 
   const result = await transport.sendMail({
-    from: `Logbun <${process.env.EMAIL_FROM}>`,
+    from: `Logbun <${env.EMAIL_FROM}>`,
     ...options,
   });
 

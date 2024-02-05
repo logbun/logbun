@@ -4,9 +4,9 @@
     "baseUrl": ".",
     "paths": {
       "@logbun/app/*": ["./*"],
-      "react": ["./node_modules/@types/react"]
-    }
+      "react": ["./node_modules/@types/react"],
+    },
   },
-  "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "env.mjs"],
+  "exclude": ["node_modules"],
 }

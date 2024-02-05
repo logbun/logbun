@@ -9,6 +9,7 @@ import { logger } from 'hono/logger';
 import { isbot } from 'isbot';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { UAParser } from 'ua-parser-js';
+import { env } from '../env';
 import { eventHeaderSchema, eventSchema, sourcemapSchema } from './schema';
 import { generateFingerprint, getEventByFingerprint, getProjectByApiKey } from './utils';
 
@@ -103,13 +104,6 @@ app.post('/sourcemaps', zValidator('form', sourcemapSchema), async (c) => {
   try {
     const { api_key, release, minified_url, sourcemap } = c.req.valid('form');
 
-    // TODO: use zod
-    if (!process.env.S3_ACCESS_KEY_ID || !process.env.S3_SECRET_ACCESS_KEY) throw new Error('Environment unavailable');
-
-    if (!process.env.S3_SOURCEMAPS_BUCKET) {
-      throw new Error('Environment missing sourcemap bucket name');
-    }
-
     if (!isValidHttpUrl(minified_url)) {
       throw new Error('"minified_url" is not a valid url');
     }
@@ -124,7 +118,7 @@ app.post('/sourcemaps', zValidator('form', sourcemapSchema), async (c) => {
 
     const body = Buffer.from(await sourcemap.arrayBuffer());
 
-    await uploadFile(key, body, process.env.S3_SOURCEMAPS_BUCKET);
+    await uploadFile(key, body, env.S3_SOURCEMAPS_BUCKET);
 
     return c.json({ message: 'Sourcemap uploaded' }, 200);
   } catch (error) {

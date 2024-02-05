@@ -19,6 +19,7 @@
     "@logbun/tailwind-config": "workspace:^",
     "@logbun/ui": "workspace:*",
     "@logbun/utils": "workspace:^",
+    "@t3-oss/env-nextjs": "^0.8.0",
     "bcryptjs": "^2.4.3",
     "date-fns": "^3.3.0",
     "lucide-react": "^0.312.0",

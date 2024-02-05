@@ -99,8 +99,6 @@ export abstract class Client {
   };
 
   public broadcast = (event: Event, config: Partial<Config> = {}) => {
-    console.log('Broadcast');
-
     this.beforeNotifications.forEach((fn) => fn(event));
 
     this.send({ level: 'error', handled: false, ...event }, config);

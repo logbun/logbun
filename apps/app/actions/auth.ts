@@ -5,6 +5,7 @@ import { ONE_HOUR, errorMessage } from '@logbun/utils';
 import { genSalt, hash } from 'bcryptjs';
 import crypto from 'crypto';
 import { AdapterUser } from 'next-auth/adapters';
+import { env } from '../env.mjs';
 import { client } from '../utils/auth';
 import { isDisposableEmail, sendEmail } from '../utils/email';
 import { RegisterFormTypes, registerSchema } from '../utils/schema';
@@ -80,7 +81,7 @@ export async function createVerifyToken(email: string) {
 
   const expires = new Date(Date.now() + ONE_HOUR);
 
-  const url = `${process.env.NEXT_PUBLIC_APP_URL}/verify/${token}?email=${email}`;
+  const url = `${env.NEXT_PUBLIC_APP_URL}/verify/${token}?email=${email}`;
 
   await sendEmail({
     to: email,
