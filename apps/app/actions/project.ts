@@ -1,6 +1,6 @@
 'use server';
 
-import { build, events, fetch, update } from '@logbun/clickhouse/src/queries';
+import { query } from '@logbun/clickhouse';
 import { db, desc, eq, integrations, projects } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
 import { revalidatePath } from 'next/cache';
@@ -10,14 +10,12 @@ import { ProjectFormTypes, projectSchema } from '../utils/schema';
 
 export const findProjects = async (userId: string) => {
   try {
-    const project = await db
-      .select()
-      .from(projects)
-      .where(eq(projects.userId, userId))
-      .limit(20)
-      .orderBy(desc(projects.updatedAt));
-
-    return project;
+    const rows = await db.query.projects.findMany({
+      where: eq(projects.userId, userId),
+      limit: 20,
+      orderBy: desc(projects.updatedAt),
+    });
+    return rows;
   } catch (error) {
     throw new Error(`Error in finding projects: ${errorMessage(error)}`);
   }
@@ -25,8 +23,7 @@ export const findProjects = async (userId: string) => {
 
 export const findProject = async (id: string) => {
   try {
-    const [project] = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
-
+    const project = await db.query.projects.findFirst({ where: eq(projects.id, id) });
     return project;
   } catch (error) {
     throw new Error(`Error in finding project: ${errorMessage(error)}`);
@@ -84,23 +81,17 @@ export async function deleteProject({ id }: { id: string }) {
 }
 
 export const getEvents = async (projectId: string, { resolved }: { resolved: string | undefined }) => {
-  const select = [...events, 'resolved'];
-
   const where = [`projectId = '${projectId}'`];
 
-  if (resolved !== undefined) {
-    where.push(`resolved = ${resolved}`);
-  }
+  if (resolved !== undefined) where.push(`resolved = ${resolved}`);
 
   try {
-    const query = build({
-      select,
-      where: where.join(' and '),
-      groupBy: 'fingerprint, resolved',
-      orderBy: 'updatedAt desc',
-    });
-
-    const data = await fetch<EventResultResponse[]>(query);
+    const data = await query
+      .select([...query.events, 'resolved'])
+      .where(where.join(' and '))
+      .groupBy('fingerprint, resolved')
+      .orderBy('updatedAt desc')
+      .run<EventResultResponse[]>();
 
     return { success: true, message: 'Events fetched', data };
   } catch (error) {
@@ -110,11 +101,11 @@ export const getEvents = async (projectId: string, { resolved }: { resolved: str
 
 export const getEventDetails = async (fingerprint: string) => {
   try {
-    const select = [...events, 'any(projectId) as projectId', 'resolved'];
-
-    const query = build({ select, where: `fingerprint = '${fingerprint}'`, groupBy: 'fingerprint, resolved' });
-
-    const [data] = await fetch<EventResultResponse[]>(query);
+    const [data] = await query
+      .select([...query.events, 'any(projectId) as projectId', 'resolved'])
+      .where(`fingerprint = '${fingerprint}'`)
+      .groupBy('fingerprint, resolved')
+      .run<EventResultResponse[]>();
 
     return { success: true, message: 'Event fetched', data };
   } catch (error) {
@@ -127,9 +118,7 @@ export const toggleEventResolved = async (fingerprint: string) => {
 
   if (!success || !data) throw new Error(message);
 
-  console.log(`Database had resolve ${data.resolved} and now I am setting it to ${!data.resolved}`);
-
-  await update(data, { resolved: !data.resolved });
+  await query.update(data, { resolved: !data.resolved });
 
   revalidatePath('/(account)/[id]/[fingerprint]', 'page');
 };

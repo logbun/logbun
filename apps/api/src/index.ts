@@ -1,6 +1,6 @@
 import { serve } from '@hono/node-server';
 import { zValidator } from '@hono/zod-validator';
-import { create, update } from '@logbun/clickhouse/src/queries';
+import { query } from '@logbun/clickhouse';
 import { errorMessage, isValidHttpUrl, shortid } from '@logbun/utils';
 import { generateBucketKey, uploadFile } from '@logbun/utils/server';
 import { Hono } from 'hono';
@@ -79,12 +79,12 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
         throw new Error('Only 20 event max during beta');
       }
 
-      await update(previous, {
+      await query.update(previous, {
         ...current,
         count: previous.count + 1,
       });
     } else {
-      await create({
+      await query.create({
         ...current,
         id: shortid()(),
         count: 1,

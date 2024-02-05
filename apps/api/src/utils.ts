@@ -1,4 +1,4 @@
-import { build, events, fetch } from '@logbun/clickhouse/src/queries';
+import { query } from '@logbun/clickhouse';
 import { db, eq, projects } from '@logbun/db';
 import crypto from 'crypto';
 
@@ -12,31 +12,30 @@ export const getProjectByApiKey = async (apiKey: string) => {
 };
 
 export const getEventByFingerprint = async (fingerprint: string) => {
-  const select = [...events, 'any(projectId) as projectId'];
-
-  const query = build({ select, where: `fingerprint = '${fingerprint}'` });
-
-  const [event] = await fetch<EventTypeResult[]>(query);
+  const [event] = await query
+    .select([...query.events, 'any(projectId) as projectId'])
+    .where(`fingerprint = '${fingerprint}'`)
+    .run<EventTypeResult[]>();
 
   return event;
 };
 
-export const generateFingerprint = ({ name, stacktrace }: Pick<EventType, 'name' | 'stacktrace'>) => {
-  const keys = stacktrace.reduce((acc, cur) => {
-    let total = acc;
+export const generateFingerprint = (event: Pick<EventType, 'name' | 'stacktrace'>) => {
+  const { name, stacktrace } = event;
 
+  const keys = stacktrace.reduce((acc, cur) => {
     if (cur.fileName) {
-      total += cur.fileName.replace(/\/[0-9]{4}-[0-9]{2}-[0-9]{2}/g, '').replace(/[a-f0-9]{40}/g, ''); // Remove SHA hashes from filenames and Remove dates from filenames;
+      // Remove SHA hashes from filenames and Remove dates from filenames;
+      acc += cur.fileName.replace(/\/[0-9]{4}-[0-9]{2}-[0-9]{2}/g, '').replace(/[a-f0-9]{40}/g, '');
     }
 
     if (cur.functionName) {
-      total += cur.functionName.replace(/\b\d{2,}\b/g, ''); // Remove integers 2 characters or longer from method names
+      // Remove integers 2 characters or longer from method names
+      acc += cur.functionName.replace(/\b\d{2,}\b/g, '');
     }
 
-    return total;
+    return acc;
   }, '');
 
-  const hex = `${keys}${name}`;
-
-  return crypto.createHash('md5').update(hex).digest('hex');
+  return crypto.createHash('md5').update(`${keys}${name}`).digest('hex');
 };
