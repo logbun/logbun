@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, DropdownMenu, Logo } from '@logbun/ui';
+import { DropdownMenu, Logo } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
@@ -43,17 +43,15 @@ export default function Nav({ name, email }: Props) {
 
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
-            <Button variant="default" className="-mr-2 space-x-3 text-base font-normal">
+            <button className="inline-flex p-2 -mr-2 space-x-3 text-base font-normal focus:outline-none">
               <span className="truncate">{email}</span>
               <Gravatar className="rounded-full w-7 h-7" rating="pg" default="retro" email={email} />
-            </Button>
+            </button>
           </DropdownMenu.Trigger>
-          <DropdownMenu.Content className="w-56" align="end" forceMount>
+          <DropdownMenu.Content className="w-60" align="end" forceMount>
             <DropdownMenu.Label className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="font-medium leading-none truncate">{name}</p>
-                <p className="text-sm leading-none text-gray-500 truncate">{email}</p>
-              </div>
+              <p className="text-base font-medium truncate">{name}</p>
+              <p className="text-sm text-gray-500 truncate">{email}</p>
             </DropdownMenu.Label>
             <DropdownMenu.Separator />
             <DropdownMenu.Group>

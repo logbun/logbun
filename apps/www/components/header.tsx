@@ -1,7 +1,8 @@
 'use client';
 
 import { Button, Dialog, Logo } from '@logbun/ui';
-import { cn, site } from '@logbun/utils';
+import { site } from '@logbun/utils';
+import { cn } from '@logbun/utils/client';
 import { Menu, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

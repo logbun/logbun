@@ -47,7 +47,7 @@ export const buttonVariants = cva(
           'focus:outline-none',
         ],
         danger: ['bg-red-100', 'text-red-500', 'hover:bg-red-200', 'focus:outline-none'],
-        default: ['text-gray-900', 'hover:bg-gray-100'],
+        default: ['text-gray-900', 'hover:bg-gray-100', 'focus:outline-none'],
       },
       size: {
         small: ['py-1.5', 'px-2.5', 'gap-x-1'],

@@ -39,7 +39,7 @@ const DropdownMenuSubTrigger = forwardRef<DropdownMenuSubTriggerRef, DropdownMen
     <DropdownMenuPrimitive.SubTrigger
       ref={ref}
       className={cn(
-        'flex cursor-default select-none items-center rounded px-2 py-1.5 text-sm outline-none focus:bg-gray-100 data-[state=open]:bg-gray-200',
+        'flex cursor-default select-none items-center rounded px-2 py-1.5 outline-none focus:bg-gray-100 data-[state=open]:bg-gray-200',
         inset && 'pl-8',
         className
       )}
@@ -86,7 +86,7 @@ const DropdownMenuItem = forwardRef<DropdownMenuItemRef, DropdownMenuItemProps &
     <DropdownMenuPrimitive.Item
       ref={ref}
       className={cn(
-        'relative flex cursor-default select-none items-center rounded px-2 py-1.5 text-sm outline-none transition-colors focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex cursor-default select-none items-center rounded px-2 py-1.5 outline-none transition-colors focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         inset && 'pl-8',
         className
       )}
@@ -100,7 +100,7 @@ const DropdownMenuCheckboxItem = forwardRef<DropdownMenuCheckboxItemRef, Dropdow
     <DropdownMenuPrimitive.CheckboxItem
       ref={ref}
       className={cn(
-        'relative flex cursor-default select-none items-center rounded py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex cursor-default select-none items-center rounded py-1.5 pl-8 pr-2 outline-none transition-colors focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className
       )}
       checked={checked}
@@ -121,7 +121,7 @@ const DropdownMenuRadioItem = forwardRef<DropdownMenuRadioItemRef, DropdownMenuR
     <DropdownMenuPrimitive.RadioItem
       ref={ref}
       className={cn(
-        'relative flex cursor-default select-none items-center rounded py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex cursor-default select-none items-center rounded py-1.5 pl-8 pr-2 outline-none transition-colors focus:bg-gray-100 focus:text-gray-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className
       )}
       {...props}
@@ -140,7 +140,7 @@ const DropdownMenuLabel = forwardRef<DropdownMenuLabelRef, DropdownMenuLabelProp
   ({ className, inset, ...props }, ref) => (
     <DropdownMenuPrimitive.Label
       ref={ref}
-      className={cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)}
+      className={cn('px-2 py-1.5 font-semibold', inset && 'pl-8', className)}
       {...props}
     />
   )
