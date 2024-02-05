@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import Logbun from '@logbun/react';
 import './App.css';
-import reactLogo from './assets/react.svg';
 
 function App() {
   function handledError() {
@@ -21,16 +20,11 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Logbun React Example</h1>
       <div className="card">
         <button onClick={handledError}>Logbun.notify(error)</button>
         <button onClick={unhandledError}>throw new Error(error)</button>
-        <p>Handled by ErrorBoundry in main.jsx</p>
+        <p>Handled by ErrorBoundary in main.jsx</p>
       </div>
     </>
   );

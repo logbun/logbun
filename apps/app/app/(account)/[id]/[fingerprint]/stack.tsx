@@ -11,8 +11,10 @@ interface Props {
 }
 
 export default function Stack({ level, frames }: Props) {
+  const firstPreviewIndex = frames.findIndex((frame) => frame.preview && frame.preview.length > 0);
+
   return (
-    <Accordion type="single" collapsible defaultValue="0">
+    <Accordion collapsible type="single" className="[&>*:last-child]:border-0" defaultValue={`${firstPreviewIndex}`}>
       {frames.map((frame, i) => {
         const { fileName, functionName, lineNumber, preview = [] } = frame;
 

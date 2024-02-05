@@ -4,12 +4,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
+// Environmental variables set in .env.local
 Logbun.init({
-  // This apiKey is for testing only. Please use your own apiKey
-  apiKey: 'yjupgpuhio04fq5xf2phx4fde5740vtg',
-
-  // This endpoint is for testing purposes. Please remove
-  endpoint: 'http://localhost:8000/event',
+  apiKey: import.meta.env.VITE_LOGBUN_API_KEY,
+  endpoint: import.meta.env.VITE_LOGBUN_EVENT_ENDPOINT,
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -16,7 +16,8 @@
     "watch:rollup": "rollup -c rollup.config.mjs --watch",
     "build": "run-s clean build:ts build:rollup",
     "dev": "run-p watch:ts watch:rollup",
-    "cdn-upload": "node --env-file=../../.env ../../packages/utils/scripts/cdn-upload.cjs dist/*.min.js"
+    "upload:cdn": "node --env-file=../../.env ../../packages/utils/scripts/cdn-upload.cjs dist/*.min.js",
+    "build:upload": "pnpm run build && pnpm run upload:cdn"
   },
   "license": "MIT",
   "repository": {
