@@ -10,7 +10,7 @@ const query = sql<string>`SELECT table_name
 db.execute(query)
   .then((tables) => {
     tables.forEach((table) => {
-      const truncateQuery = sql.raw(`DROP TABLE ${table.table_name} CASCADE;`);
+      const truncateQuery = sql.raw(`DROP TABLE "${table.table_name}" CASCADE;`);
 
       db.execute(truncateQuery)
         .then(() => {
