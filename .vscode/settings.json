@@ -14,7 +14,9 @@
     "nextjs",
     "sonner",
     "sourceloc",
+    "striproot",
     "subparsers",
+    "surroundingcode",
     "tsup",
     "unfetch",
     "xlarge"

@@ -1,6 +1,10 @@
+import pWaterfall, { Task } from 'p-waterfall';
 import { Config, ErrorEvent, Event, Logger, SDK, Transport } from './types';
 import { createEvent } from './utils';
 
+type BeforeNotificationFunction = Task<Event, Event>;
+
+type AfterNotificationFunction = Task<ErrorEvent, ErrorEvent>;
 export abstract class Client {
   protected pluginsLoaded: boolean = false;
 
@@ -14,9 +18,9 @@ export abstract class Client {
 
   public readonly transport: Transport;
 
-  protected beforeNotifications: Array<(event: Event) => void> = [];
+  protected beforeNotifications: Array<BeforeNotificationFunction> = [];
 
-  protected afterNotifications: Array<(event: ErrorEvent) => void> = [];
+  protected afterNotifications: Array<AfterNotificationFunction> = [];
 
   constructor(config: Config) {
     this.config = {
@@ -72,6 +76,10 @@ export abstract class Client {
     this.pluginsLoaded = true;
   };
 
+  private runFunctions = <T>(functions: Iterable<Task<T, T>>, ...args: T[]) => {
+    return pWaterfall(functions as Iterable<Task<unknown, T>>, ...args);
+  };
+
   public init = (config: Partial<Config>) => {
     this.config = { ...this.config, ...config };
 
@@ -84,7 +92,7 @@ export abstract class Client {
     return this;
   };
 
-  public setSDK = (sdk: SDK) => {
+  protected setSDK = (sdk: SDK) => {
     this.sdk = sdk;
   };
 
@@ -99,9 +107,16 @@ export abstract class Client {
   };
 
   public broadcast = (event: Event, config: Partial<Config> = {}) => {
-    this.beforeNotifications.forEach((fn) => fn(event));
-
-    this.send({ level: 'error', handled: false, ...event }, config);
+    this.runFunctions(this.beforeNotifications, event)
+      .then(() => {
+        this.logger.info('beforeNotifications ran successfully');
+      })
+      .catch((error) => {
+        this.logger.error('beforeNotifications failed', error);
+      })
+      .finally(() => {
+        this.send({ level: 'error', handled: false, ...event }, config);
+      });
   };
 
   private send = (event: Event, config: Partial<Config> = {}) => {
@@ -129,24 +144,18 @@ export abstract class Client {
       ...event,
     };
 
-    this.transport
-      .send(
-        {
-          endpoint: options.endpoint,
-          headers: { 'X-API-Key': options.apiKey },
-        },
-        body
-      )
-      .then(() => {
-        this.afterNotifications.forEach((fn) => fn(body));
+    this.transport.send({ endpoint: options.endpoint, headers: { 'X-API-Key': options.apiKey } }, body).then(() => {
+      this.runFunctions(this.afterNotifications, body).then(() => {
+        this.logger.info('afterNotifications ran successfully');
       });
+    });
   };
 
-  public beforeNotify = (handler: (event: Event) => void) => {
+  public beforeNotify = (handler: BeforeNotificationFunction) => {
     this.beforeNotifications.push(handler);
   };
 
-  public afterNotify = (handler: (event: ErrorEvent) => void) => {
+  public afterNotify = (handler: AfterNotificationFunction) => {
     this.afterNotifications.push(handler);
   };
 }

@@ -14,6 +14,7 @@ export interface EventStacktrace {
   columnNumber?: number;
   lineNumber?: number;
   fileName?: string;
+  source?: string;
   functionName?: string;
 }
 export interface EventResponse {
@@ -26,7 +27,11 @@ export interface EventResponse {
   metadata?: string;
   stacktrace: EventStacktrace[];
   stack: string;
-  sdk: string;
+  sdk: {
+    name: string;
+    url: string;
+    version: string;
+  };
   os: string;
   osVersion: string;
   browser: string;

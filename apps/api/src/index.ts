@@ -76,7 +76,7 @@ app.post('/event', zValidator('json', eventSchema), zValidator('header', eventHe
 
     if (previous) {
       // TODO: Remove this restriction later
-      if (previous.count >= 20) {
+      if (process.env.NODE_ENV === 'production' && previous.count >= 20) {
         throw new Error('Only 20 event max during beta');
       }
 

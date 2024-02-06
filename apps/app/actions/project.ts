@@ -41,7 +41,7 @@ export async function createProject(data: ProjectFormTypes) {
     const items = await findProjects(user.id);
 
     // TODO: Remove this restriction later
-    if (items.length >= 2) {
+    if (process.env.NODE_ENV === 'production' && items.length >= 2) {
       throw new Error('Only 2 projects max during beta');
     }
 

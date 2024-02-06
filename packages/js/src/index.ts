@@ -6,6 +6,12 @@ import BrowserTransport from './transport';
 class Logbun extends Client {
   constructor(config: Types.Config) {
     super(config);
+
+    this.setSDK({
+      name: '@logbun/js',
+      url: 'https://github.com/logbun/logbun/tree/master/packages/core/packages/js',
+      version: '__VERSION__',
+    });
   }
 
   createEvent(...args: unknown[]) {
@@ -19,13 +25,7 @@ const instance = new Logbun({
 });
 
 instance.beforeNotify((event) => {
-  event.url = window.location.href;
-});
-
-instance.setSDK({
-  name: '@logbun/js',
-  url: 'https://github.com/logbun/logbun/tree/master/packages/core/packages/js',
-  version: '__VERSION__',
+  return { ...event, url: window.location.href };
 });
 
 export default instance;

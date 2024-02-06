@@ -22,3 +22,7 @@ export const isValidHttpUrl = (url: string) => {
     return false;
   }
 };
+
+export const isValidNumber = (value: unknown): value is number => {
+  return typeof value === 'number' && !isNaN(value);
+};

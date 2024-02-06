@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "error-stack-parser": "^2.1.4",
+    "p-waterfall": "^3.0.0",
     "stack-generator": "^2.0.10"
   },
   "publishConfig": {

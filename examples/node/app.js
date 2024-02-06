@@ -1,25 +1,22 @@
 var Logbun = require('@logbun/node');
 
 Logbun.init({
-  apiKey: 'YOUR_API_KEY',
-  endpoint: 'http://localhost:8000/event',
+  apiKey: process.env.LOGBUN_API_KEY,
+  endpoint: process.env.LOGBUN_EVENT_ENDPOINT, // optional
 });
 
 // Send 2 errors
 function unhandledError() {
-  const message = 'throw new Error(error)';
-
-  console.log(message);
-
-  throw new Error(message);
+  let number = 1;
+  number.toUpperCase();
 }
 
 function handledError() {
-  const message = 'Logbun.notify(error)';
-
-  console.log(message);
-
-  Logbun.notify(new Error(message));
+  try {
+    console.log(THIS_VARIABLE_DOES_NOT_EXIST);
+  } catch (e) {
+    Logbun.notify(e);
+  }
 }
 
 handledError();

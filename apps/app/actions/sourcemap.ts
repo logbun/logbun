@@ -1,8 +1,9 @@
 'use server';
 
-import { fetchFile, generateBucketKey } from '@logbun/utils/server';
+import { env } from '@logbun/app/env.mjs';
+import { isValidHttpUrl, isValidNumber } from '@logbun/utils';
+import { fetchFile, fileExists, generateBucketKey } from '@logbun/utils/server';
 import { SourceMapConsumer, type RawSourceMap } from 'source-map-js';
-import { env } from '../env.mjs';
 import { EventStacktraceResult, Line } from '../types';
 
 type SourcemapGetter = {
@@ -12,40 +13,36 @@ type SourcemapGetter = {
   maxLines?: number;
 };
 
-export const offloadSourcemapsWithJS = async (maxLines: number, results: EventStacktraceResult[]) => {
+export const contentToPreview = (content: string, lineNumber: number, maxLines: number) => {
+  const lines: Line[] = content.split('\n').map((line, index) => [index + 1, line]);
+
+  // const start = lineNumber < maxLines ? 0 : lineNumber - maxLines;
+
+  const start = Math.max(lineNumber - maxLines, 0);
+
+  const end = lineNumber + maxLines;
+
+  return lines.slice(start, end);
+};
+
+export const offloadSourcemapsWithJS = async (maxLines: number, stacktrace: EventStacktraceResult[]) => {
   const newResults: EventStacktraceResult[] = [];
 
-  for (const stack of results) {
-    const { preview, fileName, lineNumber = 1, columnNumber = 1 } = stack;
+  for (const stack of stacktrace) {
+    const { preview, fileName, lineNumber } = stack;
 
-    if (fileName) {
+    const noPreview = !preview || preview.length <= 0;
+
+    if (fileName && noPreview && isValidNumber(lineNumber)) {
       const request = await fetch(fileName);
 
       const minifiedJS = await request.text();
 
-      if (!minifiedJS) throw new Error('Minified JS not found');
+      const preview = contentToPreview(minifiedJS, lineNumber!, maxLines);
 
-      if (preview && preview.length) {
-        newResults.push(stack);
-      } else {
-        let generatedStack: EventStacktraceResult = stack;
-
-        const lines = minifiedJS.split('\n');
-
-        const line = lines.length === 1 ? lineNumber - 1 : Math.min(lineNumber - 1, lines.length - 1);
-
-        const selected = lines[line];
-
-        if (selected) {
-          const column = Math.min(columnNumber - 1, selected.length - 1);
-
-          const preview = [lineNumber, selected.slice(Math.max(0, column - maxLines), column + maxLines + 1)] as Line;
-
-          generatedStack = { ...generatedStack, preview: [preview] };
-        }
-
-        newResults.push(generatedStack);
-      }
+      newResults.push({ ...stack, preview });
+    } else {
+      newResults.push(stack);
     }
   }
 
@@ -59,45 +56,45 @@ export const getSourcemaps = async (options: SourcemapGetter) => {
 
   try {
     for (const stack of stacktrace) {
-      let preview: Line[] = [];
+      const { fileName, lineNumber, columnNumber } = stack;
 
-      if (!stack.fileName) throw new Error('Filename not fount to load sourcemaps');
+      if (fileName && isValidHttpUrl(fileName)) {
+        const sourcemapKey = generateBucketKey({ projectId, release, url: fileName });
 
-      const sourcemapKey = generateBucketKey({ projectId, release, url: stack.fileName });
+        const sourcemapExists = await fileExists(sourcemapKey, env.S3_SOURCEMAPS_BUCKET);
 
-      const sourcemap = await fetchFile(sourcemapKey, env.S3_SOURCEMAPS_BUCKET);
+        if (sourcemapExists && isValidNumber(lineNumber) && columnNumber) {
+          const sourcemap = await fetchFile(sourcemapKey, env.S3_SOURCEMAPS_BUCKET);
 
-      if (!sourcemap) throw new Error('No sourcemap');
+          if (!sourcemap) throw new Error('No sourcemap');
 
-      // Get original stacktrace
-      const code = JSON.parse(sourcemap) as RawSourceMap;
+          const code = JSON.parse(sourcemap) as RawSourceMap;
 
-      const consumer = new SourceMapConsumer(code);
+          const consumer = new SourceMapConsumer(code);
 
-      if (stack.lineNumber && stack.columnNumber) {
-        const original = consumer.originalPositionFor({ line: stack.lineNumber, column: stack.columnNumber });
+          const original = consumer.originalPositionFor({ line: lineNumber!, column: columnNumber });
 
-        if (original.source) {
-          const content = consumer.sourceContentFor(original.source, true);
+          let preview: Line[] = [];
 
-          if (content) {
-            const lines: Line[] = content.split('\n').map((line, index) => [index + 1, line]);
+          if (original.source) {
+            const content = consumer.sourceContentFor(original.source, true);
 
-            const start = original.line < maxLines ? 0 : original.line - maxLines;
-
-            // preview = lines;
-            preview = lines.slice(start, original.line + maxLines);
+            if (content) {
+              preview = contentToPreview(content, original.line, maxLines);
+            }
           }
-        }
 
-        // Enhanced stack based on sourcemap
-        results.push({
-          functionName: original.name,
-          columnNumber: original.column,
-          lineNumber: original.line,
-          fileName: original.source,
-          preview,
-        });
+          // Enhanced stack based on sourcemap
+          results.push({
+            functionName: original.name,
+            columnNumber: original.column,
+            lineNumber: original.line,
+            fileName: original.source,
+            preview,
+          });
+        } else {
+          results.push(stack);
+        }
       } else {
         results.push(stack);
       }
