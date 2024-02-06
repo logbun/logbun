@@ -18,11 +18,13 @@ export default function () {
             try {
               const content = await fs.readFile(fileName, 'utf-8');
 
-              const lines = content.split('\n');
+              const rows = content.split('\n');
 
-              const source = lines.splice(start, end).join('\n');
+              const lines = rows.map((line, index) => [index + 1, line]);
 
-              stack.source = source;
+              const source = lines.splice(start, end);
+
+              stack.source = JSON.stringify(source);
             } catch (error) {}
           }
         }

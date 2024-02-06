@@ -13,7 +13,7 @@ document.getElementById('unhandled-error').addEventListener('click', function ()
 
 Logbun.init({
   // This apiKey is for testing purposes. Please use your own apiKey
-  apiKey: 'uhukk9tj3x8lxmt3mfsgmvh31x5xhx4n',
+  apiKey: 'pgj1nna2uysst9xmhzt8vs36a0ald0lf',
 
   // This endpoint is for testing purposes. Please remove
   endpoint: 'http://localhost:8000/event',

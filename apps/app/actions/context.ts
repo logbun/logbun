@@ -57,16 +57,26 @@ export const getContexts = async (options: ContextGetter) => {
 
         if (original.source) {
           const content = consumer.sourceContentFor(original.source, true);
+
           if (content) {
-            addPreview(content, original.line);
+            const preview = createPreview(content, original.line);
+            results.push({
+              functionName: original.name,
+              columnNumber: original.column,
+              lineNumber: original.line,
+              fileName: original.source,
+              preview,
+            });
             continue;
           }
         }
       }
 
+      console.log('Getting extra');
+
       /** NodeJS comes shipped with a snippet of the code under source */
       if (sdk.endsWith('node') && source) {
-        addPreview(source);
+        pushPreview(JSON.parse(source));
         continue;
       }
 

@@ -1,6 +1,6 @@
 'use server';
 
-import { query } from '@logbun/clickhouse';
+import { createClient, query } from '@logbun/clickhouse';
 import { db, desc, eq, integrations, projects } from '@logbun/db';
 import { errorMessage } from '@logbun/utils';
 import { revalidatePath } from 'next/cache';
@@ -73,7 +73,13 @@ export async function updateProject({ id, name }: { id: string; name: string }) 
 
 export async function deleteProject({ id }: { id: string }) {
   try {
+    const client = createClient();
+
+    await client.query({ query: `ALTER TABLE logbun.event DELETE WHERE projectId = '${id}'` });
+    // await client.query({ query: `DELETE from logbun.event WHERE projectId = '${id}'` });
+
     await db.delete(projects).where(eq(projects.id, id));
+
     return { success: true, message: 'Project deleted' };
   } catch (error) {
     return { success: false, message: errorMessage(error) };
