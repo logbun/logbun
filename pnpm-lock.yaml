@@ -18,6 +18,9 @@ importers:
       '@logbun/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
+      npm-run-all:
+        specifier: ^4.1.5
+        version: 4.1.5
       prettier:
         specifier: ^3.2.4
         version: 3.2.4
