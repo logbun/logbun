@@ -19,6 +19,7 @@
     "migrate:db": "turbo --filter=db migrate",
     "migrate:clickhouse": "turbo --filter=clickhouse migrate",
     "db:studio": "pnpm --filter db studio",
+    "open:services": "open http://localhost:2000 http://localhost:2001 http://localhost:8025 http://localhost:9001",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "packageManager": "pnpm@8.13.0",
