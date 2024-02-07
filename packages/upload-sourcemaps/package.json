@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --watch",
-    "test-cli": "node dist/cli.js -e=\"http://localhost:8000/sourcemaps\" --api-key=\"yjupgpuhio04fq5xf2phx4fde5740vtg\" -s=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js.map\" -m=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js\""
+    "test-cli": "node dist/cli.js -e=\"http://localhost:8000/sourcemap\" --api-key=\"yjupgpuhio04fq5xf2phx4fde5740vtg\" -s=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js.map\" -m=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js\""
   },
   "license": "ISC",
   "dependencies": {

@@ -18,7 +18,7 @@ export default class LogbunSourceMapPlugin {
     if (!options.apiKey) throw new Error('apiKey required');
 
     if (!options.endpoint) {
-      options.endpoint = 'https://api.logbun.com/sourcemaps';
+      options.endpoint = 'https://api.logbun.com/sourcemap';
     }
 
     this.uploadSourceMaps = uploadSourceMaps;
