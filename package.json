@@ -2,7 +2,7 @@
   "name": "@logbun/root",
   "private": true,
   "scripts": {
-    "dev": "run-p dev:apps dev:sdk",
+    "dev": "run-p dev:apps dev:packages",
     "build": "turbo build",
     "lint": "turbo lint",
     "start:app": "turbo start --filter=app",
