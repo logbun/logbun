@@ -1,4 +1,4 @@
-import { shortid } from '@logbun/utils';
+import { shortid } from '@logbun/server-utils';
 import { relations } from 'drizzle-orm';
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import { users } from '.';

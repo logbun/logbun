@@ -3,10 +3,11 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
+    NODE_ENV: z.enum(['development', 'test', 'production']),
+
     DATABASE_URL: z.string().url(),
     EMAIL_SERVER: z.string().min(1),
     EMAIL_FROM: z.string().min(1),
-    // NEXTAUTH_SECRET: z.string().min(1),
 
     CLICKHOUSE_HOST: z.string().url(),
     CLICKHOUSE_DB: z.string().min(1),
@@ -18,13 +19,13 @@ export const env = createEnv({
     S3_REGION: z.string().min(1),
     S3_ENDPOINT: z.string().url(),
     S3_SOURCEMAPS_BUCKET: z.string().min(1),
-    // S3_CDN_BUCKET: z.string().min(1),
   },
   runtimeEnv: {
+    NODE_ENV: process.env.NODE_ENV,
+
     DATABASE_URL: process.env.DATABASE_URL,
     EMAIL_SERVER: process.env.EMAIL_SERVER,
     EMAIL_FROM: process.env.EMAIL_FROM,
-    // NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 
     CLICKHOUSE_HOST: process.env.CLICKHOUSE_HOST,
     CLICKHOUSE_DB: process.env.CLICKHOUSE_DB,
@@ -36,10 +37,5 @@ export const env = createEnv({
     S3_REGION: process.env.S3_REGION,
     S3_ENDPOINT: process.env.S3_ENDPOINT,
     S3_SOURCEMAPS_BUCKET: process.env.S3_SOURCEMAPS_BUCKET,
-    // S3_CDN_BUCKET: process.env.S3_CDN_BUCKET,
-
-    // NEXT_PUBLIC_CDN_URL: process.env.NEXT_PUBLIC_CDN_URL,
-    // NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    // NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
 });

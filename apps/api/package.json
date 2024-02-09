@@ -1,12 +1,14 @@
 {
   "name": "@logbun/api",
   "version": "1.0.0",
-  "packageManager": "pnpm@8.13.0",
   "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsup",
-    "dev": "pnpm with-env tsx watch src/index.ts",
+    "dev": "pnpm with-env tsup --watch",
     "with-env": "dotenv -e ../../.env --"
   },
   "dependencies": {
@@ -14,7 +16,7 @@
     "@hono/zod-validator": "^0.1.11",
     "@logbun/clickhouse": "workspace:^",
     "@logbun/db": "workspace:^",
-    "@logbun/utils": "workspace:^",
+    "@logbun/server-utils": "workspace:^",
     "@t3-oss/env-core": "^0.8.0",
     "hono": "^3.11.11",
     "isbot": "^4.4.0",
@@ -26,7 +28,6 @@
     "@types/node": "^20.10.5",
     "@types/ua-parser-js": "^0.7.39",
     "dotenv-cli": "^7.3.0",
-    "tsup": "^8.0.1",
-    "tsx": "^4.6.2"
+    "tsup": "^8.0.1"
   }
 }

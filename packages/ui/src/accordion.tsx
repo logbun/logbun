@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { MinusIcon, PlusIcon } from 'lucide-react';
 import { forwardRef } from 'react';

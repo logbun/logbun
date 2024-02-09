@@ -1,8 +1,9 @@
 {
   "name": "@logbun/db",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "private": "true",
   "scripts": {
     "build": "tsup",
@@ -10,15 +11,12 @@
     "generate": "pnpm with-env drizzle-kit generate:pg",
     "migrate": "pnpm with-env tsx src/migrate.ts",
     "clear": "pnpm with-env tsx src/clear.ts",
-    "clean": "rm -rf .turbo node_modules",
     "with-env": "dotenv -e ../../.env --"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "@auth/core": "^0.18.6",
-    "@logbun/utils": "workspace:^",
+    "@logbun/server-utils": "workspace:^",
     "drizzle-orm": "^0.29.1",
     "pg": "^8.11.3",
     "postgres": "^3.4.3"

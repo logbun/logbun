@@ -1,7 +1,6 @@
 {
   "name": "@logbun/www",
   "version": "0.1.0",
-  "packageManager": "pnpm@8.13.0",
   "private": true,
   "scripts": {
     "dev": "pnpm with-env next dev --port 2001",

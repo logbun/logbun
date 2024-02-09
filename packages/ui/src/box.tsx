@@ -1,4 +1,4 @@
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import { Card } from './card';
 
 interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {}

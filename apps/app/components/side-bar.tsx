@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 

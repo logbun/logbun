@@ -1,4 +1,4 @@
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { forwardRef } from 'react';

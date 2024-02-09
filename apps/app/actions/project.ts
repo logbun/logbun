@@ -2,7 +2,7 @@
 
 import { createClient, query } from '@logbun/clickhouse';
 import { db, desc, eq, integrations, projects } from '@logbun/db';
-import { errorMessage } from '@logbun/utils';
+import { errorMessage } from '@logbun/server-utils';
 import { revalidatePath } from 'next/cache';
 import { EventResultResponse } from '../types';
 import { getCurrentUser } from '../utils/auth';

@@ -4,7 +4,7 @@ import SearchIcon from '@logbun/app/assets/illustrations/search.svg';
 import { EventResultResponse, Project } from '@logbun/app/types';
 import { getLevelEmoji } from '@logbun/app/utils';
 import { Button } from '@logbun/ui';
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import { formatDistanceToNow, fromUnixTime } from 'date-fns';
 import { ArrowRight, ChevronRightIcon } from 'lucide-react';
 import Image from 'next/image';

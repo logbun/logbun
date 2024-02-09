@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { forwardRef } from 'react';
 

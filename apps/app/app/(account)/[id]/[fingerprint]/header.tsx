@@ -3,7 +3,7 @@
 import { EventResultResponse } from '@logbun/app/types';
 import { Button } from '@logbun/ui';
 import { errorMessage } from '@logbun/utils';
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import { format, fromUnixTime } from 'date-fns';
 import { CheckCircle2, ChevronLeft, Fingerprint, Monitor, Smartphone, Tablet, XCircle } from 'lucide-react';
 import Image from 'next/image';

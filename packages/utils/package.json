@@ -4,20 +4,11 @@
   "private": "true",
   "type": "module",
   "main": "./index.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.437.0",
-    "clsx": "^2.0.0",
-    "nanoid": "^5.0.4",
-    "tailwind-merge": "^2.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.16",
-    "semver": "^7.5.4"
+    "@logbun/client-utils": "workspace:^"
   }
 }

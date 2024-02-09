@@ -1,6 +1,5 @@
 import { zValidator } from '@hono/zod-validator';
-import { errorMessage, isValidHttpUrl } from '@logbun/utils';
-import { generateBucketKey, uploadFile } from '@logbun/utils/server';
+import { errorMessage, generateBucketKey, isValidHttpUrl, uploadFile } from '@logbun/server-utils';
 import { Hono } from 'hono';
 import { env } from '../env';
 import { getProjectByApiKey } from './utils';
@@ -18,9 +17,7 @@ app.post('/', zValidator('form', sourcemapSchema), async (c) => {
 
     const project = await getProjectByApiKey(api_key);
 
-    if (!project) {
-      throw new Error('Invalid API Key');
-    }
+    if (!project) throw new Error('Invalid API Key');
 
     const key = generateBucketKey({ projectId: project.id, release, url: minified_url });
 

@@ -1,7 +1,7 @@
 'use server';
 
 import { count, db, eq, users } from '@logbun/db';
-import { ONE_HOUR, errorMessage } from '@logbun/utils';
+import { errorMessage } from '@logbun/server-utils';
 import { genSalt, hash } from 'bcryptjs';
 import crypto from 'crypto';
 import { AdapterUser } from 'next-auth/adapters';
@@ -78,6 +78,8 @@ export async function verifyToken(email: string, token: string) {
 
 export async function createVerifyToken(email: string) {
   const token = crypto.randomBytes(20).toString('hex');
+
+  const ONE_HOUR = 1000 * 60 * 60;
 
   const expires = new Date(Date.now() + ONE_HOUR);
 

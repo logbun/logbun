@@ -2,7 +2,7 @@
 
 import { Button, Dialog, Logo } from '@logbun/ui';
 import { site } from '@logbun/utils';
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import { Menu, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';

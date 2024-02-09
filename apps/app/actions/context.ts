@@ -1,5 +1,4 @@
-import { isValidHttpUrl } from '@logbun/utils';
-import { fetchFile, fileExists, generateBucketKey } from '@logbun/utils/server';
+import { fetchFile, fileExists, generateBucketKey, isValidHttpUrl } from '@logbun/server-utils';
 import { RawSourceMap, SourceMapConsumer } from 'source-map-js';
 import { env } from '../env.mjs';
 import { EventStacktraceResult, Line } from '../types';

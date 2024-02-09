@@ -2,7 +2,6 @@
   "name": "@logbun/app",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@8.13.0",
   "scripts": {
     "dev": "pnpm with-env next dev --port 2000",
     "build": "next build",
@@ -17,6 +16,7 @@
     "@logbun/db": "workspace:^",
     "@logbun/js": "workspace:^",
     "@logbun/node": "workspace:^",
+    "@logbun/server-utils": "workspace:^",
     "@logbun/tailwind-config": "workspace:^",
     "@logbun/ui": "workspace:*",
     "@logbun/utils": "workspace:^",

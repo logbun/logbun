@@ -77,7 +77,6 @@ const run = async () => {
   const isUnstable = semver.prerelease(packageVersion) !== null;
 
   if (!isUnstable) {
-    // if this is a release (as opposed to a prerelease), update the major/minor aliases
     const major = `v${semver.major(packageVersion)}`;
 
     for (const file of files) {
@@ -95,7 +94,6 @@ const run = async () => {
     }
   }
 
-  // Update latest
   const latest = 'latest';
 
   for (const file of files) {

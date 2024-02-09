@@ -1,0 +1,20 @@
+{
+  "name": "@logbun/server-utils",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.437.0",
+    "@logbun/common-utils": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsup": "^8.0.1"
+  }
+}

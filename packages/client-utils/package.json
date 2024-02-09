@@ -1,0 +1,20 @@
+{
+  "name": "@logbun/client-utils",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@logbun/common-utils": "workspace:^",
+    "clsx": "^2.0.0",
+    "tailwind-merge": "^2.1.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.1"
+  }
+}

@@ -22,6 +22,6 @@ app.route('/sourcemap', sourcemap);
 
 const port = parseInt(process.env.PORT || '8080');
 
-console.log(`Server is running on port ${port}`);
+console.log(`⚡️ Server is running on port ${port}`);
 
 serve({ fetch: app.fetch, port });

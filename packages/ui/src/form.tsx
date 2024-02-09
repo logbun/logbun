@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
 import { Children, cloneElement, createContext, forwardRef, isValidElement, useContext, useId } from 'react';

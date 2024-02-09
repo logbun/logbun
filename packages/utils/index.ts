@@ -1,1 +1,2 @@
-export * from './common/index';
+export * from '@logbun/client-utils';
+export * from './config';

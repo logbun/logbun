@@ -1,10 +1,11 @@
 import { zValidator } from '@hono/zod-validator';
 import { query } from '@logbun/clickhouse';
-import { errorMessage, shortid } from '@logbun/utils';
+import { errorMessage, shortid } from '@logbun/server-utils';
 import { Hono } from 'hono';
 import { isbot } from 'isbot';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { UAParser } from 'ua-parser-js';
+import { env } from '../env';
 import { generateFingerprint, getEventByFingerprint, getProjectByApiKey } from './utils';
 import { eventHeaderSchema, eventSchema } from './utils/schema';
 
@@ -22,11 +23,11 @@ app.post('/', zValidator('json', eventSchema), zValidator('header', eventHeaderS
 
     const apiKey = header['x-api-key'];
 
-    const fingerprint = generateFingerprint(data);
-
     if (isbot(userAgent)) {
       throw new Error('🤖 Bot');
     }
+
+    const fingerprint = generateFingerprint({ name: data.name, stacktrace: data.stacktrace });
 
     try {
       await rateLimit.consume(fingerprint, 1);
@@ -36,7 +37,7 @@ app.post('/', zValidator('json', eventSchema), zValidator('header', eventHeaderS
 
     const project = await getProjectByApiKey(apiKey);
 
-    if (!project) throw new Error('Project with API Key not found');
+    if (!project) throw new Error('Project not found');
 
     const { os, browser, device } = UAParser(userAgent);
 
@@ -63,24 +64,16 @@ app.post('/', zValidator('json', eventSchema), zValidator('header', eventHeaderS
 
     const previous = await getEventByFingerprint(fingerprint);
 
-    if (previous) {
-      // TODO: Remove this restriction later
-      if (process.env.NODE_ENV === 'production' && previous.count >= 20) {
-        throw new Error('Only 20 event max during beta');
-      }
-
-      await query.update(previous, {
-        ...current,
-        count: previous.count + 1,
-      });
-    } else {
-      await query.create({
-        ...current,
-        id: shortid()(),
-        count: 1,
-        createdAt: timestamp,
-      });
+    if (env.NODE_ENV === 'production' && previous && previous.count > 20) {
+      throw new Error('Only 20 events max allowed during beta');
     }
+
+    if (previous) {
+      await query.update(previous, { ...current, count: previous.count + 1 });
+    } else {
+      await query.create({ ...current, id: shortid()(), count: 1, createdAt: timestamp });
+    }
+
     return c.json({ message: 'Successfully created event' }, 200);
   } catch (error) {
     return c.json({ message: errorMessage(error) }, 400);

@@ -1,4 +1,4 @@
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import { forwardRef } from 'react';
 
 const CardRoot = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (

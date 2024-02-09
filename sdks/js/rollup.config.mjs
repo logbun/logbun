@@ -5,19 +5,19 @@ import terser from '@rollup/plugin-terser';
 import pkg from './package.json' assert { type: 'json' };
 
 const sharedPlugins = [
-  replace({ preventAssignment: false, exclude: 'node_modules/**', values: { __VERSION__: pkg.version } }),
+  replace({
+    preventAssignment: false,
+    exclude: 'node_modules/**',
+    values: { __VERSION__: pkg.version },
+  }),
   commonjs(),
   resolve(),
 ];
 
-const mainFile = pkg.browser;
-
-const miniFile = pkg.browser.replace('.js', '.min.js');
-
 export default [
   {
     input: 'dist/index.js',
-    output: { name: 'Logbun', file: mainFile, format: 'umd', sourcemap: true },
+    output: { name: 'Logbun', file: pkg.browser, format: 'umd', sourcemap: true },
     plugins: sharedPlugins,
   },
   {
@@ -27,7 +27,7 @@ export default [
   },
   {
     input: 'dist/index.js',
-    output: { name: 'Logbun', file: miniFile, format: 'umd', sourcemap: true },
+    output: { name: 'Logbun', file: pkg.browser.replace('.js', '.min.js'), format: 'umd', sourcemap: true },
     plugins: [...sharedPlugins, terser()],
   },
 ];

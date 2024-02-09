@@ -1,24 +1,24 @@
 {
   "name": "@logbun/clickhouse",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "private": "true",
   "scripts": {
-    "migrate": "pnpm with-env tsx src/migrate.ts",
     "build": "tsup",
+    "dev": "tsup --watch",
+    "migrate": "pnpm with-env tsx src/migrate.ts",
     "with-env": "dotenv -e ../../.env --"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
+  "dependencies": {
+    "@clickhouse/client": "^0.2.7"
+  },
   "devDependencies": {
     "dotenv-cli": "^7.3.0",
     "tsup": "^8.0.1",
     "tsx": "^4.6.2",
     "typescript": "^5.3.3"
-  },
-  "dependencies": {
-    "@clickhouse/client": "^0.2.7"
   }
 }

@@ -4,6 +4,7 @@
     "CCPA",
     "clickhouse",
     "deduping",
+    "deepmerge",
     "Hono",
     "iife",
     "isbot",

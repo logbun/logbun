@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@logbun/utils/client';
+import { cn } from '@logbun/utils';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon, ChevronsUpDown } from 'lucide-react';
 import { forwardRef } from 'react';

@@ -1,6 +1,5 @@
 import { query } from '@logbun/clickhouse';
 import { db, eq, projects } from '@logbun/db';
-
 import { EventTypeResult } from './schema';
 
 export const getProjectByApiKey = async (apiKey: string) => {
