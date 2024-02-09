@@ -1,7 +1,6 @@
 import { Client } from '@logbun/core';
+import { trimCode } from '@logbun/server-utils';
 import { promises as fs } from 'fs';
-
-const SURROUNDING_LINES = 3;
 
 export default function () {
   return {
@@ -11,18 +10,10 @@ export default function () {
           const { fileName, lineNumber } = stack;
 
           if (fileName && typeof lineNumber === 'number') {
-            const start = Math.max(lineNumber - SURROUNDING_LINES, 0);
-
-            const end = lineNumber + SURROUNDING_LINES;
-
             try {
               const content = await fs.readFile(fileName, 'utf-8');
 
-              const rows = content.split('\n');
-
-              const lines = rows.map((line, index) => [index + 1, line]);
-
-              const source = lines.splice(start, end);
+              const source = trimCode(content, lineNumber);
 
               stack.source = JSON.stringify(source);
             } catch (error) {}

@@ -1,4 +1,4 @@
-import { fetchFile, fileExists, generateBucketKey, isValidHttpUrl } from '@logbun/server-utils';
+import { fetchFile, fileExists, generateBucketKey, isValidHttpUrl, trimCode } from '@logbun/server-utils';
 import { RawSourceMap, SourceMapConsumer } from 'source-map-js';
 import { env } from '../env.mjs';
 import { EventStacktraceResult, Line } from '../types';
@@ -14,7 +14,7 @@ type ContextGetter = {
 export const getContexts = async (options: ContextGetter) => {
   let results: EventStacktraceResult[] = [];
 
-  const { projectId, release, stacktrace, maxLines = 5, sdk } = options;
+  const { projectId, release, stacktrace, maxLines, sdk } = options;
   try {
     for (const stack of stacktrace) {
       const sourcemapBucket = env.S3_SOURCEMAPS_BUCKET;
@@ -23,20 +23,12 @@ export const getContexts = async (options: ContextGetter) => {
 
       if (!lineNumber || !fileName) continue;
 
-      const createPreview = (content: string, line: number) => {
-        const rows = content.split('\n');
-
-        const lines: Line[] = rows.map((line, index) => [index + 1, line]);
-
-        return lines.slice(Math.max(line - maxLines, 0), line + maxLines);
-      };
-
       const pushPreview = (preview: Line[]) => {
         results.push({ ...stack, preview });
       };
 
       const addPreview = (content: string, line = lineNumber) => {
-        const preview = createPreview(content, line);
+        const preview = trimCode(content, line, maxLines);
         pushPreview(preview);
       };
 
@@ -58,7 +50,7 @@ export const getContexts = async (options: ContextGetter) => {
           const content = consumer.sourceContentFor(original.source, true);
 
           if (content) {
-            const preview = createPreview(content, original.line);
+            const preview = trimCode(content, original.line, maxLines);
             results.push({
               functionName: original.name,
               columnNumber: original.column,
