@@ -4,12 +4,11 @@
     "module": "ESNext",
     "target": "ESNext",
     "moduleResolution": "Node",
-    "declaration": true,
     "removeComments": true,
     "sourceMap": true,
     "outDir": "dist",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"],
 }

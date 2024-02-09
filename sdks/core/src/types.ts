@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { type StackFrame } from 'error-stack-parser';
 import { Client } from './client';
 
 // helpers

@@ -1,7 +1,7 @@
 // This configuration only applies to the package manager root.
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  ignorePatterns: ['apps/**', 'packages/**', 'examples/**'],
+  ignorePatterns: ['apps/**', 'packages/**', 'sdks/**', 'examples/**'],
   extends: ['@logbun/eslint-config/library.js'],
   parser: '@typescript-eslint/parser',
   parserOptions: {

@@ -5,6 +5,7 @@
   "files": [
     "library.js",
     "next.js",
+    "sdk.js",
     "react-internal.js"
   ],
   "devDependencies": {
