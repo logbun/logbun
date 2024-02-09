@@ -38,7 +38,7 @@ export abstract class Client {
 
     this.sdk = {
       name: '@logbun/core',
-      url: 'https://github.com/logbun/logbun/tree/master/packages/core',
+      url: 'https://github.com/logbun/logbun/tree/master/sdks/core',
       version: '__VERSION__',
     };
   }
@@ -92,7 +92,7 @@ export abstract class Client {
     return this;
   };
 
-  protected setSDK = (sdk: SDK) => {
+  public setSDK = (sdk: SDK) => {
     this.sdk = sdk;
   };
 
