@@ -15,15 +15,21 @@ export type FormContentProps = {
 
 type FormItemRef = HTMLDivElement;
 type FormItemProps = React.HTMLAttributes<HTMLDivElement>;
+
 type FormContentRef = HTMLDivElement;
+
 type FormLabelRef = React.ElementRef<typeof LabelPrimitive.Root>;
 type FormLabelProps = React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>;
+
 type FormControlRef = React.ElementRef<typeof Slot>;
 type FormControlProps = React.ComponentPropsWithoutRef<typeof Slot>;
+
 type FormDescriptionRef = HTMLParagraphElement;
 type FormDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
+
 type FormMessageRef = HTMLParagraphElement;
 type FormMessageProps = React.HTMLAttributes<HTMLParagraphElement>;
+
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,

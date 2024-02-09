@@ -15,10 +15,13 @@ const DialogClose = DialogPrimitive.Close;
 
 type DialogOverlayRef = React.ElementRef<typeof DialogPrimitive.Overlay>;
 type DialogOverlayProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>;
+
 type DialogContentRef = React.ElementRef<typeof DialogPrimitive.Content>;
 type DialogContentProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>;
+
 type DialogTitleRef = React.ElementRef<typeof DialogPrimitive.Title>;
 type DialogTitleProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>;
+
 type DialogDescriptionRef = React.ElementRef<typeof DialogPrimitive.Description>;
 type DialogDescriptionProps = React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>;
 

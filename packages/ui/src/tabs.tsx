@@ -6,8 +6,10 @@ import { forwardRef } from 'react';
 
 type TabsListRef = React.ElementRef<typeof TabsPrimitive.List>;
 type TabsListProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>;
+
 type TabsTriggerRef = React.ElementRef<typeof TabsPrimitive.Trigger>;
 type TabsTriggerProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>;
+
 type TabsContentRef = React.ElementRef<typeof TabsPrimitive.Content>;
 type TabsContentProps = React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>;
 

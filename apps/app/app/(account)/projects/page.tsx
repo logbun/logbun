@@ -1,5 +1,5 @@
 import { findProjects } from '@logbun/app/actions';
-import { getCurrentUser } from '@logbun/app/utils/auth';
+import { denyAccess, getCurrentUser } from '@logbun/app/utils/auth';
 import { Button } from '@logbun/ui';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
@@ -12,7 +12,9 @@ export const metadata = {
 export default async function Projects() {
   const user = await getCurrentUser();
 
-  const projects = await findProjects(user!.id);
+  if (!user) return denyAccess();
+
+  const projects = await findProjects(user.id);
 
   return (
     <div className="pt-12 container-lg">

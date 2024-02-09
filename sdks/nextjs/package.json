@@ -9,11 +9,11 @@
   "author": "Logbun",
   "description": "Next.js integration for Logbun",
   "scripts": {
-    "clean": "rm -fr dist",
-    "build:ts": "tsc --build tsconfig.json",
-    "build:rollup": "rollup -c rollup.config.mjs",
-    "watch:ts": "tsc -p tsconfig.json --watch",
-    "watch:rollup": "rollup -c rollup.config.mjs --watch",
+    "clean": "rimraf dist",
+    "build:ts": "tsc -b",
+    "build:rollup": "rollup -c",
+    "watch:ts": "tsc -p tsconfig.json -w",
+    "watch:rollup": "rollup -c rollup.config.mjs -w",
     "build": "run-s clean build:ts build:rollup",
     "dev": "run-p watch:ts watch:rollup"
   },
@@ -29,6 +29,7 @@
     "next": "^13.0 || ^14.0"
   },
   "dependencies": {
+    "@logbun/core": "workspace:^",
     "@logbun/node": "workspace:^",
     "@logbun/react": "workspace:^",
     "@logbun/webpack": "workspace:^"
@@ -40,6 +41,7 @@
     "@types/node": "^20.11.16",
     "@types/react": "^18.2.45",
     "npm-run-all": "^4.1.5",
+    "rimraf": "^5.0.5",
     "rollup": "^4.9.1",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.0",

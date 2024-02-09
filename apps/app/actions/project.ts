@@ -76,7 +76,6 @@ export async function deleteProject({ id }: { id: string }) {
     const client = createClient();
 
     await client.query({ query: `ALTER TABLE logbun.event DELETE WHERE projectId = '${id}'` });
-    // await client.query({ query: `DELETE from logbun.event WHERE projectId = '${id}'` });
 
     await db.delete(projects).where(eq(projects.id, id));
 

@@ -11,7 +11,6 @@ import { toast } from 'sonner';
 const settings = [
   { name: 'Projects', href: '/projects' },
   { name: 'Profile', href: '/settings/profile' },
-  // { name: 'Billing', href: '/billing' },
 ];
 
 interface Props {

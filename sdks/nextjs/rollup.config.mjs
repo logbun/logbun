@@ -4,7 +4,7 @@ import replace from '@rollup/plugin-replace';
 import dts from 'rollup-plugin-dts';
 import pkg from './package.json' assert { type: 'json' };
 
-const external = [...Object.keys(pkg.dependencies), 'fs', 'path', 'next'];
+const external = [...Object.keys(pkg.dependencies), 'fs', 'path', 'next', '@logbun/react'];
 
 const sharedPlugins = [
   replace({ preventAssignment: false, exclude: 'node_modules/**', values: { __VERSION__: pkg.version } }),

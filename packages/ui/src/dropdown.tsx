@@ -19,18 +19,25 @@ const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
 type DropdownMenuSubTriggerRef = React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>;
 type DropdownMenuSubTriggerProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger>;
+
 type DropdownMenuSubContentRef = React.ElementRef<typeof DropdownMenuPrimitive.SubContent>;
 type DropdownMenuSubContentProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>;
+
 type DropdownMenuContentRef = React.ElementRef<typeof DropdownMenuPrimitive.Content>;
 type DropdownMenuContentProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>;
+
 type DropdownMenuItemRef = React.ElementRef<typeof DropdownMenuPrimitive.Item>;
 type DropdownMenuItemProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>;
+
 type DropdownMenuCheckboxItemRef = React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>;
 type DropdownMenuCheckboxItemProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>;
+
 type DropdownMenuRadioItemRef = React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>;
 type DropdownMenuRadioItemProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>;
+
 type DropdownMenuLabelRef = React.ElementRef<typeof DropdownMenuPrimitive.Label>;
 type DropdownMenuLabelProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>;
+
 type DropdownMenuSeparatorRef = React.ElementRef<typeof DropdownMenuPrimitive.Separator>;
 type DropdownMenuSeparatorProps = React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>;
 

@@ -14,16 +14,22 @@ const SelectValue = SelectPrimitive.Value;
 
 type SelectTriggerRef = React.ElementRef<typeof SelectPrimitive.Trigger>;
 type SelectTriggerProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>;
+
 type SelectScrollUpButtonRef = React.ElementRef<typeof SelectPrimitive.ScrollUpButton>;
 type SelectScrollUpButtonProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>;
+
 type SelectScrollDownButtonRef = React.ElementRef<typeof SelectPrimitive.ScrollDownButton>;
 type SelectScrollDownButtonProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>;
+
 type SelectContentRef = React.ElementRef<typeof SelectPrimitive.Content>;
 type SelectContentProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>;
+
 type SelectItemRef = React.ElementRef<typeof SelectPrimitive.Item>;
 type SelectItemProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>;
+
 type SelectSeparatorRef = React.ElementRef<typeof SelectPrimitive.Separator>;
 type SelectSeparatorProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>;
+
 type SelectLabelRef = React.ElementRef<typeof SelectPrimitive.Label>;
 type SelectLabelProps = React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>;
 
