@@ -1,10 +1,18 @@
 import { Client } from '@logbun/core';
+import ClientLogbun, { LogbunErrorBoundary as ClientLogbunErrorBoundary } from '@logbun/react';
 import { NextConfig } from 'next';
-import { type LogbunErrorBoundary as ClientLogbunErrorBoundary } from './client';
 import { LogbunNextJsConfig } from './webpack';
 
-export interface Logbun extends Client {}
+// export * from './client';
+
+// export * from './server';
+
+
+export declare const Logbun: typeof ClientLogbun;
+
+export declare const LogbunErrorBoundary: typeof ClientLogbunErrorBoundary;
 
 export declare function withLogbunConfig(defaultConfig: NextConfig, logbunConfig: LogbunNextJsConfig): NextConfig;
 
-export interface LogbunErrorBoundary extends ClientLogbunErrorBoundary {}
+// const a: typeof Logbun = {};
+// a.

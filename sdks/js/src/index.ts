@@ -9,7 +9,7 @@ class Logbun extends Client {
 
     this.setSDK({
       name: '@logbun/js',
-      url: 'https://github.com/logbun/logbun/tree/master/packages/core/packages/js',
+      url: 'https://github.com/logbun/logbun/tree/master/sdks/js',
       version: '__VERSION__',
     });
   }
