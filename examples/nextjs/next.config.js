@@ -1,9 +1,9 @@
-/** @type {import('next').NextConfig} */
-
 const { withLogbunConfig } = require('@logbun/nextjs');
 
+/** @type {import('next').NextConfig} */
 const moduleExports = {};
 
+/** @type {import('@logbun/nextjs').LogbunConfig} */
 const logbunConfig = {
   silent: true,
   disableSourceMapUpload: false,
