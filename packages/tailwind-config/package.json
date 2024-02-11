@@ -7,7 +7,7 @@
   "scripts": {},
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "tailwindcss-animate": "^1.0.7"

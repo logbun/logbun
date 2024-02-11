@@ -8,10 +8,9 @@
   "types": "dist/logbun-upload-sourcemaps.d.ts",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c --watch",
-    "test-cli": "node dist/cli.js -e=\"http://localhost:8000/sourcemap\" --api-key=\"yjupgpuhio04fq5xf2phx4fde5740vtg\" -s=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js.map\" -m=\"~/logbun/examples/react/dist/assets/index-rPI3GAN-.js\""
+    "dev": "rollup -c --watch"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@logbun/utils": "workspace:^",
     "argparse": "^2.0.1",

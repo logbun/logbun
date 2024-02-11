@@ -13,7 +13,7 @@
     "clear": "pnpm with-env tsx src/clear.ts",
     "with-env": "dotenv -e ../../.env --"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@auth/core": "^0.18.6",
     "@logbun/server-utils": "workspace:^",

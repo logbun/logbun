@@ -8,7 +8,7 @@
     "build": "tsup",
     "dev": "tsup --watch"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@logbun/common-utils": "workspace:^",
     "clsx": "^2.0.0",

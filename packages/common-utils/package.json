@@ -8,7 +8,7 @@
     "build": "tsup",
     "dev": "tsup --watch"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "nanoid": "^3.0.0"
   },
