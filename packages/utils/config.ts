@@ -2,11 +2,10 @@ export const site = {
   title: 'Logbun',
   url: 'https://logbun.com',
   description: 'Simple, open-source, privacy-first Sentry.io alternative for SaaS founders who ship fast.',
-
-  docs: 'https://www.notion.so/meekscreativelab/Logbun-Docs-a525cb5539c341abba551121edaec4c0?pvs=4',
-  discord: 'https://discord.gg/nhVEnBbB',
-  twitter: 'https://twitter.com/logbunhq',
-  github: 'https://github.com/logbun/logbun',
+  docs: 'https://logbun.site/docs',
+  discord: 'https://logbun.site/discord',
+  twitter: 'https://logbun.site/twitter',
+  github: 'https://logbun.site/github',
 };
 
 export const defaultMetadata = {
