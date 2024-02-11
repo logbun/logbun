@@ -3,8 +3,6 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
-    NODE_ENV: z.enum(['development', 'test', 'production']),
-
     DATABASE_URL: z.string().url(),
     EMAIL_SERVER: z.string().min(1),
     EMAIL_FROM: z.string().min(1),
@@ -21,8 +19,6 @@ export const env = createEnv({
     S3_SOURCEMAPS_BUCKET: z.string().min(1),
   },
   runtimeEnv: {
-    NODE_ENV: process.env.NODE_ENV,
-
     DATABASE_URL: process.env.DATABASE_URL,
     EMAIL_SERVER: process.env.EMAIL_SERVER,
     EMAIL_FROM: process.env.EMAIL_FROM,

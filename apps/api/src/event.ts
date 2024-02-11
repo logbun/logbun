@@ -5,7 +5,6 @@ import { Hono } from 'hono';
 import { isbot } from 'isbot';
 import { RateLimiterMemory } from 'rate-limiter-flexible';
 import { UAParser } from 'ua-parser-js';
-import { env } from '../env';
 import { generateFingerprint, getEventByFingerprint, getProjectByApiKey } from './utils';
 import { eventHeaderSchema, eventSchema } from './utils/schema';
 
@@ -64,7 +63,7 @@ app.post('/', zValidator('json', eventSchema), zValidator('header', eventHeaderS
 
     const previous = await getEventByFingerprint(fingerprint);
 
-    if (env.NODE_ENV === 'production' && previous && previous.count > 20) {
+    if (process.env.NODE_ENV === 'production' && previous && previous.count > 20) {
       throw new Error('Only 20 events max allowed during beta');
     }
 

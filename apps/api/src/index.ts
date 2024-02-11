@@ -14,7 +14,7 @@ app.use('*', secureHeaders());
 
 app.use('*', cors());
 
-app.get('/', async (c) => c.text('Hello Logbun'));
+app.get('/', async (c) => c.text(`Hello Logbun from ${process.env.NODE_ENV}`));
 
 app.route('/event', event);
 
