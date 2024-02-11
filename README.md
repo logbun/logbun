@@ -50,6 +50,7 @@ Here's what sets Logbun apart as the ideal JavaScript error tracking platform fo
 - [Tailwind](https://tailwindcss.com/) - CSS
 - [NextAuth.js](https://next-auth.js.org/) - Authentication
 - [Hetzner](https://hetzner.cloud) - Hosting
+- [Turborepo](https://turbo.build/repo) – Monorepo
 - [PostgreSQL](https://www.postgresql.org) - SQL Database
 - [Clickhouse](https://clickhouse.com) - Analytical Database
 
@@ -57,16 +58,18 @@ Here's what sets Logbun apart as the ideal JavaScript error tracking platform fo
 
 We support the following SDK platforms. Please refer to the README and instructions of those SDKs for more detailed information:
 
-- [`@logbun/js`](https://github.com/logbun/logbun/tree/master/packages/js): SDK for Browser Javascript
-- [`@logbun/node`](https://github.com/logbun/logbun/tree/master/packages/node): SDK for Node
-- [`@logbun/react`](https://github.com/logbun/logbun/tree/master/packages/react): Browser SDK for React
-- [`@logbun/nextjs`](https://github.com/logbun/logbun/tree/master/packages/nextjs): SDK for Next.js
+- [`@logbun/js`](https://github.com/logbun/logbun/tree/master/sdks/js): SDK for Browser Javascript
+- [`@logbun/node`](https://github.com/logbun/logbun/tree/master/sdks/node): SDK for Node
+- [`@logbun/react`](https://github.com/logbun/logbun/tree/master/sdks/react): Browser SDK for React
+- [`@logbun/nextjs`](https://github.com/logbun/logbun/tree/master/sdks/nextjs): SDK for Next.js
+- [`@logbun/webpack`](https://github.com/logbun/logbun/tree/master/sdks/webpack): SDK for Webpack
+- [`@logbun/upload-sourcemaps`](https://github.com/logbun/logbun/tree/master/sdks/upload-sourcemaps): SDK and CLI for uploading sourcemaps
 
 ## Getting Started
 
 ### Prerequisites
 
-Here's what you need to be able to run Papermark:
+Here's what you need to be able to run Logbun:
 
 - Node.js (version >= 18)
 - PostgreSQL
@@ -82,7 +85,7 @@ cd logbun
 ### 2. Install npm dependencies
 
 ```shell
-npm install
+pnpm install
 ```
 
 ### 3. Copy the environment variables to `.env` and configure
@@ -100,7 +103,7 @@ docker compose -f "docker-compose.dev.yml" up -d --build
 ### 6. Run the dev server
 
 ```shell
-npm run dev
+pnpm run dev
 ```
 
 ### 7. Open the app in your browser
@@ -109,6 +112,8 @@ Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Contributing
 
-Logbun is an open-source project and we welcome contributions from the community.
+To contribute, please see our [contribution guide](https://github.com/logbun/logbun/blob/main/CONTRIBUTING.md).
 
-If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
+## License
+
+Inspired by [Plausible](https://plausible.io), Logbun is open-source under the GNU Affero General Public License Version 3 (AGPLv3) or any later version. You can [find it here](https://github.com/logbun/logbun/blob/main/LICENSE).
