@@ -40,4 +40,5 @@ export const env = createEnv({
     S3_ENDPOINT: process.env.S3_ENDPOINT,
     S3_SOURCEMAPS_BUCKET: process.env.S3_SOURCEMAPS_BUCKET,
   },
+  skipValidation: !!process.env.SKIP_ENV_VALIDATION,
 });
