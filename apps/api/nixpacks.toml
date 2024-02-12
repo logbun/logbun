@@ -1,5 +1,11 @@
 [phases.setup]
-nixPkgs = ['...', 'nodePackages.pnpm']
+nixPkgs = ['nodejs_21', 'pnpm-8_x']
+
+[phases.install]
+cmds = [
+  'npm install -g corepack && corepack enable',
+  'pnpm i --frozen-lockfile',
+]
 
 [phases.build]
 cmds = ['pnpm build']
