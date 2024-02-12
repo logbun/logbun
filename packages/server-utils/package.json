@@ -1,6 +1,6 @@
 {
   "name": "@logbun/server-utils",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "main": "dist/index.js",
   "private": true,
   "module": "dist/index.mjs",

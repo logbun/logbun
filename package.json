@@ -20,6 +20,7 @@
     "dev:sdks": "turbo dev --filter='./sdks/*'",
     "migrate:db": "turbo migrate --filter=db",
     "migrate:clickhouse": "turbo migrate --filter=clickhouse",
+    "cs:version": "changeset version",
     "publish:sdks": "turbo run build:sdks && changeset version && changeset publish",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
@@ -37,5 +38,5 @@
   "engines": {
     "node": ">=18"
   },
-  "version": "0.0.1"
+  "version": "0.0.0"
 }
