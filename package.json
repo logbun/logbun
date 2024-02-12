@@ -22,7 +22,7 @@
     "publish:sdks": "turbo run build lint && changeset version && changeset publish",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "packageManager": "pnpm@8.13.0",
+  "packageManager": "pnpm@8.15.1",
   "dependencies": {
     "@changesets/cli": "^2.27.1"
   },
