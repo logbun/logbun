@@ -31,7 +31,7 @@ jobs:
         run: pnpm build:sdks
 
       - name: Publish to CDN
-        run: node ../../packages/server-utils/scripts/cdn-upload.js dist/*.min.js
+        run: node ../../packages/server-utils/scripts/cdn-upload.cjs dist/*.min.js
         working-directory: './sdks/js'
         env:
           S3_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
