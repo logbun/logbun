@@ -20,7 +20,7 @@ const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
 
 const region = process.env.S3_REGION;
 
-const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL;
+const cdnUrl = process.env.CDN_URL;
 
 const cdnAccessKey = process.env.CDN_ACCESS_KEY;
 
