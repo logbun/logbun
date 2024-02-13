@@ -1,5 +1,12 @@
 # @logbun/node
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`0e6c735`](https://github.com/logbun/logbun/commit/0e6c7351c2c1dafc50798b56da6b8bc115771e54)]:
+  - @logbun/server-utils@0.0.2
+
 ## 1.0.3
 
 ### Patch Changes
