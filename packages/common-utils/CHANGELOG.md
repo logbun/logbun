@@ -1,5 +1,11 @@
 # @logbun/common-utils
 
+## 1.0.0
+
+### Major Changes
+
+- [`d499c3b`](https://github.com/logbun/logbun/commit/d499c3b9b4c91cdbd2f43c8df571e74e00200e96) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - major version release
+
 ## 0.0.2
 
 ### Patch Changes
