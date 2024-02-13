@@ -1,5 +1,11 @@
 # @logbun/upload-sourcemaps
 
+## 1.0.2
+
+### Patch Changes
+
+- [`a1a9ea9`](https://github.com/logbun/logbun/commit/a1a9ea9100e49f7533fa18f1275703b17e0b26e1) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - add readmes to packages
+
 ## 1.0.1
 
 ### Patch Changes

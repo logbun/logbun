@@ -1,6 +1,6 @@
 {
   "name": "@logbun/webpack",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://www.logbun.com",
   "description": "Webpack integration for Logbun",
   "main": "dist/logbun-webpack.cjs.js",
