@@ -4,9 +4,9 @@ async function main() {
   try {
     const client = createClient();
 
-    if (process.env.NODE_ENV !== 'production') {
-      await client.exec({ query: 'DROP TABLE IF EXISTS logbun.event' });
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    //   await client.exec({ query: 'DROP TABLE IF EXISTS logbun.event' });
+    // }
 
     await client.exec({ query: 'CREATE DATABASE IF NOT EXISTS logbun' });
 
