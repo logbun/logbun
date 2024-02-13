@@ -2,10 +2,16 @@
   "name": "@logbun/upload-sourcemaps",
   "version": "1.0.4",
   "description": "NPM module to upload your JS sourcemaps files to Logbun.",
-  "bin": "lib/cli.js",
+  "bin": "dist/cli.js",
   "main": "dist/logbun-upload-sourcemaps.cjs.js",
   "module": "dist/logbun-upload-sourcemaps.esm.js",
   "types": "dist/logbun-upload-sourcemaps.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --watch"

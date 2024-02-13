@@ -8,6 +8,9 @@
   "types": "dist/logbun-types.d.ts",
   "author": "Logbun",
   "description": "Next.js integration for Logbun",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "build:ts": "tsc -b",
