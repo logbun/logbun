@@ -97,6 +97,9 @@ importers:
       '@logbun/js':
         specifier: workspace:^
         version: link:../../sdks/js
+      '@logbun/nextjs':
+        specifier: workspace:^
+        version: link:../../sdks/nextjs
       '@logbun/node':
         specifier: workspace:^
         version: link:../../sdks/node

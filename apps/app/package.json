@@ -17,6 +17,7 @@
     "@logbun/clickhouse": "workspace:^",
     "@logbun/db": "workspace:^",
     "@logbun/js": "workspace:^",
+    "@logbun/nextjs": "workspace:^",
     "@logbun/node": "workspace:^",
     "@logbun/server-utils": "workspace:^",
     "@logbun/tailwind-config": "workspace:^",
