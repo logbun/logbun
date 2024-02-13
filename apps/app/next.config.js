@@ -16,4 +16,5 @@ const logbunConfig = {
   },
 };
 
-module.exports = withLogbunConfig(moduleExports, logbunConfig);
+// module.exports = withLogbunConfig(moduleExports, logbunConfig);
+module.exports = moduleExports;
