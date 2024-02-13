@@ -1,15 +1,14 @@
 name: Publish CDN
 on:
-  push:
+  pull_request:
     branches: main
-    # tags:
-    #   - 'v[0-9]+.[0-9]+.[0-9]+'
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   build:
     name: Build
+    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
