@@ -1,5 +1,14 @@
 # @logbun/node
 
+## 1.0.6
+
+### Patch Changes
+
+- [`3fb03f7`](https://github.com/logbun/logbun/commit/3fb03f71df5c7a9a0127a96d8cb66490eb1c242d) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - Patch bump
+
+- Updated dependencies [[`3fb03f7`](https://github.com/logbun/logbun/commit/3fb03f71df5c7a9a0127a96d8cb66490eb1c242d)]:
+  - @logbun/server-utils@1.0.6
+
 ## 1.0.5
 
 ### Patch Changes
