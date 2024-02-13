@@ -134,7 +134,7 @@ const logbun = new Logbun({ apiKey: "${apiKey}" })`,
             title: 'logbun.client.config.js',
             snippet: {
               children: `//logbun.client.config.js
-import Logbun from "@logbun/nextjs"
+import { Logbun } from "@logbun/nextjs"
 Logbun.init({ apiKey: "${apiKey}" })`,
               language: 'javascript',
             },
@@ -143,7 +143,7 @@ Logbun.init({ apiKey: "${apiKey}" })`,
             title: 'logbun.server.config.js',
             snippet: {
               children: `//logbun.server.config.js
-import Logbun from "@logbun/nextjs"
+import { Logbun } from "@logbun/nextjs"
 Logbun.init({ apiKey: "${apiKey}" })`,
               language: 'javascript',
             },
@@ -152,7 +152,7 @@ Logbun.init({ apiKey: "${apiKey}" })`,
             title: 'logbun.edge.config.js',
             snippet: {
               children: `//logbun.edge.config.js
-import Logbun from "@logbun/nextjs"
+import { Logbun } from "@logbun/nextjs"
 Logbun.init({ apiKey: "${apiKey}" })`,
               language: 'javascript',
             },
@@ -188,7 +188,7 @@ module.exports = withLogbunConfig(moduleExports, logbunConfig);
             snippet: {
               children: `"use client";
 
-import Logbun from "@logbun/nextjs";
+import { Logbun } from "@logbun/nextjs";
 import NextError from "next/error";
 import { useEffect } from "react";
 
@@ -219,7 +219,7 @@ export default function GlobalError({
               children: `"use client";
 
 import { useEffect } from "react";
-import Logbun from "@logbun/nextjs";
+import { Logbun } from "@logbun/nextjs";
 
 export default function ErrorPage({
   error,
