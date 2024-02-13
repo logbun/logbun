@@ -3,9 +3,9 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [],
+  "linked": [["@logbun/core", "@logbun/js", "@logbun/react", "@logbun/node", "@logbun/nextjs"]],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": ["@logbun/www", "@logbun/app", "@logbun/api", "@logbun/clickhouse"]
 }
