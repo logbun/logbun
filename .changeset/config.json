@@ -3,7 +3,10 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@logbun/core", "@logbun/js", "@logbun/react", "@logbun/node", "@logbun/nextjs"]],
+  "linked": [
+    ["@logbun/core", "@logbun/js", "@logbun/react", "@logbun/node", "@logbun/nextjs"],
+    ["@logbun/webpack", "@logbun/upload-sourcemaps"]
+  ],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
