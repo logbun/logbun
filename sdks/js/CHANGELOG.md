@@ -1,5 +1,14 @@
 # @logbun/js
 
+## 1.0.3
+
+### Patch Changes
+
+- [`5dd5fdd`](https://github.com/logbun/logbun/commit/5dd5fdd5ba942f658c0def8216e82f873b63f53b) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - add server utils and common utils
+
+- Updated dependencies [[`5dd5fdd`](https://github.com/logbun/logbun/commit/5dd5fdd5ba942f658c0def8216e82f873b63f53b)]:
+  - @logbun/core@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes
