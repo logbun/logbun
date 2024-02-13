@@ -1,5 +1,14 @@
 # @logbun/node
 
+## 1.0.8
+
+### Patch Changes
+
+- [`57f47c8`](https://github.com/logbun/logbun/commit/57f47c8c16f4e9fa5a2c2f4753bbbbcc8fdc570e) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - Make dist folder discoverable on npm for typing
+
+- Updated dependencies [[`57f47c8`](https://github.com/logbun/logbun/commit/57f47c8c16f4e9fa5a2c2f4753bbbbcc8fdc570e)]:
+  - @logbun/core@1.0.8
+
 ## 1.0.7
 
 ### Patch Changes

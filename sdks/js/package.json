@@ -1,6 +1,6 @@
 {
   "name": "@logbun/js",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "homepage": "https://www.logbun.com",
   "main": "dist/logbun.js",
   "module": "dist/logbun.esm.js",
