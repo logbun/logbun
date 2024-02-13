@@ -1,5 +1,12 @@
 # @logbun/nextjs
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`3fb03f7`](https://github.com/logbun/logbun/commit/3fb03f71df5c7a9a0127a96d8cb66490eb1c242d)]:
+  - @logbun/node@1.0.6
+
 ## 1.0.5
 
 ### Patch Changes
