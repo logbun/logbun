@@ -10,17 +10,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "@logbun/www",
-    "@logbun/app",
-    "@logbun/api",
-    "@logbun/clickhouse",
-    "@logbun/client-utils",
-    "@logbun/db",
-    "@logbun/eslint-config",
-    "@logbun/tailwind-config",
-    "@logbun/typescript-config",
-    "@logbun/ui",
-    "@logbun/utils"
-  ]
+  "ignore": []
 }

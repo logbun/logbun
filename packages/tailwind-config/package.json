@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Tailwind config for Logbun",
   "main": "index.js",
-  "private": "true",
+  "private": true,
   "scripts": {},
   "keywords": [],
   "author": "",

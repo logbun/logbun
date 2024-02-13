@@ -1,4 +1,4 @@
-import { fetchFile, fileExists, generateBucketKey, isValidHttpUrl, trimCode } from '@logbun/server-utils';
+import { fetchFile, fileExists, generateBucketKey, isValidHttpUrl } from '@logbun/server-utils';
 import { RawSourceMap, SourceMapConsumer } from 'source-map-js';
 import { env } from '../env.mjs';
 import { EventStacktraceResult, Line } from '../types';
@@ -14,7 +14,16 @@ type ContextGetter = {
 export const getContexts = async (options: ContextGetter) => {
   let results: EventStacktraceResult[] = [];
 
+  const trimCode = (content: string, line: number, maxLines = 5) => {
+    const rows = content.split('\n');
+
+    const lines: Line[] = rows.map((line, index) => [index + 1, line]);
+
+    return lines.slice(Math.max(line - maxLines, 0), line + maxLines);
+  };
+
   const { projectId, release, stacktrace, maxLines, sdk } = options;
+
   try {
     for (const stack of stacktrace) {
       const sourcemapBucket = env.S3_SOURCEMAPS_BUCKET;

@@ -701,9 +701,6 @@ importers:
       '@logbun/core':
         specifier: workspace:^
         version: link:../core
-      '@logbun/server-utils':
-        specifier: workspace:^
-        version: link:../../packages/server-utils
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: ^25.0.7
