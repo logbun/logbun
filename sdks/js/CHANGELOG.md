@@ -1,5 +1,14 @@
 # @logbun/js
 
+## 1.0.7
+
+### Patch Changes
+
+- [`951275d`](https://github.com/logbun/logbun/commit/951275dce27cf629db91d2edc026ece18a8522e3) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - Removed unused dependency
+
+- Updated dependencies [[`951275d`](https://github.com/logbun/logbun/commit/951275dce27cf629db91d2edc026ece18a8522e3)]:
+  - @logbun/core@1.0.7
+
 ## 1.0.3
 
 ### Patch Changes
