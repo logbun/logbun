@@ -711,9 +711,6 @@ importers:
 
   sdks/upload-sourcemaps:
     dependencies:
-      '@logbun/utils':
-        specifier: workspace:^
-        version: link:../../packages/utils
       argparse:
         specifier: ^2.0.1
         version: 2.0.1

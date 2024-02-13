@@ -17,7 +17,6 @@
     "@logbun/clickhouse",
     "@logbun/client-utils",
     "@logbun/common-utils",
-    "@logbun/server-utils",
     "@logbun/db",
     "@logbun/eslint-config",
     "@logbun/tailwind-config",

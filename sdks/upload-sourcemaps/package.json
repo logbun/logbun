@@ -12,7 +12,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@logbun/utils": "workspace:^",
     "argparse": "^2.0.1",
     "fetch-retry": "^5.0.6",
     "zod": "^3.22.4",
