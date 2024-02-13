@@ -1,6 +1,6 @@
 {
   "name": "@logbun/node",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "homepage": "https://www.logbun.com",
   "main": "dist/logbun.js",
   "browser": "dist/logbun.js",
