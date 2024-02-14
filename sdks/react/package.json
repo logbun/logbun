@@ -1,6 +1,6 @@
 {
   "name": "@logbun/react",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "homepage": "https://www.logbun.com",
   "main": "dist/logbun-react.cjs.js",
   "module": "dist/logbun-react.esm.js",
