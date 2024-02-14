@@ -1,5 +1,14 @@
 # @logbun/webpack
 
+## 1.0.6
+
+### Patch Changes
+
+- [`ccd57fd`](https://github.com/logbun/logbun/commit/ccd57fd7300fb55917f511fb20add86777d90793) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - Using .npmignore instead of files to deploy dist files to npm
+
+- Updated dependencies [[`ccd57fd`](https://github.com/logbun/logbun/commit/ccd57fd7300fb55917f511fb20add86777d90793)]:
+  - @logbun/upload-sourcemaps@1.0.6
+
 ## 1.0.5
 
 ### Patch Changes

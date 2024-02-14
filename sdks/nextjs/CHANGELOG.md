@@ -1,5 +1,17 @@
 # @logbun/nextjs
 
+## 1.0.9
+
+### Patch Changes
+
+- [`ccd57fd`](https://github.com/logbun/logbun/commit/ccd57fd7300fb55917f511fb20add86777d90793) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - Using .npmignore instead of files to deploy dist files to npm
+
+- Updated dependencies [[`ccd57fd`](https://github.com/logbun/logbun/commit/ccd57fd7300fb55917f511fb20add86777d90793)]:
+  - @logbun/webpack@1.0.6
+  - @logbun/react@1.0.9
+  - @logbun/core@1.0.9
+  - @logbun/node@1.0.9
+
 ## 1.0.8
 
 ### Patch Changes
