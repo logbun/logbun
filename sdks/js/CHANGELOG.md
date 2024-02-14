@@ -1,5 +1,14 @@
 # @logbun/js
 
+## 1.0.10
+
+### Patch Changes
+
+- [`9528081`](https://github.com/logbun/logbun/commit/95280815d71ff5ab23bd9575be3fd4a330e32837) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - Use files to deploy dist on npm
+
+- Updated dependencies [[`9528081`](https://github.com/logbun/logbun/commit/95280815d71ff5ab23bd9575be3fd4a330e32837)]:
+  - @logbun/core@1.0.10
+
 ## 1.0.9
 
 ### Patch Changes
