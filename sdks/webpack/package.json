@@ -7,7 +7,7 @@
   "module": "dist/logbun-webpack.esm.js",
   "typings": "dist/logbun-webpack.d.ts",
   "files": [
-    "/dist/"
+    "dist/"
   ],
   "scripts": {
     "clean": "rm -fr dist",

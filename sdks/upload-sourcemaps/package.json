@@ -10,7 +10,7 @@
     "access": "public"
   },
   "files": [
-    "/dist/"
+    "dist/"
   ],
   "scripts": {
     "build": "rollup -c",

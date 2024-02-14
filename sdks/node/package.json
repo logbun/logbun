@@ -8,7 +8,7 @@
   "author": "Logbun",
   "description": "Node.js integration for Logbun",
   "files": [
-    "/dist/"
+    "dist/"
   ],
   "scripts": {
     "clean": "rimraf dist",

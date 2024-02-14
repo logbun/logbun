@@ -20,7 +20,7 @@
     "dev:sdks": "turbo dev --filter='./sdks/*'",
     "migrate:db": "turbo migrate --filter=db",
     "migrate:clickhouse": "turbo migrate --filter=clickhouse",
-    "publish:sdks": "turbo run build:sdks && changeset version && changeset publish",
+    "publish:sdks": "pnpm build:sdks && changeset version && changeset publish",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "packageManager": "pnpm@8.15.1",

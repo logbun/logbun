@@ -9,7 +9,7 @@
   "author": "Logbun",
   "description": "Next.js integration for Logbun",
   "files": [
-    "/dist/"
+    "dist/"
   ],
   "scripts": {
     "clean": "rimraf dist",
