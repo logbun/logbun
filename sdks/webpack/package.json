@@ -6,6 +6,9 @@
   "main": "dist/logbun-webpack.cjs.js",
   "module": "dist/logbun-webpack.esm.js",
   "typings": "dist/logbun-webpack.d.ts",
+  "files": [
+    "/dist/"
+  ],
   "scripts": {
     "clean": "rm -fr dist",
     "dev": "run-p watch:ts watch:rollup",
