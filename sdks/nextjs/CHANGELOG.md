@@ -1,5 +1,17 @@
 # @logbun/nextjs
 
+## 1.0.11
+
+### Patch Changes
+
+- [`7b2d464`](https://github.com/logbun/logbun/commit/7b2d4647b24b2b227bd68708b008950815997ae9) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - .npmignore at root
+
+- Updated dependencies [[`7b2d464`](https://github.com/logbun/logbun/commit/7b2d4647b24b2b227bd68708b008950815997ae9)]:
+  - @logbun/core@1.0.11
+  - @logbun/node@1.0.11
+  - @logbun/react@1.0.11
+  - @logbun/webpack@1.0.8
+
 ## 1.0.10
 
 ### Patch Changes
