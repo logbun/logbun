@@ -9,9 +9,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c --watch"

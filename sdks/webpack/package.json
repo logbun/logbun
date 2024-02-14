@@ -20,9 +20,6 @@
     "type": "git",
     "url": "git@github.com:logbun/logbun.git"
   },
-  "files": [
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
   },

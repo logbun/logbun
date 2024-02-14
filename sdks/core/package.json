@@ -20,9 +20,6 @@
     "p-waterfall": "^3.0.0",
     "stack-generator": "^2.0.10"
   },
-  "files": [
-    "dist"
-  ],
   "publishConfig": {
     "access": "public"
   },

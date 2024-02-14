@@ -8,9 +8,6 @@
   "types": "dist/index.d.ts",
   "author": "Logbun",
   "description": "React.js integration for Logbun",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "clean": "rimraf dist",
     "build:ts": "tsc -b",

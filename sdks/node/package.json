@@ -7,9 +7,6 @@
   "types": "dist/index.d.ts",
   "author": "Logbun",
   "description": "Node.js integration for Logbun",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "clean": "rimraf dist",
     "build:ts": "tsc -b",
