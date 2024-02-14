@@ -1,5 +1,11 @@
 # @logbun/upload-sourcemaps
 
+## 1.0.9
+
+### Patch Changes
+
+- [`d71d81e`](https://github.com/logbun/logbun/commit/d71d81e992f5cfde88872b395dade7227eec1c27) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - building packages properly to generate dist file for npm
+
 ## 1.0.8
 
 ### Patch Changes
