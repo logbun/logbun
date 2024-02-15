@@ -1,5 +1,14 @@
 # @logbun/app
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`39742d2`](https://github.com/logbun/logbun/commit/39742d214522e9071a0f7af65bf65fcb750566db)]:
+  - @logbun/node@1.0.14
+  - @logbun/js@1.0.14
+  - @logbun/nextjs@1.0.14
+
 ## 0.0.7
 
 ### Patch Changes

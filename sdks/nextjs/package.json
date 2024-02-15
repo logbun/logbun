@@ -1,6 +1,6 @@
 {
   "name": "@logbun/nextjs",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "homepage": "https://www.logbun.com",
   "main": "dist/logbun-server.cjs.js",
   "module": "dist/logbun-server.esm.js",

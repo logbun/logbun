@@ -1,6 +1,6 @@
 {
   "name": "@logbun/app",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "packageManager": "pnpm@8.15.1",
   "license": "AGPL-3.0-only",
