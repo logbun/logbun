@@ -1,4 +1,4 @@
-import { Client } from '@logbun/core';
+import { Client, Types } from '@logbun/core';
 import { promises as fs } from 'fs';
 
 const trimCode = (content: string, line: number, maxLines = 5) => {
@@ -10,7 +10,7 @@ const trimCode = (content: string, line: number, maxLines = 5) => {
 export default function () {
   return {
     load(client: Client) {
-      client.beforeNotify(async (event) => {
+      client.beforeNotify(async (event: Types.Event) => {
         for (const stack of event.stacktrace) {
           const { fileName, lineNumber } = stack;
 

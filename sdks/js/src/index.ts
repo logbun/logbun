@@ -24,7 +24,7 @@ const instance = new Logbun({
   plugins: [onError(), onUnhandledRejection()],
 });
 
-instance.beforeNotify((event) => {
+instance.beforeNotify((event: Types.Event) => {
   return { ...event, url: window.location.href };
 });
 

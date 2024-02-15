@@ -1,9 +1,9 @@
-import { Client } from '@logbun/core';
+import { Client, Types } from '@logbun/core';
 
 export default function () {
   return {
     load(client: Client) {
-      client.beforeNotify((event) => {
+      client.beforeNotify((event: Types.Event) => {
         event.stacktrace.forEach((stack) => {
           if (stack.fileName) {
             stack.fileName = stack.fileName
