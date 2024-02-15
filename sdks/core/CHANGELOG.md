@@ -1,5 +1,11 @@
 # @logbun/core
 
+## 1.0.13
+
+### Patch Changes
+
+- [`a846c74`](https://github.com/logbun/logbun/commit/a846c74bdb0123febc72c8450a5238c50a706022) Thanks [@meekscreativelab](https://github.com/meekscreativelab)! - Remove p-waterfall dependency
+
 ## 1.0.12
 
 ### Patch Changes

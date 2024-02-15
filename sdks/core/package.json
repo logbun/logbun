@@ -1,6 +1,6 @@
 {
   "name": "@logbun/core",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "homepage": "https://www.logbun.com",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
