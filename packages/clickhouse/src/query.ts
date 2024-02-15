@@ -1,8 +1,6 @@
 import { InsertValues } from '@clickhouse/client';
 import { createClient } from './client';
 
-const client = createClient();
-
 type Command = {
   select?: string[];
   from?: string;
@@ -13,28 +11,12 @@ type Command = {
 };
 
 class ClickHouseQueryBuilder {
-  private commands: Command = {};
+  protected commands: Command = {};
+  private client: ReturnType<typeof createClient>;
 
-  public events = [
-    'fingerprint',
-    'any(id) as id',
-    'any(name) as name',
-    'any(message) as message',
-    'any(level) as level',
-    'any(handled) as handled',
-    'any(release) as release',
-    'any(metadata) as metadata',
-    'any(stacktrace) as stacktrace',
-    'any(sdk) as sdk',
-    'any(os) as os',
-    'any(osVersion) as osVersion',
-    'any(browser) as browser',
-    'any(browserVersion) as browserVersion',
-    'any(device) as device',
-    'toInt32(sum(count * sign)) as count',
-    'toInt64(sum(createdAt * sign)) as createdAt',
-    'toInt64(sum(updatedAt * sign)) as updatedAt',
-  ];
+  constructor() {
+    this.client = createClient();
+  }
 
   public select(select: string[]): this {
     this.commands.select = select;
@@ -67,22 +49,15 @@ class ClickHouseQueryBuilder {
   }
 
   public build(): string {
-    const {
-      select = ['*'],
-      from = 'logbun.event',
-      where,
-      groupBy = 'fingerprint',
-      orderBy,
-      having = 'sum(sign) > 0',
-    } = this.commands;
+    const { select, from, where, groupBy, orderBy, having } = this.commands;
 
     const command = [];
 
-    command.push(`SELECT ${select.join(', ')}`);
-    command.push(`FROM ${from}`);
+    if (select) command.push(`SELECT ${select.join(', ')}`);
+    if (from) command.push(`FROM ${from}`);
     if (where) command.push(`WHERE ${where}`);
-    command.push(`GROUP BY ${groupBy}`);
-    command.push(`HAVING ${having}`);
+    if (groupBy) command.push(`GROUP BY ${groupBy}`);
+    if (having) command.push(`HAVING ${having}`);
     if (orderBy) command.push(`ORDER BY ${orderBy}`);
 
     return command.join(' ');
@@ -90,13 +65,13 @@ class ClickHouseQueryBuilder {
 
   public async run<T>(): Promise<T> {
     const query = this.build();
-    const response = await client.query({ query, format: 'JSONEachRow' });
+    const response = await this.client.query({ query, format: 'JSONEachRow' });
     const data = await response.json();
     return data as T;
   }
 
-  protected async insert(values: InsertValues<any, unknown>): Promise<void> {
-    await client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
+  public async insert(values: InsertValues<any, unknown>): Promise<void> {
+    await this.client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
   }
 
   public async create(values: InsertValues<any, unknown>): Promise<void> {
@@ -115,4 +90,4 @@ class ClickHouseQueryBuilder {
   }
 }
 
-export const query = new ClickHouseQueryBuilder();
+export default ClickHouseQueryBuilder;
