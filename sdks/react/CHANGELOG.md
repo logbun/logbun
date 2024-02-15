@@ -1,5 +1,12 @@
 # @logbun/react
 
+## 1.0.14
+
+### Patch Changes
+
+- Updated dependencies [[`39742d2`](https://github.com/logbun/logbun/commit/39742d214522e9071a0f7af65bf65fcb750566db)]:
+  - @logbun/js@1.0.14
+
 ## 1.0.13
 
 ### Patch Changes
