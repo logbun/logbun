@@ -72,7 +72,9 @@ class ClickHouseQueryBuilder {
   }
 
   public async insert(values: InsertValues<any, unknown>): Promise<void> {
-    await this.client.insert({ table: 'logbun.event', values, format: 'JSONEachRow' });
+    if (!this.commands.from) throw new Error('Insert requires table. From must be set');
+
+    await this.client.insert({ table: this.commands.from, values, format: 'JSONEachRow' });
   }
 
   public async create(values: InsertValues<any, unknown>): Promise<void> {
