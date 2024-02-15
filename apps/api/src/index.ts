@@ -29,6 +29,6 @@ serve({ fetch: app.fetch, port });
 
 process.on('uncaughtException', function (err) {
   if (env.NODE_ENV !== 'production') {
-    console.error(err);
+    console.error('🔥', err);
   }
 });

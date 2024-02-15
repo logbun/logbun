@@ -11,11 +11,12 @@ type Command = {
 };
 
 class ClickHouseQueryBuilder {
-  protected commands: Command = {};
+  protected commands: Command;
   private client: ReturnType<typeof createClient>;
 
-  constructor() {
+  constructor(commands: Command) {
     this.client = createClient();
+    this.commands = commands;
   }
 
   public select(select: string[]): this {

@@ -2,14 +2,12 @@ import ClickHouseQueryBuilder from './query';
 
 class EventQueryBuilder extends ClickHouseQueryBuilder {
   constructor() {
-    super();
-
-    this.commands = {
+    super({
       select: ['*'],
       from: 'logbun.event',
       groupBy: 'fingerprint',
       having: 'sum(sign) > 0',
-    };
+    });
   }
 
   public events = [
