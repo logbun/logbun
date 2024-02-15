@@ -115,3 +115,32 @@ export function calculateStackShift(stacks: ErrorStackParser.StackFrame[]) {
 
   return shift || defaultShift;
 }
+
+function pReduce(iterable: Iterable<Function>, reducer: Function, initialValue: unknown) {
+  return new Promise((resolve, reject) => {
+    const iterator = iterable[Symbol.iterator]();
+    let index = 0;
+
+    const next = async (total: unknown) => {
+      const element = iterator.next();
+
+      if (element.done) {
+        resolve(total);
+        return;
+      }
+
+      try {
+        const value = await Promise.all([total, element.value]);
+        next(reducer(value[0], value[1], index++));
+      } catch (error) {
+        reject(error);
+      }
+    };
+
+    next(initialValue);
+  });
+}
+
+export function pWaterfall(iterable: Iterable<Function>, initialValue: unknown) {
+  return pReduce(iterable, (previousValue: unknown, func: Function) => func(previousValue), initialValue);
+}

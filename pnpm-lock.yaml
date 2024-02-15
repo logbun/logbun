@@ -602,9 +602,6 @@ importers:
       error-stack-parser:
         specifier: ^2.1.4
         version: 2.1.4
-      p-waterfall:
-        specifier: ^3.0.0
-        version: 3.0.0
       stack-generator:
         specifier: ^2.0.10
         version: 2.0.10
@@ -9933,21 +9930,9 @@ packages:
       aggregate-error: 3.1.0
     dev: true
 
-  /p-reduce@3.0.0:
-    resolution: {integrity: sha512-xsrIUgI0Kn6iyDYm9StOpOeK29XM1aboGji26+QEortiFST1hGZaUQOLhtEbqHErPpGW/aSz6allwK2qcptp0Q==}
-    engines: {node: '>=12'}
-    dev: false
-
   /p-try@2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
-
-  /p-waterfall@3.0.0:
-    resolution: {integrity: sha512-+DWIZJfgRUzPhv9lLzwb3ILlE+YLpva4ko31j0Z/P9BilqhMZnZibx4qyK3wnIIipu4embJf9WOSVjHmjNKiYg==}
-    engines: {node: '>=12'}
-    dependencies:
-      p-reduce: 3.0.0
-    dev: false
 
   /pac-proxy-agent@7.0.0:
     resolution: {integrity: sha512-t4tRAMx0uphnZrio0S0Jw9zg3oDbz1zVhQ/Vy18FjLfP1XOLNUEjaVxYCYRI6NS+BsMBXKIzV6cTLOkO9AtywA==}

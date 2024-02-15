@@ -1,6 +1,6 @@
-import pWaterfall, { Task } from 'p-waterfall';
-import { Config, ErrorEvent, Event, Logger, SDK, Transport } from './types';
-import { createEvent } from './utils';
+// import pWaterfall, { Task } from 'p-waterfall';
+import { Config, ErrorEvent, Event, Logger, SDK, Task, Transport } from './types';
+import { createEvent, pWaterfall } from './utils';
 
 type BeforeNotificationFunction = Task<Event, Event>;
 
@@ -77,7 +77,7 @@ export abstract class Client {
   };
 
   private runFunctions = <T>(functions: Iterable<Task<T, T>>, ...args: T[]) => {
-    return pWaterfall(functions as Iterable<Task<unknown, T>>, ...args);
+    return pWaterfall(functions, [...args]);
   };
 
   public init = (config: Partial<Config>) => {

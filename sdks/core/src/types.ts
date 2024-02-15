@@ -64,3 +64,5 @@ export interface ErrorEvent extends Event {
   sdk: SDK;
   release?: string;
 }
+
+export type Task<ValueType, ReturnType> = (previousValue: ValueType) => ReturnType | PromiseLike<ReturnType>;
