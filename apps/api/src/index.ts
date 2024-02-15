@@ -26,9 +26,3 @@ const port = env.PORT || 8080;
 console.log(`⚡️ Server is running on port ${port}`);
 
 serve({ fetch: app.fetch, port });
-
-process.on('uncaughtException', function (err) {
-  if (env.NODE_ENV !== 'production') {
-    console.error('🔥', err);
-  }
-});

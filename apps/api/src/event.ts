@@ -77,6 +77,8 @@ app.post('/', zValidator('json', eventSchema), zValidator('header', eventHeaderS
 
     return c.json({ message: 'Successfully created event' }, 200);
   } catch (error) {
+    console.log(error);
+
     return c.json({ message: errorMessage(error) }, 400);
   }
 });
