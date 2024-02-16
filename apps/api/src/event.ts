@@ -63,8 +63,6 @@ app.post('/', zValidator('json', eventSchema), zValidator('header', eventHeaderS
 
     const previous = await getEventByFingerprint(fingerprint);
 
-    console.log(current);
-
     if (process.env.NODE_ENV === 'production' && previous && previous.count > 20) {
       throw new Error('Only 20 events max allowed during beta');
     }
@@ -77,8 +75,6 @@ app.post('/', zValidator('json', eventSchema), zValidator('header', eventHeaderS
 
     return c.json({ message: 'Successfully created event' }, 200);
   } catch (error) {
-    console.log(error);
-
     return c.json({ message: errorMessage(error) }, 400);
   }
 });
