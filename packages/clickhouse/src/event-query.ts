@@ -1,6 +1,6 @@
 import ClickHouseQueryBuilder from './query';
 
-class EventQueryBuilder extends ClickHouseQueryBuilder {
+export default class EventQueryBuilder extends ClickHouseQueryBuilder {
   constructor() {
     super({
       select: ['*'],
@@ -31,5 +31,3 @@ class EventQueryBuilder extends ClickHouseQueryBuilder {
     'toInt64(sum(updatedAt * sign)) as updatedAt',
   ];
 }
-
-export const query = new EventQueryBuilder();

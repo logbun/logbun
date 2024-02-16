@@ -1,4 +1,3 @@
-// import pWaterfall, { Task } from 'p-waterfall';
 import { Config, ErrorEvent, Event, Logger, SDK, Task, Transport } from './types';
 import { createEvent, pWaterfall } from './utils';
 
