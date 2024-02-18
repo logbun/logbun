@@ -1,6 +1,7 @@
 import { Button } from '@logbun/ui';
 import { site } from '@logbun/utils';
 import { Sparkles } from 'lucide-react';
+import { usePlausible } from 'next-plausible';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -19,12 +20,14 @@ export const platforms = [
 ];
 
 export default function Hero() {
+  const event = usePlausible();
+
   return (
     <div className="py-12 sm:py-16 lg:pb-20">
       <div className="px-6 mx-auto max-w-7xl lg:px-8">
         <div className="mx-auto text-center" style={{ maxWidth: '50rem' }}>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Simple, open-source, privacy-friendly <span style={{ color: '#e3af0e' }}>Sentry.io alternative</span>
+            Simple, open-source, privacy-first <span style={{ color: '#e3af0e' }}>Sentry.io alternative</span>
           </h1>
 
           <p className="mt-6 text-xl leading-8 text-gray-500">
@@ -64,6 +67,7 @@ export default function Hero() {
               variant="secondary"
               className="text-base"
               size="large"
+              onClick={() => event('view-github')}
             >
               <a target="_blank" href={site.github}>
                 Star on Github
