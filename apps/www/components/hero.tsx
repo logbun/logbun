@@ -24,13 +24,13 @@ export default function Hero() {
       <div className="px-6 mx-auto max-w-7xl lg:px-8">
         <div className="mx-auto text-center" style={{ maxWidth: '50rem' }}>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Simple, open-source, privacy-first <span style={{ color: '#e3af0e' }}>Sentry.io alternative</span>
+            Simple, open-source, privacy-friendly <span style={{ color: '#e3af0e' }}>Sentry.io alternative</span>
           </h1>
 
           <p className="mt-6 text-xl leading-8 text-gray-500">
             <span className="inline lg:block">
               GDPR & CCPA compliant lightweight error tracking built for{' '}
-              <span className="font-semibold text-gray-900">SaaS founders</span>.
+              <span className="font-semibold text-gray-900">Founders</span>.
             </span>
             <span className="inline lg:block">
               {' '}

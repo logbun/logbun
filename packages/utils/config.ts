@@ -1,7 +1,8 @@
 export const site = {
   title: 'Logbun',
   url: 'https://logbun.com',
-  description: 'Simple, open-source, privacy-first Sentry.io alternative for SaaS founders who ship fast.',
+  tagline: 'Simple, 100% open-source, privacy-friendly Sentry.io alternative',
+  description: 'Logbun is a simple, 100% open-source, privacy-friendly Sentry.io alternative built for founders.',
   docs: 'https://logbun.site/docs',
   discord: 'https://logbun.site/discord',
   twitter: 'https://logbun.site/twitter',
@@ -11,7 +12,7 @@ export const site = {
 export const defaultMetadata = {
   title: {
     template: `%s | ${site.title}`,
-    default: `${site.title} | ${site.description}`,
+    default: `${site.title} | ${site.tagline}`,
   },
   description: site.description,
   metadataBase: new URL(site.url),
@@ -21,13 +22,13 @@ export const twitter = {
   title: site.title,
   description: site.description,
   card: 'summary_large_image',
-  images: [{ url: `${site.url}/og.png`, alt: site.title }],
+  images: [{ url: `${site.url}/og.png`, alt: defaultMetadata.title.default }],
 };
 
 export const openGraph = {
   title: site.title,
   description: site.description,
   type: 'website',
-  images: [{ url: `${site.url}/og.png`, alt: site.title }],
+  images: [{ url: `${site.url}/og.png`, width: 1200, height: 628, alt: defaultMetadata.title.default }],
   siteName: site.title,
 };
