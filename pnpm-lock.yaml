@@ -599,9 +599,6 @@ importers:
       '@logbun/client-utils':
         specifier: workspace:^
         version: link:../client-utils
-      '@logbun/common-utils':
-        specifier: workspace:^
-        version: link:../common-utils
 
   sdks/core:
     dependencies:

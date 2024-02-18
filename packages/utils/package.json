@@ -9,7 +9,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@logbun/client-utils": "workspace:^",
-    "@logbun/common-utils": "workspace:^"
+    "@logbun/client-utils": "workspace:^"
   }
 }
