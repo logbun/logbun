@@ -16,7 +16,7 @@
     "build:packages": "turbo build --filter='./packages/*'",
     "build:sdks": "turbo build --filter='./sdks/*'",
     "dev:apps": "turbo dev --filter='./apps/*'",
-    "dev:packages": "turbo dev --filter='./packages/*'",
+    "dev:packages": "turbo dev --filter='./packages/*' --concurrency=12",
     "dev:sdks": "turbo dev --filter='./sdks/*'",
     "migrate:db": "turbo migrate --filter=db",
     "migrate:clickhouse": "turbo migrate --filter=clickhouse",
