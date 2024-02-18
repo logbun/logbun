@@ -40,7 +40,7 @@ Here's what sets Logbun apart as the ideal JavaScript error tracking platform fo
 
 - **Privacy-Focused**: We prioritize user privacy. We don't collect things like IP addresses and other unnecessary data collection, no invasive practices. Compliant with privacy regulations, Logbun keeps your users' data confidential.
 
-- **Self hose**: You can download the code and host it yourself.
+- **Self host**: You can download the code and host it yourself.
 
 ## Tech Stack
 
