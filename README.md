@@ -1,5 +1,3 @@
-<!-- # Logbun -->
-
 ## 🚧 This project is work in progress.
 
 <p align="center">
@@ -9,7 +7,7 @@
 </p>
 <p align="center" style="margin-top: 20px">
   <p align="center">
-  Simple, Open Source, Privacy-Friendly JavaScript Error Tracking.
+  Easy To Use, Privacy-Friendly Error Tracking.
   <br>
     <a href="https://logbun.com"><strong>Learn more »</strong></a>
     <br />
@@ -24,7 +22,7 @@
   </p>
 </p>
 
-[Logbun](https://logbun.com/) is your go-to solution for **Simple**, **100% Open Source**, **Privacy-Friendly** javascript error tracking tailored for **SaaS founders** who ship fast🔥.
+[Logbun](https://logbun.com/) is your go-to solution for **Easy To Use**, **100% Open Source**, **Privacy-Friendly** error tracking built by developers for developers.
 
 We want you to ship fast, fail fast, and catch errors fast without compromising user data. Therefore, we ensure our error tracking remains simple, transparent, efficient, and secure.
 
@@ -36,13 +34,13 @@ No need for cookie banners. Managed and hosted in the EU 🇪🇺
 
 Here's what sets Logbun apart as the ideal JavaScript error tracking platform for SaaS founders:
 
-- **Simplicity at its Core**: Logbun offers straightforward error tracking for SaaS applications. No complex setups or convoluted reports. Get actionable insights without the hassle.
+- **Simplicity at its core**: Logbun offers straightforward error tracking for SaaS applications. No complex setups or convoluted reports. Get actionable insights without the hassle.
 
 - **Open Source**: Logbun is fully open source, unlike many other error tracking software that claim to be open source but only share a small part of their codebase. We are fully transparent and share 100% of all our code.
 
 - **Privacy-Focused**: We prioritize user privacy. We don't collect things like IP addresses and other unnecessary data, no invasive practices. Compliant with privacy regulations, Logbun keeps your users' data confidential.
 
-- **Self host**: You can download the code and host it yourself.
+- **Self host**: You can download the code and host it yourself. Instructions coming soon...
 
 ## Tech Stack
 

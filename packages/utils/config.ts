@@ -1,8 +1,8 @@
 export const site = {
   title: 'Logbun',
   url: 'https://logbun.com',
-  tagline: 'Simple, 100% open-source, privacy-first Sentry.io alternative',
-  description: 'Logbun is a simple, 100% open-source, privacy-first Sentry.io alternative built for founders.',
+  tagline: 'Easy to use, privacy-first error tracking.',
+  description: 'Logbun is an easy to use, privacy-first,fully open-source Sentry.io alternative.',
   docs: 'https://logbun.site/docs',
   discord: 'https://logbun.site/discord',
   twitter: 'https://logbun.site/twitter',
