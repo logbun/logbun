@@ -36,9 +36,9 @@ Here's what sets Logbun apart as the ideal JavaScript error tracking platform fo
 
 - **Simplicity at its Core**: Logbun offers straightforward error tracking for SaaS applications. No complex setups or convoluted reports. Get actionable insights without the hassle.
 
-- **Open Source**: Logbun is fully open source, unlike many other error tracking software that claim to be open source but only share a small part of their codebase. We are fully transparent and share 100% of all out code.
+- **Open Source**: Logbun is fully open source, unlike many other error tracking software that claim to be open source but only share a small part of their codebase. We are fully transparent and share 100% of all our code.
 
-- **Privacy-Focused**: We prioritize user privacy. We don't collect things like IP addresses and other unnecessary data collection, no invasive practices. Compliant with privacy regulations, Logbun keeps your users' data confidential.
+- **Privacy-Focused**: We prioritize user privacy. We don't collect things like IP addresses and other unnecessary data, no invasive practices. Compliant with privacy regulations, Logbun keeps your users' data confidential.
 
 - **Self host**: You can download the code and host it yourself.
 
