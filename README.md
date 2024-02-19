@@ -1,4 +1,6 @@
-# Logbun
+<!-- # Logbun -->
+
+## 🚧 This project is work in progress.
 
 <p align="center">
   <a href="https://logbun.com/">
