@@ -96,19 +96,19 @@ pnpm install
 cp .env.example .env
 ```
 
-### 5. Initialize docker
+### 4. Initialize docker
 
 ```shell
 docker compose -f "docker-compose.dev.yml" up -d --build
 ```
 
-### 6. Run the dev server
+### 5. Run the dev server
 
 ```shell
 pnpm run dev
 ```
 
-### 7. Open the app in your browser
+### 6. Open the app in your browser
 
 Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
