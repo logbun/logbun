@@ -1,5 +1,7 @@
 ## 🚧 This project is work in progress.
 
+### Inspired by [Plausible Analytics](https://github.com/plausible/analytics)
+
 <p align="center">
   <a href="https://logbun.com/">
     <img src="./packages/ui/assets/main/logo.png" width="300px" alt="Logbun" />
