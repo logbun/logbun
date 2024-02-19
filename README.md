@@ -12,7 +12,7 @@
     <a href="https://logbun.com"><strong>Learn more »</strong></a>
     <br />
     <br />
-    <a href="https://discord.gg/nhVEnBbB">Discord</a>
+    <a href="https://logbun.site/discord">Discord</a>
     ·
     <a href="https://logbun.com">Website</a>
     ·
