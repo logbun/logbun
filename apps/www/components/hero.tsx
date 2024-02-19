@@ -34,7 +34,7 @@ export default function Hero() {
             <span className="inline lg:block">Fully open-source GDPR & CCPA compliant lightweight error tracking.</span>
             <span className="inline lg:block">
               {' '}
-              No cookies or tracking users IP. Hosted in the{' '}
+              No cookies or IP tracking. Hosted in the{' '}
               <span className="relative inline-block text-2xl top-0.5">🇪🇺</span> European Union.
             </span>
           </p>
