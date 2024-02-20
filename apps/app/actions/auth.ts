@@ -24,7 +24,16 @@ export const countUserByEmail = async (email: string) => {
   }
 };
 
-export const findUser = async (email: string) => {
+export const findUser = async (id: string) => {
+  try {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  } catch (error) {
+    throw new Error(errorMessage(error));
+  }
+};
+
+export const findUserByEmail = async (email: string) => {
   try {
     const [user] = await db.select().from(users).where(eq(users.email, email));
     return user;
@@ -43,9 +52,9 @@ export const insertUser = async (name: string, email: string, password: string) 
   }
 };
 
-export const findUserByEmail = async (email: string) => {
-  return client.getUserByEmail(email);
-};
+// export const findUserByEmail = async (email: string) => {
+//   return client.getUserByEmail(email);
+// };
 
 export const updateUser = async (data: Partial<AdapterUser> & Pick<AdapterUser, 'id'>) => {
   return client.updateUser(data);
