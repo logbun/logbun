@@ -52,10 +52,6 @@ export const insertUser = async (name: string, email: string, password: string) 
   }
 };
 
-// export const findUserByEmail = async (email: string) => {
-//   return client.getUserByEmail(email);
-// };
-
 export const updateUser = async (data: Partial<AdapterUser> & Pick<AdapterUser, 'id'>) => {
   return client.updateUser(data);
 };

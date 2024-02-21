@@ -1,0 +1,6 @@
+[phases.install]
+cmds = [
+  "npm install -g corepack@0.24.1 && corepack enable",
+  "pnpm i --frozen-lockfile",
+]
+dependsOn = ["setup"]
