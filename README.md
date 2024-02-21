@@ -9,7 +9,7 @@
 </p>
 <p align="center" style="margin-top: 20px">
   <p align="center">
-  Easy To Use, Privacy-Friendly Error Tracking.
+  Track errors without compromising user privacy.
   <br>
     <a href="https://logbun.com"><strong>Learn more »</strong></a>
     <br />
@@ -24,7 +24,7 @@
   </p>
 </p>
 
-[Logbun](https://logbun.com/) is your go-to solution for **Easy To Use**, **100% Open Source**, **Privacy-Friendly** error tracking built by developers for developers.
+[Logbun](https://logbun.com/) is your go-to solution for **Easy To Use**, **100% Open Source**, **Privacy-First** error tracking built by developers for developers.
 
 We want you to ship fast, fail fast, and catch errors fast without compromising user data. Therefore, we ensure our error tracking remains simple, transparent, efficient, and secure.
 

@@ -27,7 +27,8 @@ export default function Hero() {
       <div className="px-6 mx-auto max-w-7xl lg:px-8">
         <div className="mx-auto text-center" style={{ maxWidth: '50rem' }}>
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Easy to use, privacy-first <span style={{ color: '#e3af0e' }}>Sentry.io alternative</span>
+            {/* <span style={{ color: '#e3af0e' }}>Privacy-first</span> error tracking platform */}
+            Track errors without compromising <span style={{ color: '#e3af0e' }}>user privacy</span>
           </h1>
 
           <p className="mt-6 text-xl leading-8 text-gray-500">
